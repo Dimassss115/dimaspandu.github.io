@@ -23,8 +23,8 @@
       </div>
 
       <div class="p-5 flex items-center space-x-3 bg-slate-50 border-b border-slate-100">
-        <div class="w-10 h-10 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold">
-          <i class="fa-solid font-bold text-lg">DP</i>
+        <div class="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold">
+          DP
         </div>
         <div>
           <p class="font-bold text-sm text-slate-800">Dimas Pandu Wibowo</p>
@@ -76,9 +76,6 @@
         <span class="px-3 py-1 bg-emerald-50 text-emerald-600 text-xs font-semibold rounded-full border border-emerald-200 flex items-center gap-1.5">
           <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Mahasiswa
         </span>
-        <button class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition">
-          <i class="fa-solid fa-moon"></i>
-        </button>
       </div>
     </header>
 
@@ -87,13 +84,12 @@
 
       <!-- TAB: BERANDA -->
       <section id="tab-beranda" class="space-y-6">
-        <!-- Banner Selamat Datang -->
         <div class="relative bg-gradient-to-r from-indigo-600 to-blue-500 rounded-2xl p-8 text-white shadow-lg overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div class="space-y-2 z-10">
             <span class="text-xs uppercase tracking-wider font-semibold text-indigo-200">PORTOFOLIO AKADEMIK</span>
             <h2 class="text-3xl font-extrabold">Selamat Datang, Dimas Pandu Wibowo!</h2>
             <p class="text-indigo-100 text-sm max-w-xl">
-              Selamat datang di dashboard portofolio akademik saya. Halaman ini berisi informasi profil mahasiswa serta kumpulan materi dan tugas perkuliahan.
+              Selamat datang di dashboard portofolio akademik saya. Halaman ini berfungsi sebagai wadah penampung materi perkuliahan dan tugas harian.
             </p>
             <div class="pt-3 flex flex-wrap gap-2">
               <span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-medium"><i class="fa-solid fa-graduation-cap mr-1"></i> Teknik Informatika</span>
@@ -105,7 +101,6 @@
           </div>
         </div>
 
-        <!-- Cards Informasi Akademik -->
         <div>
           <h3 class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-4">Informasi Akademik</h3>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -170,74 +165,45 @@
         </div>
       </section>
 
-      <!-- TAB: MATERI & TUGAS -->
+      <!-- TAB: MATERI & TUGAS (WADAH DINAMIS) -->
       <section id="tab-materi" class="space-y-6 hidden">
-        <!-- Form Upload -->
+        <!-- Form Penambahan Tugas / Materi -->
         <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
-          <h3 class="text-lg font-bold text-slate-800">Upload Tugas & Materi Perkuliahan</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input type="text" id="fileTitle" placeholder="Judul Tugas / Materi" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <input type="file" id="fileInput" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-600 hover:file:bg-blue-100">
+          <h3 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-plus-circle text-blue-600 mr-2"></i>Tambah Tugas / File Materi Baru</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <select id="itemPertemuan" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="Pertemuan 1">Pertemuan 1</option>
+              <option value="Pertemuan 2">Pertemuan 2</option>
+              <option value="Pertemuan 3">Pertemuan 3</option>
+              <option value="Pertemuan 4">Pertemuan 4</option>
+              <option value="Pertemuan 5">Pertemuan 5</option>
+              <option value="Pertemuan 6">Pertemuan 6</option>
+              <option value="Pertemuan 7">Pertemuan 7</option>
+              <option value="Tugas Proyek">Tugas Proyek / Proposal</option>
+            </select>
+
+            <input type="text" id="itemTitle" placeholder="Judul Materi / Nama Tugas" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+            <input type="file" id="itemFile" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-600 hover:file:bg-blue-100">
           </div>
-          <button onclick="handleUpload()" class="px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition">
-            <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Simpan File
+
+          <textarea id="itemDesc" rows="2" placeholder="Catatan singkat / deskripsi tugas (opsional)" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+
+          <button onclick="addItem()" class="px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition flex items-center gap-2">
+            <i class="fa-solid fa-arrow-up-from-bracket"></i> Simpan ke Wadah
           </button>
         </div>
 
-        <!-- Daftar File Upload -->
+        <!-- Daftar Wadah Materi & Tugas -->
         <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
-          <h3 class="text-lg font-bold text-slate-800">Daftar File Tersimpan</h3>
-          <div id="fileList" class="space-y-2 text-sm text-slate-500">
-            <p class="italic text-slate-400">Belum ada file diunggah.</p>
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-folder-tree text-amber-500 mr-2"></i>Wadah Materi & Tugas Perkuliahan</h3>
+            <span class="text-xs px-3 py-1 bg-slate-100 text-slate-600 font-semibold rounded-full" id="totalItems">1 Item</span>
           </div>
-        </div>
 
-        <!-- Rangkuman Modul ADPL Pertemuan 1 -->
-        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
-          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-            <h3 class="text-lg font-bold text-slate-800">Rangkuman Pertemuan 1: Konsep RPL & SDLC</h3>
-            <span class="text-xs px-3 py-1 bg-blue-50 text-blue-600 font-semibold rounded-full">ADPL - S1 Teknik Informatika</span>
-          </div>
-          
-          <div class="space-y-4 text-sm text-slate-700 leading-relaxed">
-            <div>
-              <h4 class="font-bold text-blue-600 text-base mb-1">1. Perangkat Lunak & Rekayasa Perangkat Lunak (RPL)</h4>
-              <p>Perangkat lunak bukan hanya sekadar kode program, tetapi mencakup struktur data dan dokumentasi. RPL adalah penerapan pendekatan yang sistematis, disiplin, dan terukur dalam pengembangan dan pemeliharaannya.</p>
-            </div>
-
-            <div>
-              <h4 class="font-bold text-blue-600 text-base mb-1">2. Tahapan SDLC</h4>
-              <ul class="list-disc list-inside space-y-1 pl-2">
-                <li><strong>Perencanaan:</strong> Studi kelayakan, ruang lingkup, dan biaya proyek.</li>
-                <li><strong>Analisis:</strong> Penggalian kebutuhan pemangku kepentingan (Dokumen SRS).</li>
-                <li><strong>Desain:</strong> Perancangan arsitektur, UML, ERD, dan antarmuka UI.</li>
-                <li><strong>Implementasi:</strong> Penulisan kode program sesuai rancangan.</li>
-                <li><strong>Pengujian:</strong> Verifikasi dan validasi fungsionalitas sistem.</li>
-                <li><strong>Deployment & Pemeliharaan:</strong> Peluncuran dan perawatan sistem.</li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 class="font-bold text-blue-600 text-base mb-1">3. Perbandingan Model Proses</h4>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
-                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
-                  <p class="font-bold text-slate-800">Waterfall</p>
-                  <p class="text-xs text-slate-600 mt-1">Sekuensial dan kaku. Sangat cocok untuk proyek dengan kebutuhan yang sudah stabil dan pasti sejak awal.</p>
-                </div>
-                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
-                  <p class="font-bold text-slate-800">Prototyping</p>
-                  <p class="text-xs text-slate-600 mt-1">Berfokus pada pembuatan tiruan sistem awal untuk mendapatkan masukan langsung dari pengguna.</p>
-                </div>
-                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
-                  <p class="font-bold text-slate-800">Spiral</p>
-                  <p class="text-xs text-slate-600 mt-1">Pengembangan berulang yang mengutamakan analisis dan manajemen risiko untuk proyek besar.</p>
-                </div>
-                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
-                  <p class="font-bold text-slate-800">Scrum / Agile</p>
-                  <p class="text-xs text-slate-600 mt-1">Sangat fleksibel terhadap perubahan. Pekerjaan dibagi dalam iterasi singkat (sprint).</p>
-                </div>
-              </div>
-            </div>
+          <div id="containerList" class="space-y-4">
+            <!-- Data dari JavaScript akan ditampilkan di sini -->
           </div>
         </div>
       </section>
@@ -246,7 +212,7 @@
       <section id="tab-informasi" class="space-y-6 hidden">
         <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
           <h3 class="text-lg font-bold text-slate-800">Informasi Portal</h3>
-          <p class="text-sm text-slate-600">Portal web portofolio ini dibuat untuk memenuhi tugas mata kuliah Analisis & Desain Perangkat Lunak (ADPL) Program Studi S1 Teknik Informatika, Universitas Muhammadiyah Cirebon.</p>
+          <p class="text-sm text-slate-600">Portal web ini dibuat sebagai wadah portofolio akademik untuk menampung seluruh materi dan tugas mata kuliah Analisis & Desain Perangkat Lunak (ADPL), S1 Teknik Informatika, Universitas Muhammadiyah Cirebon.</p>
         </div>
       </section>
 
@@ -277,48 +243,90 @@
       document.getElementById('breadcrumb').innerText = titleMap[tabName];
     }
 
-    const savedFiles = JSON.parse(localStorage.getItem('uploaded_files') || '[]');
-    function renderFiles() {
-      const fileListDiv = document.getElementById('fileList');
-      if (savedFiles.length === 0) {
-        fileListDiv.innerHTML = '<p class="italic text-slate-400">Belum ada file diunggah.</p>';
+    // Default Data awal (Pertemuan 1 ADPL)
+    const defaultData = [
+      {
+        pertemuan: "Pertemuan 1",
+        title: "Konsep Rekayasa Perangkat Lunak dan SDLC",
+        desc: "Rangkuman Modul 1 ADPL: Pengertian RPL, 6 Tahapan SDLC (Perencanaan, Analisis, Desain, Implementasi, Pengujian, Deployment), dan Perbandingan Model Proses (Waterfall, Prototyping, Spiral, Scrum).",
+        fileName: "Modul_ADPL_P01_Konsep_RPL_dan_SDLC.docx",
+        date: "24 Okt 2026"
+      }
+    ];
+
+    let currentItems = JSON.parse(localStorage.getItem('adpl_container_items')) || defaultData;
+
+    function renderContainer() {
+      const listDiv = document.getElementById('containerList');
+      document.getElementById('totalItems').innerText = `${currentItems.length} Item Tersimpan`;
+
+      if (currentItems.length === 0) {
+        listDiv.innerHTML = '<p class="text-slate-400 italic text-sm">Wadah masih kosong. Silakan tambah tugas atau materi baru di atas.</p>';
         return;
       }
-      fileListDiv.innerHTML = savedFiles.map((f, index) => `
-        <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
-          <div class="flex items-center space-x-3">
-            <i class="fa-solid fa-file-pdf text-red-500 text-lg"></i>
-            <div>
-              <p class="font-bold text-slate-800">${f.title}</p>
-              <p class="text-xs text-slate-400">${f.fileName}</p>
-            </div>
+
+      listDiv.innerHTML = currentItems.map((item, index) => `
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/70 space-y-2 hover:border-blue-300 transition">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold px-2.5 py-1 bg-blue-100 text-blue-700 rounded-lg">${item.pertemuan}</span>
+            <span class="text-xs text-slate-400">${item.date}</span>
           </div>
-          <button onclick="deleteFile(${index})" class="text-red-500 hover:text-red-700 text-xs px-2 py-1">Hapus</button>
+          <h4 class="font-bold text-slate-800 text-base">${item.title}</h4>
+          <p class="text-xs text-slate-600 leading-relaxed">${item.desc}</p>
+          ${item.fileName ? `
+            <div class="pt-2 flex items-center justify-between text-xs text-slate-500 border-t border-slate-200/50">
+              <span class="flex items-center gap-1.5 font-medium text-slate-700">
+                <i class="fa-solid fa-paperclip text-blue-500"></i> ${item.fileName}
+              </span>
+              <button onclick="removeItem(${index})" class="text-red-500 hover:text-red-700 font-medium"><i class="fa-solid fa-trash-can mr-1"></i> Hapus</button>
+            </div>
+          ` : `
+            <div class="pt-1 flex justify-end">
+              <button onclick="removeItem(${index})" class="text-red-500 hover:text-red-700 text-xs font-medium"><i class="fa-solid fa-trash-can mr-1"></i> Hapus</button>
+            </div>
+          `}
         </div>
       `).join('');
     }
 
-    function handleUpload() {
-      const title = document.getElementById('fileTitle').value;
-      const fileInput = document.getElementById('fileInput');
-      if (!title || !fileInput.files[0]) {
-        alert('Mohon isi judul dan pilih file!');
+    function addItem() {
+      const pertemuan = document.getElementById('itemPertemuan').value;
+      const title = document.getElementById('itemTitle').value;
+      const desc = document.getElementById('itemDesc').value;
+      const fileInput = document.getElementById('itemFile');
+
+      if (!title) {
+        alert('Mohon isi judul materi atau nama tugas!');
         return;
       }
-      savedFiles.push({ title: title, fileName: fileInput.files[0].name });
-      localStorage.setItem('uploaded_files', JSON.stringify(savedFiles));
-      document.getElementById('fileTitle').value = '';
+
+      const newItem = {
+        pertemuan: pertemuan,
+        title: title,
+        desc: desc || 'Tidak ada deskripsi tambahan.',
+        fileName: fileInput.files[0] ? fileInput.files[0].name : null,
+        date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
+      };
+
+      currentItems.unshift(newItem);
+      localStorage.setItem('adpl_container_items', JSON.stringify(currentItems));
+
+      document.getElementById('itemTitle').value = '';
+      document.getElementById('itemDesc').value = '';
       fileInput.value = '';
-      renderFiles();
+
+      renderContainer();
     }
 
-    function deleteFile(index) {
-      savedFiles.splice(index, 1);
-      localStorage.setItem('uploaded_files', JSON.stringify(savedFiles));
-      renderFiles();
+    function removeItem(index) {
+      if (confirm('Yakin ingin menghapus item ini dari wadah?')) {
+        currentItems.splice(index, 1);
+        localStorage.setItem('adpl_container_items', JSON.stringify(currentItems));
+        renderContainer();
+      }
     }
 
-    renderFiles();
+    renderContainer();
   </script>
 </body>
 </html>
