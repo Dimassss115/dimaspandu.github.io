@@ -3,46 +3,322 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tugas & Materi Perkuliahan ADPL</title>
-  <style>
-    body { font-family: system-ui, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 0 20px; color: #333; }
-    h1 { border-bottom: 2px solid #007acc; padding-bottom: 10px; }
-    h2 { color: #007acc; margin-top: 30px; }
-    .card { background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 5px solid #007acc; margin-bottom: 20px; }
-    ul { padding-left: 20px; }
-  </style>
+  <title>Dashboard Mahasiswa - Universitas Muhammadiyah Cirebon</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex antialiased">
 
-  <h1>Blog Tugas & Materi Perkuliahan</h1>
-  <p>Mata Kuliah: Analisis & Desain Perangkat Lunak (ADPL)</p>
+  <!-- Sidebar -->
+  <aside class="w-64 bg-white border-r border-slate-200 flex flex-col justify-between hidden md:flex shrink-0">
+    <div>
+      <div class="p-5 flex items-center space-x-3 border-b border-slate-100">
+        <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-lg">
+          UMC
+        </div>
+        <div>
+          <h1 class="font-bold text-sm text-slate-900 leading-tight">Universitas Muhammadiyah Cirebon</h1>
+          <p class="text-xs text-slate-400 font-medium">PORTOFOLIO AKADEMIK</p>
+        </div>
+      </div>
 
-  <div class="card">
-    <h2>Pertemuan 1: Konsep Rekayasa Perangkat Lunak & SDLC</h2>
-    
-    <h3>1. Perangkat Lunak & RPL</h3>
-    <p>Perangkat lunak mencakup program, struktur data, dan dokumentasi[cite: 2]. Rekayasa Perangkat Lunak (RPL) adalah penerapan pendekatan yang sistematis, disiplin, dan terukur dalam pengembangan perangkat lunak[cite: 2].</p>
-    <p>Karakteristik perangkat lunak yang baik: Correct, Reliable & Secure, Usable & Efficient, dan Maintainable[cite: 2].</p>
+      <div class="p-5 flex items-center space-x-3 bg-slate-50 border-b border-slate-100">
+        <div class="w-10 h-10 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold">
+          <i class="fa-solid font-bold text-lg">DP</i>
+        </div>
+        <div>
+          <p class="font-bold text-sm text-slate-800">Dimas Pandu Wibowo</p>
+          <p class="text-xs text-slate-500">Mahasiswa</p>
+        </div>
+      </div>
 
-    <h3>2. Software Development Life Cycle (SDLC)</h3>
-    <p>SDLC terdiri dari 6 tahapan umum[cite: 2]:</p>
-    <ul>
-      <li><strong>Perencanaan:</strong> Studi kelayakan dan ruang lingkup proyek[cite: 2].</li>
-      <li><strong>Analisis:</strong> Elisitasi kebutuhan dan pembuatan dokumen SRS[cite: 2].</li>
-      <li><strong>Desain:</strong> Perancangan arsitektur, basis data, diagram UML, dan UI[cite: 2].</li>
-      <li><strong>Implementasi:</strong> Penulisan kode program[cite: 2].</li>
-      <li><strong>Pengujian:</strong> Verifikasi dan validasi sistem[cite: 2].</li>
-      <li><strong>Deployment & Pemeliharaan:</strong> Peluncuran dan perawatan sistem[cite: 2].</li>
-    </ul>
+      <nav class="p-4 space-y-1">
+        <button onclick="switchTab('beranda')" id="nav-beranda" class="w-full flex items-center space-x-3 px-4 py-3 text-sm font-semibold rounded-xl bg-blue-50 text-blue-600 transition">
+          <i class="fa-solid fa-border-all w-5"></i>
+          <span>Beranda</span>
+        </button>
+        <button onclick="switchTab('profil')" id="nav-profil" class="w-full flex items-center space-x-3 px-4 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 rounded-xl transition">
+          <i class="fa-regular fa-user w-5"></i>
+          <span>Profil Saya</span>
+        </button>
+        <button onclick="switchTab('materi')" id="nav-materi" class="w-full flex items-center space-x-3 px-4 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 rounded-xl transition">
+          <i class="fa-regular fa-folder-open w-5"></i>
+          <span>Materi & Tugas</span>
+        </button>
+        <button onclick="switchTab('informasi')" id="nav-informasi" class="w-full flex items-center space-x-3 px-4 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 rounded-xl transition">
+          <i class="fa-solid fa-circle-info w-5"></i>
+          <span>Informasi</span>
+        </button>
+      </nav>
+    </div>
 
-    <h3>3. Model Proses</h3>
-    <ul>
-      <li><strong>Waterfall:</strong> Sekuensial/berurutan, cocok untuk kebutuhan stabil[cite: 2].</li>
-      <li><strong>Prototyping:</strong> Fokus pada tiruan sistem awal untuk feedback pengguna[cite: 2].</li>
-      <li><strong>Spiral:</strong> Berfokus pada analisis risiko, cocok untuk proyek besar[cite: 2].</li>
-      <li><strong>Scrum (Agile):</strong> Iteratif dan fleksibel terhadap perubahan[cite: 2].</li>
-    </ul>
-  </div>
+    <div class="p-4 border-t border-slate-100">
+      <div class="bg-blue-50 p-3 rounded-xl flex items-center space-x-3">
+        <i class="fa-solid fa-graduation-cap text-blue-600 text-xl"></i>
+        <div>
+          <p class="text-xs font-bold text-slate-800">Teknik Informatika</p>
+          <p class="text-[10px] text-slate-500">Universitas Muhammadiyah Cirebon</p>
+        </div>
+      </div>
+    </div>
+  </aside>
 
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+    <!-- Top Header -->
+    <header class="h-16 bg-white border-b border-slate-200 px-6 flex items-center justify-between sticky top-0 z-10">
+      <div class="flex items-center space-x-2 text-sm text-slate-500">
+        <span>Dashboard</span>
+        <span>/</span>
+        <span id="breadcrumb" class="font-semibold text-slate-800">Beranda</span>
+      </div>
+      <div class="flex items-center space-x-3">
+        <span class="px-3 py-1 bg-emerald-50 text-emerald-600 text-xs font-semibold rounded-full border border-emerald-200 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Mahasiswa
+        </span>
+        <button class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <div class="p-6 md:p-8 max-w-6xl w-full mx-auto space-y-8">
+
+      <!-- TAB: BERANDA -->
+      <section id="tab-beranda" class="space-y-6">
+        <!-- Banner Selamat Datang -->
+        <div class="relative bg-gradient-to-r from-indigo-600 to-blue-500 rounded-2xl p-8 text-white shadow-lg overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div class="space-y-2 z-10">
+            <span class="text-xs uppercase tracking-wider font-semibold text-indigo-200">PORTOFOLIO AKADEMIK</span>
+            <h2 class="text-3xl font-extrabold">Selamat Datang, Dimas Pandu Wibowo!</h2>
+            <p class="text-indigo-100 text-sm max-w-xl">
+              Selamat datang di dashboard portofolio akademik saya. Halaman ini berisi informasi profil mahasiswa serta kumpulan materi dan tugas perkuliahan.
+            </p>
+            <div class="pt-3 flex flex-wrap gap-2">
+              <span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-medium"><i class="fa-solid fa-graduation-cap mr-1"></i> Teknik Informatika</span>
+              <span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-medium"><i class="fa-solid fa-id-card mr-1"></i> 240511103</span>
+            </div>
+          </div>
+          <div class="hidden lg:flex items-center justify-center w-32 h-32 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-5xl shrink-0">
+            <i class="fa-solid fa-university"></i>
+          </div>
+        </div>
+
+        <!-- Cards Informasi Akademik -->
+        <div>
+          <h3 class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-4">Informasi Akademik</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center space-x-4">
+              <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shrink-0">
+                <i class="fa-solid fa-address-card"></i>
+              </div>
+              <div>
+                <p class="text-xs text-slate-400 font-medium">Nomor Induk Mahasiswa</p>
+                <p class="text-lg font-bold text-slate-800">240511103</p>
+                <p class="text-[11px] text-slate-400">NIM Mahasiswa</p>
+              </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center space-x-4">
+              <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl shrink-0">
+                <i class="fa-solid fa-book-bookmark"></i>
+              </div>
+              <div>
+                <p class="text-xs text-slate-400 font-medium">Program Studi</p>
+                <p class="text-lg font-bold text-slate-800">Teknik Informatika</p>
+                <p class="text-[11px] text-slate-400">Program Studi Mahasiswa</p>
+              </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center space-x-4">
+              <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shrink-0">
+                <i class="fa-solid fa-building-columns"></i>
+              </div>
+              <div>
+                <p class="text-xs text-slate-400 font-medium">Universitas</p>
+                <p class="text-lg font-bold text-slate-800">UMC</p>
+                <p class="text-[11px] text-slate-400">Universitas Muhammadiyah Cirebon</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: PROFIL SAYA -->
+      <section id="tab-profil" class="space-y-6 hidden">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+          <h3 class="text-lg font-bold text-slate-800">Profil Mahasiswa</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div class="p-3 bg-slate-50 rounded-xl">
+              <p class="text-xs text-slate-400">Nama Lengkap</p>
+              <p class="font-bold text-slate-700">Dimas Pandu Wibowo</p>
+            </div>
+            <div class="p-3 bg-slate-50 rounded-xl">
+              <p class="text-xs text-slate-400">NIM</p>
+              <p class="font-bold text-slate-700">240511103</p>
+            </div>
+            <div class="p-3 bg-slate-50 rounded-xl">
+              <p class="text-xs text-slate-400">Program Studi</p>
+              <p class="font-bold text-slate-700">Teknik Informatika (TI24B)</p>
+            </div>
+            <div class="p-3 bg-slate-50 rounded-xl">
+              <p class="text-xs text-slate-400">Fakultas</p>
+              <p class="font-bold text-slate-700">Fakultas Teknik</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: MATERI & TUGAS -->
+      <section id="tab-materi" class="space-y-6 hidden">
+        <!-- Form Upload -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+          <h3 class="text-lg font-bold text-slate-800">Upload Tugas & Materi Perkuliahan</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input type="text" id="fileTitle" placeholder="Judul Tugas / Materi" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <input type="file" id="fileInput" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-600 hover:file:bg-blue-100">
+          </div>
+          <button onclick="handleUpload()" class="px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition">
+            <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Simpan File
+          </button>
+        </div>
+
+        <!-- Daftar File Upload -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+          <h3 class="text-lg font-bold text-slate-800">Daftar File Tersimpan</h3>
+          <div id="fileList" class="space-y-2 text-sm text-slate-500">
+            <p class="italic text-slate-400">Belum ada file diunggah.</p>
+          </div>
+        </div>
+
+        <!-- Rangkuman Modul ADPL Pertemuan 1 -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <h3 class="text-lg font-bold text-slate-800">Rangkuman Pertemuan 1: Konsep RPL & SDLC</h3>
+            <span class="text-xs px-3 py-1 bg-blue-50 text-blue-600 font-semibold rounded-full">ADPL - S1 Teknik Informatika</span>
+          </div>
+          
+          <div class="space-y-4 text-sm text-slate-700 leading-relaxed">
+            <div>
+              <h4 class="font-bold text-blue-600 text-base mb-1">1. Perangkat Lunak & Rekayasa Perangkat Lunak (RPL)</h4>
+              <p>Perangkat lunak bukan hanya sekadar kode program, tetapi mencakup struktur data dan dokumentasi. RPL adalah penerapan pendekatan yang sistematis, disiplin, dan terukur dalam pengembangan dan pemeliharaannya.</p>
+            </div>
+
+            <div>
+              <h4 class="font-bold text-blue-600 text-base mb-1">2. Tahapan SDLC</h4>
+              <ul class="list-disc list-inside space-y-1 pl-2">
+                <li><strong>Perencanaan:</strong> Studi kelayakan, ruang lingkup, dan biaya proyek.</li>
+                <li><strong>Analisis:</strong> Penggalian kebutuhan pemangku kepentingan (Dokumen SRS).</li>
+                <li><strong>Desain:</strong> Perancangan arsitektur, UML, ERD, dan antarmuka UI.</li>
+                <li><strong>Implementasi:</strong> Penulisan kode program sesuai rancangan.</li>
+                <li><strong>Pengujian:</strong> Verifikasi dan validasi fungsionalitas sistem.</li>
+                <li><strong>Deployment & Pemeliharaan:</strong> Peluncuran dan perawatan sistem.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="font-bold text-blue-600 text-base mb-1">3. Perbandingan Model Proses</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+                  <p class="font-bold text-slate-800">Waterfall</p>
+                  <p class="text-xs text-slate-600 mt-1">Sekuensial dan kaku. Sangat cocok untuk proyek dengan kebutuhan yang sudah stabil dan pasti sejak awal.</p>
+                </div>
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+                  <p class="font-bold text-slate-800">Prototyping</p>
+                  <p class="text-xs text-slate-600 mt-1">Berfokus pada pembuatan tiruan sistem awal untuk mendapatkan masukan langsung dari pengguna.</p>
+                </div>
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+                  <p class="font-bold text-slate-800">Spiral</p>
+                  <p class="text-xs text-slate-600 mt-1">Pengembangan berulang yang mengutamakan analisis dan manajemen risiko untuk proyek besar.</p>
+                </div>
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+                  <p class="font-bold text-slate-800">Scrum / Agile</p>
+                  <p class="text-xs text-slate-600 mt-1">Sangat fleksibel terhadap perubahan. Pekerjaan dibagi dalam iterasi singkat (sprint).</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: INFORMASI -->
+      <section id="tab-informasi" class="space-y-6 hidden">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
+          <h3 class="text-lg font-bold text-slate-800">Informasi Portal</h3>
+          <p class="text-sm text-slate-600">Portal web portofolio ini dibuat untuk memenuhi tugas mata kuliah Analisis & Desain Perangkat Lunak (ADPL) Program Studi S1 Teknik Informatika, Universitas Muhammadiyah Cirebon.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script>
+    function switchTab(tabName) {
+      const tabs = ['beranda', 'profil', 'materi', 'informasi'];
+      tabs.forEach(t => {
+        document.getElementById(`tab-${t}`).classList.add('hidden');
+        const navBtn = document.getElementById(`nav-${t}`);
+        navBtn.classList.remove('bg-blue-50', 'text-blue-600', 'font-semibold');
+        navBtn.classList.add('text-slate-600', 'font-medium');
+      });
+
+      document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+      const activeBtn = document.getElementById(`nav-${tabName}`);
+      activeBtn.classList.add('bg-blue-50', 'text-blue-600', 'font-semibold');
+      activeBtn.classList.remove('text-slate-600', 'font-medium');
+
+      const titleMap = {
+        'beranda': 'Beranda',
+        'profil': 'Profil Saya',
+        'materi': 'Materi & Tugas',
+        'informasi': 'Informasi'
+      };
+      document.getElementById('breadcrumb').innerText = titleMap[tabName];
+    }
+
+    const savedFiles = JSON.parse(localStorage.getItem('uploaded_files') || '[]');
+    function renderFiles() {
+      const fileListDiv = document.getElementById('fileList');
+      if (savedFiles.length === 0) {
+        fileListDiv.innerHTML = '<p class="italic text-slate-400">Belum ada file diunggah.</p>';
+        return;
+      }
+      fileListDiv.innerHTML = savedFiles.map((f, index) => `
+        <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
+          <div class="flex items-center space-x-3">
+            <i class="fa-solid fa-file-pdf text-red-500 text-lg"></i>
+            <div>
+              <p class="font-bold text-slate-800">${f.title}</p>
+              <p class="text-xs text-slate-400">${f.fileName}</p>
+            </div>
+          </div>
+          <button onclick="deleteFile(${index})" class="text-red-500 hover:text-red-700 text-xs px-2 py-1">Hapus</button>
+        </div>
+      `).join('');
+    }
+
+    function handleUpload() {
+      const title = document.getElementById('fileTitle').value;
+      const fileInput = document.getElementById('fileInput');
+      if (!title || !fileInput.files[0]) {
+        alert('Mohon isi judul dan pilih file!');
+        return;
+      }
+      savedFiles.push({ title: title, fileName: fileInput.files[0].name });
+      localStorage.setItem('uploaded_files', JSON.stringify(savedFiles));
+      document.getElementById('fileTitle').value = '';
+      fileInput.value = '';
+      renderFiles();
+    }
+
+    function deleteFile(index) {
+      savedFiles.splice(index, 1);
+      localStorage.setItem('uploaded_files', JSON.stringify(savedFiles));
+      renderFiles();
+    }
+
+    renderFiles();
+  </script>
 </body>
 </html>
