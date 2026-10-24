@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Mahasiswa - Universitas Muhammadiyah Cirebon</title>
+  <title>Dashboard Mahasiswa - Portofolio Akademik</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -12,16 +12,7 @@
   <!-- Sidebar -->
   <aside class="w-64 bg-white border-r border-slate-200 flex flex-col justify-between hidden md:flex shrink-0">
     <div>
-      <div class="p-5 flex items-center space-x-3 border-b border-slate-100">
-        <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-lg">
-          UMC
-        </div>
-        <div>
-          <h1 class="font-bold text-sm text-slate-900 leading-tight">Universitas Muhammadiyah Cirebon</h1>
-          <p class="text-xs text-slate-400 font-medium">PORTOFOLIO AKADEMIK</p>
-        </div>
-      </div>
-
+      <!-- Profil User di Atas Sidebar -->
       <div class="p-5 flex items-center space-x-3 bg-slate-50 border-b border-slate-100">
         <div class="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold">
           DP
@@ -165,13 +156,20 @@
         </div>
       </section>
 
-      <!-- TAB: MATERI & TUGAS (WADAH DINAMIS) -->
+      <!-- TAB: MATERI & TUGAS (WADAH DINAMIS TERPISAH) -->
       <section id="tab-materi" class="space-y-6 hidden">
-        <!-- Form Penambahan Tugas / Materi -->
+        <!-- Form Upload Baru -->
         <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
-          <h3 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-plus-circle text-blue-600 mr-2"></i>Tambah Tugas / File Materi Baru</h3>
+          <h3 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-cloud-arrow-up text-blue-600 mr-2"></i>Upload File Baru</h3>
           
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <!-- Pilihan Tipe: Materi vs Tugas -->
+            <select id="itemCategory" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 bg-blue-50/50 text-blue-700">
+              <option value="Materi">📁 Materi Kuliah</option>
+              <option value="Tugas">📝 Tugas Kuliah</option>
+            </select>
+
+            <!-- Pilihan Pertemuan -->
             <select id="itemPertemuan" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
               <option value="Pertemuan 1">Pertemuan 1</option>
               <option value="Pertemuan 2">Pertemuan 2</option>
@@ -180,31 +178,43 @@
               <option value="Pertemuan 5">Pertemuan 5</option>
               <option value="Pertemuan 6">Pertemuan 6</option>
               <option value="Pertemuan 7">Pertemuan 7</option>
-              <option value="Tugas Proyek">Tugas Proyek / Proposal</option>
+              <option value="Proyek Akhir">Proyek / Proposal</option>
             </select>
 
-            <input type="text" id="itemTitle" placeholder="Judul Materi / Nama Tugas" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <!-- Judul File -->
+            <input type="text" id="itemTitle" placeholder="Judul Materi / Tugas" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
 
-            <input type="file" id="itemFile" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-600 hover:file:bg-blue-100">
+            <!-- Pilih File -->
+            <input type="file" id="itemFile" class="w-full text-sm text-slate-500 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-600 hover:file:bg-blue-100">
           </div>
 
-          <textarea id="itemDesc" rows="2" placeholder="Catatan singkat / deskripsi tugas (opsional)" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+          <textarea id="itemDesc" rows="2" placeholder="Catatan / Deskripsi singkat (opsional)" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
 
           <button onclick="addItem()" class="px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition flex items-center gap-2">
-            <i class="fa-solid fa-arrow-up-from-bracket"></i> Simpan ke Wadah
+            <i class="fa-solid fa-plus"></i> Simpan ke Wadah
           </button>
         </div>
 
-        <!-- Daftar Wadah Materi & Tugas -->
+        <!-- WADAH 1: MATERI PERKULIAHAN -->
         <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
-          <div class="flex items-center justify-between">
-            <h3 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-folder-tree text-amber-500 mr-2"></i>Wadah Materi & Tugas Perkuliahan</h3>
-            <span class="text-xs px-3 py-1 bg-slate-100 text-slate-600 font-semibold rounded-full" id="totalItems">1 Item</span>
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+              <i class="fa-solid fa-book-open text-blue-600"></i> Wadah Materi Perkuliahan
+            </h3>
+            <span class="text-xs px-2.5 py-1 bg-blue-50 text-blue-600 font-semibold rounded-full" id="materiCount">0 Materi</span>
           </div>
+          <div id="materiList" class="space-y-3"></div>
+        </div>
 
-          <div id="containerList" class="space-y-4">
-            <!-- Data dari JavaScript akan ditampilkan di sini -->
+        <!-- WADAH 2: TUGAS PERKULIAHAN -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+              <i class="fa-solid fa-list-check text-indigo-600"></i> Wadah Tugas Perkuliahan
+            </h3>
+            <span class="text-xs px-2.5 py-1 bg-indigo-50 text-indigo-600 font-semibold rounded-full" id="tugasCount">0 Tugas</span>
           </div>
+          <div id="tugasList" class="space-y-3"></div>
         </div>
       </section>
 
@@ -243,67 +253,75 @@
       document.getElementById('breadcrumb').innerText = titleMap[tabName];
     }
 
-    // Default Data awal (Pertemuan 1 ADPL)
-    const defaultData = [
-      {
-        pertemuan: "Pertemuan 1",
-        title: "Konsep Rekayasa Perangkat Lunak dan SDLC",
-        desc: "Rangkuman Modul 1 ADPL: Pengertian RPL, 6 Tahapan SDLC (Perencanaan, Analisis, Desain, Implementasi, Pengujian, Deployment), dan Perbandingan Model Proses (Waterfall, Prototyping, Spiral, Scrum).",
-        fileName: "Modul_ADPL_P01_Konsep_RPL_dan_SDLC.docx",
-        date: "24 Okt 2026"
-      }
-    ];
-
-    let currentItems = JSON.parse(localStorage.getItem('adpl_container_items')) || defaultData;
+    let currentItems = JSON.parse(localStorage.getItem('adpl_container_items')) || [];
 
     function renderContainer() {
-      const listDiv = document.getElementById('containerList');
-      document.getElementById('totalItems').innerText = `${currentItems.length} Item Tersimpan`;
+      const materiList = document.getElementById('materiList');
+      const tugasList = document.getElementById('tugasList');
 
-      if (currentItems.length === 0) {
-        listDiv.innerHTML = '<p class="text-slate-400 italic text-sm">Wadah masih kosong. Silakan tambah tugas atau materi baru di atas.</p>';
-        return;
+      const materis = currentItems.filter(i => i.category === 'Materi');
+      const tugass = currentItems.filter(i => i.category === 'Tugas');
+
+      document.getElementById('materiCount').innerText = `${materis.length} Materi`;
+      document.getElementById('tugasCount').innerText = `${tugass.length} Tugas`;
+
+      // Render Materi
+      if (materis.length === 0) {
+        materiList.innerHTML = '<p class="text-slate-400 italic text-xs">Belum ada materi diunggah.</p>';
+      } else {
+        materiList.innerHTML = materis.map((item, index) => renderCard(item, index)).join('');
       }
 
-      listDiv.innerHTML = currentItems.map((item, index) => `
-        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/70 space-y-2 hover:border-blue-300 transition">
+      // Render Tugas
+      if (tugass.length === 0) {
+        tugasList.innerHTML = '<p class="text-slate-400 italic text-xs">Belum ada tugas diunggah.</p>';
+      } else {
+        tugasList.innerHTML = tugass.map((item, index) => renderCard(item, index)).join('');
+      }
+    }
+
+    function renderCard(item, originalIndex) {
+      const realIndex = currentItems.indexOf(item);
+      const isMateri = item.category === 'Materi';
+      const badgeClass = isMateri ? 'bg-blue-100 text-blue-700' : 'bg-indigo-100 text-indigo-700';
+
+      return `
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/70 space-y-2 hover:border-slate-300 transition">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold px-2.5 py-1 bg-blue-100 text-blue-700 rounded-lg">${item.pertemuan}</span>
-            <span class="text-xs text-slate-400">${item.date}</span>
+            <span class="text-xs font-bold px-2.5 py-0.5 ${badgeClass} rounded-md">${item.pertemuan}</span>
+            <span class="text-[11px] text-slate-400">${item.date}</span>
           </div>
-          <h4 class="font-bold text-slate-800 text-base">${item.title}</h4>
-          <p class="text-xs text-slate-600 leading-relaxed">${item.desc}</p>
-          ${item.fileName ? `
-            <div class="pt-2 flex items-center justify-between text-xs text-slate-500 border-t border-slate-200/50">
-              <span class="flex items-center gap-1.5 font-medium text-slate-700">
-                <i class="fa-solid fa-paperclip text-blue-500"></i> ${item.fileName}
-              </span>
-              <button onclick="removeItem(${index})" class="text-red-500 hover:text-red-700 font-medium"><i class="fa-solid fa-trash-can mr-1"></i> Hapus</button>
-            </div>
-          ` : `
-            <div class="pt-1 flex justify-end">
-              <button onclick="removeItem(${index})" class="text-red-500 hover:text-red-700 text-xs font-medium"><i class="fa-solid fa-trash-can mr-1"></i> Hapus</button>
-            </div>
-          `}
+          <h4 class="font-bold text-slate-800 text-sm">${item.title}</h4>
+          ${item.desc ? `<p class="text-xs text-slate-600 leading-relaxed">${item.desc}</p>` : ''}
+          <div class="pt-2 flex items-center justify-between text-xs text-slate-500 border-t border-slate-200/50 mt-2">
+            <span class="flex items-center gap-1.5 font-medium text-slate-700">
+              <i class="fa-solid fa-paperclip ${isMateri ? 'text-blue-500' : 'text-indigo-500'}"></i> ${item.fileName || 'Tanpa lampiran'}
+            </span>
+            <button onclick="removeItem(${realIndex})" class="text-red-500 hover:text-red-700 font-medium text-[11px]">
+              <i class="fa-solid fa-trash-can mr-1"></i> Hapus
+            </button>
+          </div>
         </div>
-      `).join('');
+      `;
     }
 
     function addItem() {
+      const category = document.getElementById('itemCategory').value;
       const pertemuan = document.getElementById('itemPertemuan').value;
       const title = document.getElementById('itemTitle').value;
       const desc = document.getElementById('itemDesc').value;
       const fileInput = document.getElementById('itemFile');
 
       if (!title) {
-        alert('Mohon isi judul materi atau nama tugas!');
+        alert('Mohon isi judul terlebih dahulu!');
         return;
       }
 
       const newItem = {
+        category: category,
         pertemuan: pertemuan,
         title: title,
-        desc: desc || 'Tidak ada deskripsi tambahan.',
+        desc: desc,
         fileName: fileInput.files[0] ? fileInput.files[0].name : null,
         date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
       };
@@ -319,7 +337,7 @@
     }
 
     function removeItem(index) {
-      if (confirm('Yakin ingin menghapus item ini dari wadah?')) {
+      if (confirm('Yakin ingin menghapus file ini?')) {
         currentItems.splice(index, 1);
         localStorage.setItem('adpl_container_items', JSON.stringify(currentItems));
         renderContainer();
