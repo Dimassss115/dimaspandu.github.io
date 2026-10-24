@@ -7,20 +7,29 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex antialiased">
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex antialiased relative">
 
-  <!-- Sidebar -->
-  <aside class="w-64 bg-white border-r border-slate-200 flex flex-col justify-between hidden md:flex shrink-0">
+  <!-- Overlay Latar Belakang untuk HP saat Sidebar Terbuka -->
+  <div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 z-30 hidden md:hidden transition-opacity"></div>
+
+  <!-- Sidebar (Responsif HP & Desktop) -->
+  <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-white border-r border-slate-200 flex flex-col justify-between -translate-x-full md:translate-x-0 md:static transition-transform duration-300 ease-in-out shrink-0">
     <div>
       <!-- Profil User -->
-      <div class="p-5 flex items-center space-x-3 bg-slate-50 border-b border-slate-100">
-        <div class="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold">
-          DP
+      <div class="p-5 flex items-center justify-between bg-slate-50 border-b border-slate-100">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold">
+            DP
+          </div>
+          <div>
+            <p class="font-bold text-sm text-slate-800">Dimas Pandu Wibowo</p>
+            <p class="text-xs text-slate-500">Mahasiswa</p>
+          </div>
         </div>
-        <div>
-          <p class="font-bold text-sm text-slate-800">Dimas Pandu Wibowo</p>
-          <p class="text-xs text-slate-500">Mahasiswa</p>
-        </div>
+        <!-- Tombol Tutup di HP -->
+        <button onclick="toggleSidebar()" class="md:hidden text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
       </div>
 
       <nav class="p-4 space-y-1">
@@ -57,10 +66,14 @@
   <!-- Main Content -->
   <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
     <!-- Top Header -->
-    <header class="h-16 bg-white border-b border-slate-200 px-6 flex items-center justify-between sticky top-0 z-10">
-      <div class="flex items-center space-x-2 text-sm text-slate-500">
-        <span>Dashboard</span>
-        <span>/</span>
+    <header class="h-16 bg-white border-b border-slate-200 px-4 md:px-6 flex items-center justify-between sticky top-0 z-10">
+      <div class="flex items-center space-x-3 text-sm text-slate-500">
+        <!-- Tombol Hamburger Menu khusus HP -->
+        <button onclick="toggleSidebar()" class="md:hidden text-slate-600 hover:text-slate-900 p-2 rounded-lg hover:bg-slate-100 transition">
+          <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+        <span class="hidden sm:inline">Dashboard</span>
+        <span class="hidden sm:inline">/</span>
         <span id="breadcrumb" class="font-semibold text-slate-800">Beranda</span>
       </div>
       <div class="flex items-center space-x-3">
@@ -71,14 +84,14 @@
     </header>
 
     <!-- Page Body -->
-    <div class="p-6 md:p-8 max-w-6xl w-full mx-auto space-y-8">
+    <div class="p-4 md:p-8 max-w-6xl w-full mx-auto space-y-6 md:space-y-8">
 
       <!-- TAB: BERANDA -->
       <section id="tab-beranda" class="space-y-6">
-        <div class="relative bg-gradient-to-r from-indigo-600 to-blue-500 rounded-2xl p-8 text-white shadow-lg overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div class="relative bg-gradient-to-r from-indigo-600 to-blue-500 rounded-2xl p-6 md:p-8 text-white shadow-lg overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div class="space-y-2 z-10">
             <span class="text-xs uppercase tracking-wider font-semibold text-indigo-200">PORTOFOLIO AKADEMIK</span>
-            <h2 class="text-3xl font-extrabold">Selamat Datang, Dimas Pandu Wibowo!</h2>
+            <h2 class="text-2xl md:text-3xl font-extrabold">Selamat Datang, Dimas Pandu Wibowo!</h2>
             <p class="text-indigo-100 text-sm max-w-xl">
               Selamat datang di dashboard portofolio akademik saya. Halaman ini berfungsi sebagai wadah penampung materi perkuliahan dan tugas harian.
             </p>
@@ -159,7 +172,7 @@
       <!-- TAB: MATERI & TUGAS -->
       <section id="tab-materi" class="space-y-6 hidden">
         <!-- Form Upload Baru -->
-        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+        <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
           <h3 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-cloud-arrow-up text-blue-600 mr-2"></i>Upload File Baru</h3>
           
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -215,7 +228,7 @@
         </div>
 
         <!-- WADAH 1: MATERI PERKULIAHAN -->
-        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+        <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
           <div class="flex items-center justify-between border-b border-slate-100 pb-3">
             <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
               <i class="fa-solid fa-book-open text-blue-600"></i> Wadah Materi Perkuliahan
@@ -226,7 +239,7 @@
         </div>
 
         <!-- WADAH 2: TUGAS PERKULIAHAN -->
-        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+        <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
           <div class="flex items-center justify-between border-b border-slate-100 pb-3">
             <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
               <i class="fa-solid fa-list-check text-indigo-600"></i> Wadah Tugas Perkuliahan
@@ -256,12 +269,20 @@
         <button onclick="closePreview()" class="w-8 h-8 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-600 flex items-center justify-center font-bold text-sm">✕</button>
       </div>
       <div class="flex-1 p-2 bg-slate-200 overflow-hidden flex items-center justify-center" id="modalContainer">
-        <!-- Frame preview akan dirender di sini -->
       </div>
     </div>
   </div>
 
   <script>
+    // Fungsi Buka/Tutup Sidebar di HP
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      
+      sidebar.classList.toggle('-translate-x-full');
+      overlay.classList.toggle('hidden');
+    }
+
     function switchTab(tabName) {
       const tabs = ['beranda', 'profil', 'materi', 'informasi'];
       tabs.forEach(t => {
@@ -283,6 +304,16 @@
         'informasi': 'Informasi'
       };
       document.getElementById('breadcrumb').innerText = titleMap[tabName];
+
+      // Tutup otomatis sidebar di HP saat tab dipilih
+      if (window.innerWidth < 768) {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        if (!sidebar.classList.contains('-translate-x-full')) {
+          sidebar.classList.add('-translate-x-full');
+          overlay.classList.add('hidden');
+        }
+      }
     }
 
     let currentItems = JSON.parse(localStorage.getItem('adpl_container_items')) || [];
@@ -323,12 +354,10 @@
           <div class="pt-2 flex flex-wrap items-center justify-between gap-2 text-xs border-t border-slate-200/50 mt-2">
             <div class="flex flex-wrap items-center gap-2">
               
-              <!-- Tombol Preview / Lihat -->
               <button onclick="previewFile(${realIndex})" class="text-slate-700 hover:text-blue-600 font-semibold flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-lg border border-slate-200 shadow-sm">
                 <i class="fa-solid fa-eye text-blue-500"></i> Lihat / Preview
               </button>
 
-              <!-- Tombol Download -->
               ${item.fileData ? `
                 <a href="${item.fileData}" download="${item.fileName}" class="text-slate-700 hover:text-indigo-600 font-semibold flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-lg border border-slate-200 shadow-sm">
                   <i class="fa-solid fa-download text-indigo-500"></i> Unduh (${item.fileName})
@@ -361,13 +390,11 @@
       container.innerHTML = '';
 
       if (item.fileData) {
-        // Jika PDF atau Gambar
         if (item.fileData.includes('data:application/pdf')) {
           container.innerHTML = `<iframe src="${item.fileData}" class="w-full h-full rounded-xl border-0"></iframe>`;
         } else if (item.fileData.includes('data:image')) {
           container.innerHTML = `<img src="${item.fileData}" class="max-h-full max-w-full object-contain rounded-xl">`;
         } else {
-          // Jika Word atau Zip
           window.open(item.fileData, '_blank');
           return;
         }
