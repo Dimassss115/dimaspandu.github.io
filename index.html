@@ -6,16 +6,19 @@
   <title>Dashboard Mahasiswa - Portofolio Akademik</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- SDK Firebase CDN -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex antialiased relative">
 
-  <!-- Overlay Latar Belakang untuk HP saat Sidebar Terbuka -->
+  <!-- Overlay Latar Belakang HP -->
   <div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 z-30 hidden md:hidden transition-opacity"></div>
 
-  <!-- Sidebar (Responsif HP & Desktop) -->
+  <!-- Sidebar -->
   <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-white border-r border-slate-200 flex flex-col justify-between -translate-x-full md:translate-x-0 md:static transition-transform duration-300 ease-in-out shrink-0">
     <div>
-      <!-- Profil User -->
       <div class="p-5 flex items-center justify-between bg-slate-50 border-b border-slate-100">
         <div class="flex items-center space-x-3">
           <div class="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold">
@@ -26,7 +29,6 @@
             <p class="text-xs text-slate-500">Mahasiswa</p>
           </div>
         </div>
-        <!-- Tombol Tutup di HP -->
         <button onclick="toggleSidebar()" class="md:hidden text-slate-400 hover:text-slate-600 p-1">
           <i class="fa-solid fa-xmark text-lg"></i>
         </button>
@@ -65,10 +67,8 @@
 
   <!-- Main Content -->
   <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
-    <!-- Top Header -->
     <header class="h-16 bg-white border-b border-slate-200 px-4 md:px-6 flex items-center justify-between sticky top-0 z-10">
       <div class="flex items-center space-x-3 text-sm text-slate-500">
-        <!-- Tombol Hamburger Menu khusus HP -->
         <button onclick="toggleSidebar()" class="md:hidden text-slate-600 hover:text-slate-900 p-2 rounded-lg hover:bg-slate-100 transition">
           <i class="fa-solid fa-bars text-xl"></i>
         </button>
@@ -78,12 +78,11 @@
       </div>
       <div class="flex items-center space-x-3">
         <span class="px-3 py-1 bg-emerald-50 text-emerald-600 text-xs font-semibold rounded-full border border-emerald-200 flex items-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Mahasiswa
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Cloud Database Active
         </span>
       </div>
     </header>
 
-    <!-- Page Body -->
     <div class="p-4 md:p-8 max-w-6xl w-full mx-auto space-y-6 md:space-y-8">
 
       <!-- TAB: BERANDA -->
@@ -171,9 +170,9 @@
 
       <!-- TAB: MATERI & TUGAS -->
       <section id="tab-materi" class="space-y-6 hidden">
-        <!-- Form Upload Baru -->
+        <!-- Form Upload -->
         <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
-          <h3 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-cloud-arrow-up text-blue-600 mr-2"></i>Upload File Baru</h3>
+          <h3 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-cloud-arrow-up text-blue-600 mr-2"></i>Tambah Data ke Database Cloud</h3>
           
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <select id="itemCategory" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 bg-blue-50/50 text-blue-700">
@@ -210,24 +209,24 @@
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label class="block text-xs text-slate-500 mb-1 font-medium">Unggah File (PDF, Docx, Zip, Gambar)</label>
-              <input type="file" id="itemFile" class="w-full text-sm text-slate-500 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-600 hover:file:bg-blue-100">
+              <label class="block text-xs text-slate-500 mb-1 font-medium">Link Google Drive / GitHub / File Cloud</label>
+              <input type="url" id="itemLink" placeholder="https://drive.google.com/..." class="w-full px-4 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
             <div>
-              <label class="block text-xs text-slate-500 mb-1 font-medium">Link Alternatif (Google Drive / GitHub)</label>
-              <input type="url" id="itemLink" placeholder="https://drive.google.com/..." class="w-full px-4 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <label class="block text-xs text-slate-500 mb-1 font-medium">Nama File (Opsional)</label>
+              <input type="text" id="itemFileName" placeholder="contoh: Modul_P01_ADPL.pdf" class="w-full px-4 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
           </div>
 
           <textarea id="itemDesc" rows="2" placeholder="Catatan / Deskripsi singkat (opsional)" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
 
-          <button onclick="addItem()" class="px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition flex items-center gap-2">
-            <i class="fa-solid fa-plus"></i> Simpan ke Wadah
+          <button onclick="addItemToDatabase()" id="btnSave" class="px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition flex items-center gap-2">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Simpan ke Cloud Database
           </button>
         </div>
 
-        <!-- WADAH 1: MATERI PERKULIAHAN -->
+        <!-- WADAH MATERI -->
         <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
           <div class="flex items-center justify-between border-b border-slate-100 pb-3">
             <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
@@ -238,7 +237,7 @@
           <div id="materiList" class="space-y-3"></div>
         </div>
 
-        <!-- WADAH 2: TUGAS PERKULIAHAN -->
+        <!-- WADAH TUGAS -->
         <div class="bg-white p-5 md:p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
           <div class="flex items-center justify-between border-b border-slate-100 pb-3">
             <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
@@ -254,31 +253,32 @@
       <section id="tab-informasi" class="space-y-6 hidden">
         <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
           <h3 class="text-lg font-bold text-slate-800">Informasi Portal</h3>
-          <p class="text-sm text-slate-600">Portal web ini dibuat sebagai wadah portofolio akademik untuk menampung seluruh materi dan tugas mata kuliah Analisis & Desain Perangkat Lunak (ADPL), S1 Teknik Informatika, Universitas Muhammadiyah Cirebon.</p>
+          <p class="text-sm text-slate-600">Portal web ini terhubung langsung ke Cloud Database Firebase sehingga seluruh materi dan tugas tersinkronisasi otomatis di semua perangkat.</p>
         </div>
       </section>
 
     </div>
   </main>
 
-  <!-- MODAL POPUP PREVIEW FILE -->
-  <div id="previewModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-2xl max-w-4xl w-full h-[85vh] flex flex-col shadow-2xl overflow-hidden">
-      <div class="p-4 bg-slate-100 border-b border-slate-200 flex items-center justify-between">
-        <h3 id="modalTitle" class="font-bold text-slate-800 text-sm truncate">Preview File</h3>
-        <button onclick="closePreview()" class="w-8 h-8 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-600 flex items-center justify-center font-bold text-sm">✕</button>
-      </div>
-      <div class="flex-1 p-2 bg-slate-200 overflow-hidden flex items-center justify-center" id="modalContainer">
-      </div>
-    </div>
-  </div>
-
   <script>
-    // Fungsi Buka/Tutup Sidebar di HP
+    // Konfigurasi Firebase Milik Kamu
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbATatIMPTqHezgUigPfieppsKcYsiSd4",
+      authDomain: "portofolio-dimas-4071e.firebaseapp.com",
+      projectId: "portofolio-dimas-4071e",
+      storageBucket: "portofolio-dimas-4071e.firebasestorage.app",
+      messagingSenderId: "770395650503",
+      appId: "1:770395650503:web:a9ea8f87ce3f670fa3c1e2",
+      measurementId: "G-NP13FMHPCS"
+    };
+
+    // Inisialisasi Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebar');
       const overlay = document.getElementById('sidebarOverlay');
-      
       sidebar.classList.toggle('-translate-x-full');
       overlay.classList.toggle('hidden');
     }
@@ -297,28 +297,28 @@
       activeBtn.classList.add('bg-blue-50', 'text-blue-600', 'font-semibold');
       activeBtn.classList.remove('text-slate-600', 'font-medium');
 
-      const titleMap = {
-        'beranda': 'Beranda',
-        'profil': 'Profil Saya',
-        'materi': 'Materi & Tugas',
-        'informasi': 'Informasi'
-      };
-      document.getElementById('breadcrumb').innerText = titleMap[tabName];
+      document.getElementById('breadcrumb').innerText = {
+        'beranda': 'Beranda', 'profil': 'Profil Saya', 'materi': 'Materi & Tugas', 'informasi': 'Informasi'
+      }[tabName];
 
-      // Tutup otomatis sidebar di HP saat tab dipilih
       if (window.innerWidth < 768) {
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('sidebarOverlay');
-        if (!sidebar.classList.contains('-translate-x-full')) {
-          sidebar.classList.add('-translate-x-full');
-          overlay.classList.add('hidden');
-        }
+        document.getElementById('sidebar').classList.add('-translate-x-full');
+        document.getElementById('sidebarOverlay').classList.add('hidden');
       }
     }
 
-    let currentItems = JSON.parse(localStorage.getItem('adpl_container_items')) || [];
+    // Mendengarkan Perubahan Data secara Realtime dari Database
+    db.collection("adpl_items").orderBy("createdAt", "desc").onSnapshot((snapshot) => {
+      const items = [];
+      snapshot.forEach((doc) => {
+        items.push({ id: doc.id, ...doc.data() });
+      });
+      renderContainer(items);
+    }, (error) => {
+      console.error("Gagal mengambil data dari Firebase:", error);
+    });
 
-    function renderContainer() {
+    function renderContainer(currentItems) {
       const materiList = document.getElementById('materiList');
       const tugasList = document.getElementById('tugasList');
 
@@ -338,7 +338,6 @@
     }
 
     function renderCard(item) {
-      const realIndex = currentItems.indexOf(item);
       const isMateri = item.category === 'Materi';
       const badgeClass = isMateri ? 'bg-blue-100 text-blue-700' : 'bg-indigo-100 text-indigo-700';
 
@@ -353,26 +352,14 @@
           
           <div class="pt-2 flex flex-wrap items-center justify-between gap-2 text-xs border-t border-slate-200/50 mt-2">
             <div class="flex flex-wrap items-center gap-2">
-              
-              <button onclick="previewFile(${realIndex})" class="text-slate-700 hover:text-blue-600 font-semibold flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-lg border border-slate-200 shadow-sm">
-                <i class="fa-solid fa-eye text-blue-500"></i> Lihat / Preview
-              </button>
-
-              ${item.fileData ? `
-                <a href="${item.fileData}" download="${item.fileName}" class="text-slate-700 hover:text-indigo-600 font-semibold flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-lg border border-slate-200 shadow-sm">
-                  <i class="fa-solid fa-download text-indigo-500"></i> Unduh (${item.fileName})
-                </a>
-              ` : ''}
-
               ${item.linkUrl ? `
                 <a href="${item.linkUrl}" target="_blank" class="text-slate-700 hover:text-emerald-600 font-semibold flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-lg border border-slate-200 shadow-sm">
-                  <i class="fa-solid fa-arrow-up-right-from-square text-emerald-500"></i> Buka Link Drive/GitHub
+                  <i class="fa-solid fa-arrow-up-right-from-square text-emerald-500"></i> Buka Link (${item.fileName || 'Lihat File'})
                 </a>
-              ` : ''}
-
+              ` : '<span class="text-slate-400 italic text-[11px]">Tanpa link terlampir</span>'}
             </div>
 
-            <button onclick="removeItem(${realIndex})" class="text-red-500 hover:text-red-700 font-medium text-[11px]">
+            <button onclick="removeItemFromDatabase('${item.id}')" class="text-red-500 hover:text-red-700 font-medium text-[11px]">
               <i class="fa-solid fa-trash-can mr-1"></i> Hapus
             </button>
           </div>
@@ -380,99 +367,51 @@
       `;
     }
 
-    function previewFile(index) {
-      const item = currentItems[index];
-      const modal = document.getElementById('previewModal');
-      const container = document.getElementById('modalContainer');
-      const modalTitle = document.getElementById('modalTitle');
-
-      modalTitle.innerText = `Preview: ${item.title}`;
-      container.innerHTML = '';
-
-      if (item.fileData) {
-        if (item.fileData.includes('data:application/pdf')) {
-          container.innerHTML = `<iframe src="${item.fileData}" class="w-full h-full rounded-xl border-0"></iframe>`;
-        } else if (item.fileData.includes('data:image')) {
-          container.innerHTML = `<img src="${item.fileData}" class="max-h-full max-w-full object-contain rounded-xl">`;
-        } else {
-          window.open(item.fileData, '_blank');
-          return;
-        }
-      } else if (item.linkUrl) {
-        container.innerHTML = `<iframe src="${item.linkUrl}" class="w-full h-full rounded-xl border-0"></iframe>`;
-      } else {
-        alert('Tidak ada file atau link yang bisa ditampilkan.');
-        return;
-      }
-
-      modal.classList.remove('hidden');
-    }
-
-    function closePreview() {
-      document.getElementById('previewModal').classList.add('hidden');
-    }
-
-    function addItem() {
+    function addItemToDatabase() {
       const category = document.getElementById('itemCategory').value;
       const pertemuan = document.getElementById('itemPertemuan').value;
       const title = document.getElementById('itemTitle').value;
       const desc = document.getElementById('itemDesc').value;
       const linkUrl = document.getElementById('itemLink').value;
-      const fileInput = document.getElementById('itemFile');
-      const file = fileInput.files[0];
+      const fileName = document.getElementById('itemFileName').value;
 
       if (!title) {
         alert('Mohon isi judul terlebih dahulu!');
         return;
       }
 
-      const saveAndRender = (fileData, fileName) => {
-        const newItem = {
-          category: category,
-          pertemuan: pertemuan,
-          title: title,
-          desc: desc,
-          fileName: fileName,
-          fileData: fileData,
-          linkUrl: linkUrl,
-          date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
-        };
+      const btnSave = document.getElementById('btnSave');
+      btnSave.disabled = true;
+      btnSave.innerText = 'Menyimpan...';
 
-        currentItems.unshift(newItem);
-        try {
-          localStorage.setItem('adpl_container_items', JSON.stringify(currentItems));
-        } catch (e) {
-          alert('Ukuran file terlalu besar untuk penyimpanan browser. Disarankan memasukkan Link Google Drive/GitHub pada kolom yang tersedia.');
-        }
-
+      db.collection("adpl_items").add({
+        category: category,
+        pertemuan: pertemuan,
+        title: title,
+        desc: desc,
+        linkUrl: linkUrl,
+        fileName: fileName,
+        date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }),
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
         document.getElementById('itemTitle').value = '';
         document.getElementById('itemDesc').value = '';
         document.getElementById('itemLink').value = '';
-        fileInput.value = '';
-
-        renderContainer();
-      };
-
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          saveAndRender(e.target.result, file.name);
-        };
-        reader.readAsDataURL(file);
-      } else {
-        saveAndRender(null, null);
-      }
+        document.getElementById('itemFileName').value = '';
+        btnSave.disabled = false;
+        btnSave.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Simpan ke Cloud Database';
+      }).catch((error) => {
+        alert('Gagal menyimpan: ' + error.message);
+        btnSave.disabled = false;
+        btnSave.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Simpan ke Cloud Database';
+      });
     }
 
-    function removeItem(index) {
-      if (confirm('Yakin ingin menghapus item ini?')) {
-        currentItems.splice(index, 1);
-        localStorage.setItem('adpl_container_items', JSON.stringify(currentItems));
-        renderContainer();
+    function removeItemFromDatabase(id) {
+      if (confirm('Yakin ingin menghapus item ini dari database?')) {
+        db.collection("adpl_items").doc(id).delete();
       }
     }
-
-    renderContainer();
   </script>
 </body>
 </html>
