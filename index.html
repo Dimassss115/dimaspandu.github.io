@@ -61,7 +61,7 @@
   <!-- MAIN CONTAINER -->
   <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-8 space-y-12">
 
-    <!-- TAB: BERANDA (MEEKO PASTEL STYLE HERO) -->
+    <!-- TAB: BERANDA -->
     <section id="tab-beranda" class="space-y-12">
       
       <!-- HERO SECTION -->
@@ -69,27 +69,26 @@
         
         <!-- Floating Badge Left -->
         <div class="hidden sm:inline-flex absolute -top-2 left-0 -rotate-6 px-3.5 py-1.5 bg-blue-100 border border-blue-300 text-blue-800 rounded-full text-xs font-semibold shadow-sm items-center gap-1.5">
-          <i class="fa-solid fa-sparkles text-blue-500"></i> Teknik Informatika
+          <i class="fa-solid fa-graduation-cap text-blue-500"></i> Teknik Informatika UMC
         </div>
 
         <!-- Floating Badge Right -->
         <div class="hidden sm:inline-flex absolute bottom-10 right-0 rotate-6 px-3.5 py-1.5 bg-pink-100 border border-pink-300 text-pink-800 rounded-full text-xs font-semibold shadow-sm items-center gap-1.5">
-          <i class="fa-solid fa-code text-pink-500"></i> ADPL Course
+          <i class="fa-solid fa-laptop-code text-pink-500"></i> ADPL Course
         </div>
 
-        <!-- Headline with Inline Circle Avatar -->
+        <!-- Headline Selamat Datang -->
         <h2 class="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight leading-tight">
-          Halo! 
+          Selamat Datang! 
           <span class="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-600 text-white font-extrabold text-xl sm:text-2xl align-middle mx-1 shadow-md border-2 border-white">
             DP
           </span>
-          Saya Dimas.<br>
-          Mahasiswa & Developer.
+          <br>Portal Akademik & Tugas.
         </h2>
         
-        <!-- Subtitle -->
+        <!-- Subtitle Warm Greeting -->
         <p class="text-slate-600 text-sm sm:text-base max-w-xl mx-auto leading-relaxed font-normal">
-          Dashboard portofolio akademik penampung materi perkuliahan, modul pembelajaran, dan tugas mata kuliah <span class="font-bold text-slate-800">Analisis & Desain Perangkat Lunak</span>.
+          Selamat datang di ruang portofolio perkuliahan <span class="font-bold text-slate-800">Dimas Pandu Wibowo</span>. Wadah terpadu penampung modul pembelajaran, tugas harian, dan dokumentasi mata kuliah <span class="font-bold text-slate-800">Analisis & Desain Perangkat Lunak</span>.
         </p>
 
         <!-- CTA Buttons -->
@@ -103,7 +102,7 @@
         </div>
       </div>
 
-      <!-- 3 MEEKO-STYLE STATISTIC CARDS -->
+      <!-- 3 STATISTIC CARDS -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
         
         <!-- Card 1: Total Materi -->
@@ -144,32 +143,13 @@
           <div class="space-y-1">
             <h3 class="text-lg font-bold text-slate-900">Belum Dikerjakan</h3>
             <p id="statPendingTugas" class="text-3xl font-black text-emerald-600">0</p>
-            <p class="text-xs text-slate-500 max-w-[200px]">Modul materi yang masih memerlukan tugas.</p>
+            <p class="text-xs text-slate-500 max-w-[200px]">Modul ber-tugas yang belum dikumpulkan.</p>
           </div>
           <button onclick="switchTab('materi')" class="w-9 h-9 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 flex items-center justify-center transition border border-emerald-200">
             <i class="fa-solid fa-arrow-right text-xs"></i>
           </button>
         </div>
 
-      </div>
-
-      <!-- ACADEMIC IDENTITY CARD -->
-      <div class="bg-white p-8 rounded-[32px] border border-slate-900/10 shadow-sm space-y-4">
-        <h3 class="text-xs font-extrabold uppercase text-slate-400 tracking-wider">Identitas Akademik</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-medium">
-          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-            <p class="text-slate-400">Nomor Induk Mahasiswa</p>
-            <p class="text-sm font-bold text-slate-800">240511103</p>
-          </div>
-          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-            <p class="text-slate-400">Program Studi</p>
-            <p class="text-sm font-bold text-slate-800">Teknik Informatika (TI24B)</p>
-          </div>
-          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-            <p class="text-slate-400">Perguruan Tinggi</p>
-            <p class="text-sm font-bold text-slate-800">Universitas Muhammadiyah Cirebon</p>
-          </div>
-        </div>
       </div>
 
     </section>
@@ -201,8 +181,16 @@
             <p class="text-sm font-bold text-slate-800">TI24B</p>
           </div>
           <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+            <p class="text-slate-400">Program Studi</p>
+            <p class="text-sm font-bold text-slate-800">S1 Teknik Informatika</p>
+          </div>
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
             <p class="text-slate-400">Fakultas</p>
             <p class="text-sm font-bold text-slate-800">Fakultas Teknik</p>
+          </div>
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+            <p class="text-slate-400">Universitas</p>
+            <p class="text-sm font-bold text-slate-800">Universitas Muhammadiyah Cirebon</p>
           </div>
         </div>
       </div>
@@ -218,7 +206,7 @@
         </h3>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <select id="itemCategory" class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-indigo-50/50 text-indigo-700">
+          <select id="itemCategory" onchange="toggleHasTaskCheckbox()" class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-indigo-50/50 text-indigo-700">
             <option value="Materi">📁 Materi Kuliah</option>
             <option value="Tugas">📝 Tugas Kuliah (Jawaban)</option>
           </select>
@@ -248,6 +236,14 @@
           </select>
 
           <input type="text" id="itemTitle" placeholder="Judul Materi / Tugas" class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+        </div>
+
+        <!-- Checkbox opsi tugas untuk Materi -->
+        <div id="hasTaskOption" class="flex items-center gap-2 bg-slate-50 p-3 rounded-2xl border border-slate-100">
+          <input type="checkbox" id="itemHasTask" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 cursor-pointer">
+          <label for="itemHasTask" class="text-xs font-semibold text-slate-700 cursor-pointer">
+            Modul Materi ini memiliki soal Tugas/Latihan yang wajib dikerjakan
+          </label>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -320,7 +316,7 @@
       <div class="space-y-3">
         <div>
           <label class="block text-xs font-semibold text-slate-600 mb-1">Kategori</label>
-          <select id="editCategory" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50">
+          <select id="editCategory" onchange="toggleEditHasTaskCheckbox()" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50">
             <option value="Materi">📁 Materi Kuliah</option>
             <option value="Tugas">📝 Tugas Kuliah (Jawaban)</option>
           </select>
@@ -351,6 +347,14 @@
             <option value="Pertemuan 20">Pertemuan 20</option>
             <option value="Proyek Akhir">Proyek / Proposal Akhir</option>
           </select>
+        </div>
+
+        <!-- Edit Option Has Task -->
+        <div id="editHasTaskOption" class="flex items-center gap-2 bg-slate-50 p-3 rounded-2xl border border-slate-100">
+          <input type="checkbox" id="editHasTask" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 cursor-pointer">
+          <label for="editHasTask" class="text-xs font-semibold text-slate-700 cursor-pointer">
+            Modul Materi ini memiliki soal Tugas/Latihan
+          </label>
         </div>
 
         <div>
@@ -405,6 +409,26 @@
 
     let globalItems = [];
 
+    function toggleHasTaskCheckbox() {
+      const cat = document.getElementById('itemCategory').value;
+      const optionDiv = document.getElementById('hasTaskOption');
+      if (cat === 'Materi') {
+        optionDiv.classList.remove('hidden');
+      } else {
+        optionDiv.classList.add('hidden');
+      }
+    }
+
+    function toggleEditHasTaskCheckbox() {
+      const cat = document.getElementById('editCategory').value;
+      const optionDiv = document.getElementById('editHasTaskOption');
+      if (cat === 'Materi') {
+        optionDiv.classList.remove('hidden');
+      } else {
+        optionDiv.classList.add('hidden');
+      }
+    }
+
     async function fetchAndRender() {
       const { data, error } = await supabaseClient
         .from('adpl_items')
@@ -425,7 +449,8 @@
         linkUrl: item.link_url,
         fileName: item.file_name,
         fileData: item.file_url,
-        date: item.date
+        date: item.date,
+        hasTask: item.has_task ?? false
       }));
 
       renderContainer(globalItems);
@@ -506,7 +531,9 @@
       const materis = currentItems.filter(i => i.category === 'Materi');
       const tugass = currentItems.filter(i => i.category === 'Tugas');
 
-      const pendingCount = Math.max(0, materis.length - tugass.length);
+      // Logika Presisi: Hitung hanya Materi yang DICENTANG [Ada Tugas] dikurangi Total Tugas yang sudah terkumpul
+      const materisWajibTugas = materis.filter(m => m.hasTask === true);
+      const pendingCount = Math.max(0, materisWajibTugas.length - tugass.length);
 
       if (document.getElementById('statTotalMateri')) {
         document.getElementById('statTotalMateri').innerText = materis.length;
@@ -535,7 +562,10 @@
       return `
         <div class="p-4 bg-slate-50/70 rounded-2xl border border-slate-200/80 space-y-2 hover:bg-slate-50 transition text-slate-800">
           <div class="flex items-center justify-between">
-            <span class="text-[11px] font-bold px-2.5 py-0.5 ${badgeClass} rounded-full">${item.pertemuan}</span>
+            <div class="flex items-center gap-2">
+              <span class="text-[11px] font-bold px-2.5 py-0.5 ${badgeClass} rounded-full">${item.pertemuan}</span>
+              ${item.hasTask ? '<span class="text-[10px] font-bold px-2 py-0.5 bg-rose-50 text-rose-600 rounded-full border border-rose-200"><i class="fa-solid fa-circle-exclamation mr-1"></i>Ada Tugas</span>' : ''}
+            </div>
             <span class="text-[11px] text-slate-400">${item.date}</span>
           </div>
           <h4 class="font-bold text-slate-900 text-sm">${item.title}</h4>
@@ -588,6 +618,7 @@
       const title = document.getElementById('itemTitle').value;
       const desc = document.getElementById('itemDesc').value;
       const linkUrl = document.getElementById('itemLink').value;
+      const hasTask = category === 'Materi' ? document.getElementById('itemHasTask').checked : false;
       const fileInput = document.getElementById('itemFile');
       const file = fileInput.files[0];
 
@@ -641,6 +672,7 @@
             link_url: linkUrl,
             file_name: fileName,
             file_url: fileUrl,
+            has_task: hasTask,
             date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
           }]);
 
@@ -651,6 +683,7 @@
         document.getElementById('itemTitle').value = '';
         document.getElementById('itemDesc').value = '';
         document.getElementById('itemLink').value = '';
+        document.getElementById('itemHasTask').checked = false;
         fileInput.value = '';
         alert('Data berhasil disimpan!');
 
@@ -673,8 +706,10 @@
       document.getElementById('editTitle').value = item.title;
       document.getElementById('editLink').value = item.linkUrl || '';
       document.getElementById('editDesc').value = item.desc || '';
+      document.getElementById('editHasTask').checked = item.hasTask || false;
       document.getElementById('editFile').value = '';
 
+      toggleEditHasTaskCheckbox();
       document.getElementById('editModal').classList.remove('hidden');
     }
 
@@ -691,6 +726,7 @@
       const title = document.getElementById('editTitle').value;
       const desc = document.getElementById('editDesc').value;
       const linkUrl = document.getElementById('editLink').value;
+      const hasTask = category === 'Materi' ? document.getElementById('editHasTask').checked : false;
       const fileInput = document.getElementById('editFile');
       const newFile = fileInput.files[0];
 
@@ -739,7 +775,8 @@
             desc: desc,
             link_url: linkUrl,
             file_name: fileName,
-            file_url: fileUrl
+            file_url: fileUrl,
+            has_task: hasTask
           })
           .eq('id', id);
 
