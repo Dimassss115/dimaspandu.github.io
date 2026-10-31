@@ -9,6 +9,18 @@
   
   <!-- Supabase JS SDK v2 -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- CUSTOM CSS FOR SHAKE ANIMATION -->
+  <style>
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-10px); }
+      40%, 80% { transform: translateX(10px); }
+    }
+    .animate-shake {
+      animation: shake 0.4s ease-in-out;
+    }
+  </style>
 </head>
 <body class="bg-[#EEECFE] text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-purple-500 selection:text-white">
 
@@ -360,26 +372,40 @@
 
   </main>
 
-  <!-- ================= MODAL 1: PIN ADMIN CUSTOM ================= -->
+  <!-- ================= MODAL 1: PIN ADMIN CUSTOM (OTP DIGIT + ANIMASI SHAKE) ================= -->
   <div id="pinModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white border border-slate-200 rounded-[32px] max-w-sm w-full p-6 shadow-2xl space-y-4 text-center">
-      <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mx-auto font-bold border border-amber-200">
+    <div id="pinModalBox" class="bg-white border border-slate-200 rounded-[32px] max-w-md w-full p-6 sm:p-8 shadow-2xl space-y-6 text-center transition-all">
+      
+      <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl mx-auto font-bold border border-amber-200 shadow-sm">
         <i class="fa-solid fa-lock"></i>
       </div>
+
       <div>
-        <h3 class="font-black text-slate-900 text-base">Autentikasi Admin</h3>
-        <p class="text-xs text-slate-500 mt-0.5">Masukkan PIN rahasia untuk mengaktifkan akses Admin</p>
+        <h3 class="font-black text-slate-900 text-lg tracking-tight">Autentikasi Admin</h3>
+        <p class="text-xs text-slate-500 mt-1">Masukkan 9 digit PIN rahasia untuk mengaktifkan akses Admin</p>
       </div>
 
-      <div class="space-y-2">
-        <input type="password" id="inputPinAdmin" placeholder="• • • • • •" class="w-full text-center px-4 py-3 rounded-2xl border border-slate-200 font-bold text-lg tracking-widest focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50" onkeyup="if(event.key==='Enter') verifyAdminPin()">
+      <div class="space-y-3">
+        <!-- 9 KOTAK DIGIT TERPISAH -->
+        <div class="flex justify-center gap-1.5 sm:gap-2" id="otpContainer">
+          <input type="password" maxlength="1" class="otp-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
+          <input type="password" maxlength="1" class="otp-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
+          <input type="password" maxlength="1" class="otp-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
+          <input type="password" maxlength="1" class="otp-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
+          <input type="password" maxlength="1" class="otp-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
+          <input type="password" maxlength="1" class="otp-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
+          <input type="password" maxlength="1" class="otp-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
+          <input type="password" maxlength="1" class="otp-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
+          <input type="password" maxlength="1" class="otp-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
+        </div>
         <p id="pinErrorMsg" class="text-xs text-rose-500 font-semibold hidden">PIN yang Anda masukkan salah!</p>
       </div>
 
-      <div class="flex gap-2 pt-2">
-        <button onclick="closePinModal()" class="w-1/2 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-full transition">Batal</button>
-        <button onclick="verifyAdminPin()" class="w-1/2 py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-full transition shadow-sm">Verifikasi PIN</button>
+      <div class="flex gap-2.5 pt-2">
+        <button onclick="closePinModal()" class="w-1/2 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-full transition">Batal</button>
+        <button onclick="verifyAdminPin()" class="w-1/2 py-3 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-full transition shadow-sm">Verifikasi PIN</button>
       </div>
+
     </div>
   </div>
 
@@ -508,7 +534,7 @@
     </div>
   </div>
 
-  <!-- SCRIPT LOGIC SUPABASE & CUSTOM MODALS -->
+  <!-- SCRIPT LOGIC SUPABASE & MANAGEMENT ROLE & OTP SHAKE -->
   <script>
     const ADMIN_PIN = "240511103";
     let isAdmin = false;
@@ -521,12 +547,70 @@
 
     let globalItems = [];
 
-    // FUNGSI CUSTOM PIN MODAL
+    // FUNGSI INISIALISASI INPUT OTP DIGIT
+    function initOtpInputs() {
+      const inputs = document.querySelectorAll('.otp-digit');
+      
+      inputs.forEach((input, index) => {
+        // Otomatis pindah fokus saat diisi
+        input.addEventListener('input', (e) => {
+          const val = e.target.value;
+          if (val.length > 0) {
+            if (index < inputs.length - 1) {
+              inputs[index + 1].focus();
+            } else {
+              verifyAdminPin();
+            }
+          }
+        });
+
+        // Pindah fokus saat menekan Backspace
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace') {
+            if (!input.value && index > 0) {
+              inputs[index - 1].focus();
+              inputs[index - 1].value = '';
+            } else {
+              input.value = '';
+            }
+          }
+        });
+
+        // Menangani Paste (Tempel PIN sekaligus)
+        input.addEventListener('paste', (e) => {
+          e.preventDefault();
+          const pastedData = (e.clipboardData || window.clipboardData).getData('text').trim();
+          if (/^\d+$/.test(pastedData)) {
+            const digits = pastedData.split('');
+            inputs.forEach((inp, i) => {
+              if (digits[i]) inp.value = digits[i];
+            });
+            const nextIdx = Math.min(digits.length, inputs.length - 1);
+            inputs[nextIdx].focus();
+            if (digits.length >= inputs.length) {
+              verifyAdminPin();
+            }
+          }
+        });
+      });
+    }
+
     function openPinModal() {
-      document.getElementById('inputPinAdmin').value = '';
+      const inputs = document.querySelectorAll('.otp-digit');
+      const modalBox = document.getElementById('pinModalBox');
+      
+      modalBox.classList.remove('border-rose-500');
+      inputs.forEach(inp => {
+        inp.value = '';
+        inp.classList.remove('border-rose-400');
+      });
+
       document.getElementById('pinErrorMsg').classList.add('hidden');
       document.getElementById('pinModal').classList.remove('hidden');
-      setTimeout(() => document.getElementById('inputPinAdmin').focus(), 100);
+      
+      setTimeout(() => {
+        if (inputs[0]) inputs[0].focus();
+      }, 100);
     }
 
     function closePinModal() {
@@ -534,20 +618,35 @@
     }
 
     function verifyAdminPin() {
-      const pin = document.getElementById('inputPinAdmin').value;
-      if (pin === ADMIN_PIN) {
+      const inputs = document.querySelectorAll('.otp-digit');
+      const modalBox = document.getElementById('pinModalBox');
+      const enteredPin = Array.from(inputs).map(inp => inp.value).join('');
+
+      if (enteredPin === ADMIN_PIN) {
         isAdmin = true;
         currentRole = 'admin';
         closePinModal();
 
-        // Tampilkan main app
         document.getElementById('loginScreen').classList.add('hidden');
         document.getElementById('mainHeader').classList.remove('hidden');
         document.getElementById('mainApp').classList.remove('hidden');
 
         updateRoleUI();
       } else {
+        // TAMPILKAN EFEK SHAKE & WARNA MERAH JIKA PIN SALAH
         document.getElementById('pinErrorMsg').classList.remove('hidden');
+        modalBox.classList.add('animate-shake', 'border-rose-500');
+
+        inputs.forEach(inp => {
+          inp.value = '';
+          inp.classList.add('border-rose-400');
+        });
+
+        setTimeout(() => {
+          modalBox.classList.remove('animate-shake');
+        }, 400);
+
+        if (inputs[0]) inputs[0].focus();
       }
     }
 
@@ -728,6 +827,7 @@
       .subscribe();
 
     fetchAndRender();
+    document.addEventListener('DOMContentLoaded', initOtpInputs);
 
     function toggleMobileMenu() {
       document.getElementById('mobileMenu').classList.toggle('hidden');
@@ -801,7 +901,6 @@
         }
       }
 
-      <!-- TAMPILKAN CATATAN DOSEN LANGSUNG PADA WEB -->
       const dosenNotesHtml = item.dosenNotes ? `
         <div class="mt-3 p-3.5 bg-purple-50 rounded-2xl border border-purple-200/80 text-xs text-purple-950 space-y-1">
           <div class="flex items-center justify-between font-bold text-[11px] text-purple-700 border-b border-purple-100 pb-1">
