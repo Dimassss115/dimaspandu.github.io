@@ -10,171 +10,164 @@
   <!-- Supabase JS SDK v2 -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-blue-500 selection:text-white relative bg-slate-950">
+<body class="bg-[#EEECFE] text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-purple-500 selection:text-white">
 
-  <!-- FULL BACKGROUND IMAGE & DARK OVERLAY -->
-  <div class="fixed inset-0 -z-20 bg-cover bg-center bg-no-repeat bg-fixed" style="background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80');"></div>
-  <div class="fixed inset-0 -z-10 bg-slate-950/60 backdrop-blur-[3px]"></div>
-
-  <!-- TOP NAVIGATION BAR (GLASSMORPHISM) -->
-  <header class="bg-white/15 backdrop-blur-xl border-b border-white/20 sticky top-0 z-40 shadow-lg">
-    <div class="max-w-6xl mx-auto px-4 md:px-8 h-20 flex items-center justify-between gap-4">
+  <!-- TOP FLOATING PILL NAVBAR -->
+  <header class="sticky top-4 z-40 px-4">
+    <div class="max-w-5xl mx-auto bg-white/90 backdrop-blur-md rounded-full border border-slate-900/10 px-6 py-3 flex items-center justify-between shadow-sm">
       
       <!-- Brand Logo -->
-      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('beranda')">
-        <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-base shadow-lg shadow-blue-500/30">
+      <div class="flex items-center space-x-2 cursor-pointer" onclick="switchTab('beranda')">
+        <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-extrabold text-xs">
           DP
         </div>
-        <div>
-          <h1 class="font-bold text-white text-base leading-tight">Dimas Pandu W.</h1>
-          <p class="text-xs text-slate-300 font-medium">Portofolio Akademik</p>
-        </div>
+        <span class="font-extrabold text-slate-900 text-sm tracking-tight">Dimas.</span>
       </div>
 
       <!-- Navigation Links (Desktop) -->
-      <nav class="hidden md:flex items-center space-x-1 bg-white/10 p-1.5 rounded-full border border-white/20 backdrop-blur-md">
-        <button onclick="switchTab('beranda')" id="nav-beranda" class="px-5 py-2 text-xs font-semibold rounded-full bg-white text-blue-600 shadow-md transition-all duration-200">
-          Beranda
-        </button>
-        <button onclick="switchTab('profil')" id="nav-profil" class="px-5 py-2 text-xs font-semibold rounded-full text-slate-200 hover:text-white hover:bg-white/10 transition-all duration-200">
-          Profil Saya
-        </button>
-        <button onclick="switchTab('materi')" id="nav-materi" class="px-5 py-2 text-xs font-semibold rounded-full text-slate-200 hover:text-white hover:bg-white/10 transition-all duration-200">
-          Materi & Tugas
-        </button>
-        <button onclick="switchTab('informasi')" id="nav-informasi" class="px-5 py-2 text-xs font-semibold rounded-full text-slate-200 hover:text-white hover:bg-white/10 transition-all duration-200">
-          Informasi
-        </button>
+      <nav class="hidden md:flex items-center space-x-6 text-xs font-semibold text-slate-600">
+        <button onclick="switchTab('beranda')" id="nav-beranda" class="text-slate-900 font-bold transition">Beranda</button>
+        <span class="text-slate-300">•</span>
+        <button onclick="switchTab('profil')" id="nav-profil" class="hover:text-slate-900 transition">Profil Saya</button>
+        <span class="text-slate-300">•</span>
+        <button onclick="switchTab('materi')" id="nav-materi" class="hover:text-slate-900 transition">Materi & Tugas</button>
+        <span class="text-slate-300">•</span>
+        <button onclick="switchTab('informasi')" id="nav-informasi" class="hover:text-slate-900 transition">Informasi</button>
       </nav>
 
-      <!-- Right Action & Mobile Toggle -->
-      <div class="flex items-center space-x-3">
-        <button onclick="toggleAdminMode()" id="adminBtn" class="px-4 py-2 bg-slate-900/80 hover:bg-slate-900 text-white text-xs font-semibold rounded-full flex items-center gap-2 border border-white/20 transition shadow-lg">
-          <i class="fa-solid fa-lock text-slate-400 text-xs" id="adminIcon"></i>
+      <!-- Right Pill Action & Mobile Menu Button -->
+      <div class="flex items-center space-x-2">
+        <button onclick="toggleAdminMode()" id="adminBtn" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-sm">
+          <i class="fa-solid fa-lock text-slate-400 text-[10px]" id="adminIcon"></i>
           <span id="adminText">Mode Admin</span>
         </button>
 
-        <button onclick="toggleMobileMenu()" class="md:hidden text-white p-2 rounded-xl bg-white/20 border border-white/30">
-          <i class="fa-solid fa-bars text-lg"></i>
+        <button onclick="toggleMobileMenu()" class="md:hidden text-slate-700 p-2 rounded-full hover:bg-slate-100">
+          <i class="fa-solid fa-bars text-base"></i>
         </button>
       </div>
 
     </div>
 
     <!-- Mobile Navigation Drawer -->
-    <div id="mobileMenu" class="hidden md:hidden border-t border-white/20 bg-slate-900/90 backdrop-blur-xl px-4 py-3 space-y-1">
-      <button onclick="switchTab('beranda')" class="w-full text-left px-4 py-2.5 text-sm font-semibold text-blue-400 bg-white/10 rounded-xl">Beranda</button>
-      <button onclick="switchTab('profil')" class="w-full text-left px-4 py-2.5 text-sm font-medium text-slate-200 hover:bg-white/10 rounded-xl">Profil Saya</button>
-      <button onclick="switchTab('materi')" class="w-full text-left px-4 py-2.5 text-sm font-medium text-slate-200 hover:bg-white/10 rounded-xl">Materi & Tugas</button>
-      <button onclick="switchTab('informasi')" class="w-full text-left px-4 py-2.5 text-sm font-medium text-slate-200 hover:bg-white/10 rounded-xl">Informasi</button>
+    <div id="mobileMenu" class="hidden md:hidden max-w-5xl mx-auto mt-2 bg-white rounded-2xl border border-slate-900/10 p-4 space-y-2 shadow-lg">
+      <button onclick="switchTab('beranda')" class="w-full text-left px-4 py-2 text-xs font-bold text-indigo-600 bg-indigo-50 rounded-xl">Beranda</button>
+      <button onclick="switchTab('profil')" class="w-full text-left px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50 rounded-xl">Profil Saya</button>
+      <button onclick="switchTab('materi')" class="w-full text-left px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50 rounded-xl">Materi & Tugas</button>
+      <button onclick="switchTab('informasi')" class="w-full text-left px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50 rounded-xl">Informasi</button>
     </div>
   </header>
 
   <!-- MAIN CONTAINER -->
-  <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-8 space-y-10">
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-8 space-y-12">
 
-    <!-- TAB: BERANDA -->
-    <section id="tab-beranda" class="space-y-10">
+    <!-- TAB: BERANDA (MEEKO PASTEL STYLE HERO) -->
+    <section id="tab-beranda" class="space-y-12">
       
-      <!-- HERO HEADER TEXT -->
-      <div class="text-center space-y-4 pt-6 sm:pt-12 max-w-3xl mx-auto">
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/25 text-white text-xs font-semibold shadow-sm">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          Portofolio Akademik · Teknik Informatika UMC
-        </div>
+      <!-- HERO SECTION -->
+      <div class="relative text-center max-w-3xl mx-auto pt-6 space-y-6">
         
-        <h2 class="text-3xl sm:text-5xl font-black tracking-tight leading-[1.15] drop-shadow-lg text-white">
-          Kelola Materi & Tugas <br class="hidden sm:inline">
-          <span class="text-blue-300">Perkuliahan Lebih Praktis</span>
+        <!-- Floating Badge Left -->
+        <div class="hidden sm:inline-flex absolute -top-2 left-0 -rotate-6 px-3.5 py-1.5 bg-blue-100 border border-blue-300 text-blue-800 rounded-full text-xs font-semibold shadow-sm items-center gap-1.5">
+          <i class="fa-solid fa-sparkles text-blue-500"></i> Teknik Informatika
+        </div>
+
+        <!-- Floating Badge Right -->
+        <div class="hidden sm:inline-flex absolute bottom-10 right-0 rotate-6 px-3.5 py-1.5 bg-pink-100 border border-pink-300 text-pink-800 rounded-full text-xs font-semibold shadow-sm items-center gap-1.5">
+          <i class="fa-solid fa-code text-pink-500"></i> ADPL Course
+        </div>
+
+        <!-- Headline with Inline Circle Avatar -->
+        <h2 class="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight leading-tight">
+          Halo! 
+          <span class="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-600 text-white font-extrabold text-xl sm:text-2xl align-middle mx-1 shadow-md border-2 border-white">
+            DP
+          </span>
+          Saya Dimas.<br>
+          Mahasiswa & Developer.
         </h2>
         
-        <p class="text-slate-200 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto drop-shadow-md">
-          Selamat datang di portal akademik Dimas Pandu Wibowo. Tempat penampungan berkas modul perkuliahan, tugas harian, dan informasi akademik secara terstruktur.
+        <!-- Subtitle -->
+        <p class="text-slate-600 text-sm sm:text-base max-w-xl mx-auto leading-relaxed font-normal">
+          Dashboard portofolio akademik penampung materi perkuliahan, modul pembelajaran, dan tugas mata kuliah <span class="font-bold text-slate-800">Analisis & Desain Perangkat Lunak</span>.
         </p>
 
-        <div class="pt-3 flex flex-wrap justify-center gap-3">
-          <button onclick="switchTab('materi')" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs rounded-full shadow-lg shadow-blue-600/30 transition flex items-center gap-2 border border-blue-400/30">
-            <i class="fa-solid fa-folder-open"></i> Lihat Materi & Tugas
+        <!-- CTA Buttons -->
+        <div class="pt-2 flex flex-wrap justify-center gap-3">
+          <button onclick="switchTab('materi')" class="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-full shadow-sm transition flex items-center gap-2">
+            Lihat Materi & Tugas <i class="fa-solid fa-arrow-right text-[10px]"></i>
           </button>
-          <button onclick="switchTab('profil')" class="px-6 py-3 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border border-white/30 font-semibold text-xs rounded-full shadow-sm transition">
+          <button onclick="switchTab('profil')" class="px-6 py-3 bg-white hover:bg-slate-100 text-slate-800 border border-slate-900/10 font-bold text-xs rounded-full shadow-sm transition">
             Profil Mahasiswa
           </button>
         </div>
       </div>
 
-      <!-- STATISTIK RINGKASAN (GLASS CARDS) -->
-      <div class="space-y-4 pt-4">
-        <h3 class="text-xs font-bold uppercase text-slate-300 tracking-wider text-center drop-shadow">Ringkasan Statistik</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          
-          <div class="bg-white/20 backdrop-blur-xl p-6 rounded-3xl border border-white/30 shadow-2xl flex items-center space-x-4">
-            <div class="w-12 h-12 rounded-2xl bg-blue-500/30 border border-blue-400/40 text-blue-200 flex items-center justify-center text-xl shrink-0">
-              <i class="fa-solid fa-folder-open"></i>
-            </div>
-            <div>
-              <p class="text-xs text-slate-300 font-medium">Total Materi</p>
-              <p id="statTotalMateri" class="text-2xl font-black text-white">0</p>
-              <p class="text-[11px] text-slate-300">Modul Diunggah</p>
-            </div>
+      <!-- 3 MEEKO-STYLE STATISTIC CARDS -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+        
+        <!-- Card 1: Total Materi -->
+        <div class="bg-white p-8 rounded-[32px] border border-slate-900/10 shadow-sm hover:shadow-md transition-all text-center flex flex-col items-center justify-between space-y-4">
+          <div class="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-2xl border border-blue-100">
+            <i class="fa-regular fa-folder-open"></i>
           </div>
-
-          <div class="bg-white/20 backdrop-blur-xl p-6 rounded-3xl border border-white/30 shadow-2xl flex items-center space-x-4">
-            <div class="w-12 h-12 rounded-2xl bg-emerald-500/30 border border-emerald-400/40 text-emerald-200 flex items-center justify-center text-xl shrink-0">
-              <i class="fa-solid fa-circle-check"></i>
-            </div>
-            <div>
-              <p class="text-xs text-slate-300 font-medium">Tugas Terkumpul</p>
-              <p id="statTotalTugas" class="text-2xl font-black text-emerald-300">0</p>
-              <p class="text-[11px] text-slate-300">Jawaban Selesai</p>
-            </div>
+          <div class="space-y-1">
+            <h3 class="text-lg font-bold text-slate-900">Modul Materi</h3>
+            <p id="statTotalMateri" class="text-3xl font-black text-blue-600">0</p>
+            <p class="text-xs text-slate-500 max-w-[200px]">Modul materi perkuliahan terdata di database.</p>
           </div>
-
-          <div class="bg-white/20 backdrop-blur-xl p-6 rounded-3xl border border-white/30 shadow-2xl flex items-center space-x-4">
-            <div class="w-12 h-12 rounded-2xl bg-amber-500/30 border border-amber-400/40 text-amber-200 flex items-center justify-center text-xl shrink-0">
-              <i class="fa-solid fa-clock"></i>
-            </div>
-            <div>
-              <p class="text-xs text-slate-300 font-medium">Belum Dikerjakan</p>
-              <p id="statPendingTugas" class="text-2xl font-black text-amber-300">0</p>
-              <p class="text-[11px] text-amber-200 font-medium">Perlu Jawaban Tugas</p>
-            </div>
-          </div>
-
+          <button onclick="switchTab('materi')" class="w-9 h-9 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 flex items-center justify-center transition border border-blue-200">
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </button>
         </div>
+
+        <!-- Card 2: Tugas Terkumpul -->
+        <div class="bg-white p-8 rounded-[32px] border border-slate-900/10 shadow-sm hover:shadow-md transition-all text-center flex flex-col items-center justify-between space-y-4">
+          <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl border border-amber-100">
+            <i class="fa-regular fa-clipboard"></i>
+          </div>
+          <div class="space-y-1">
+            <h3 class="text-lg font-bold text-slate-900">Tugas Terkumpul</h3>
+            <p id="statTotalTugas" class="text-3xl font-black text-amber-600">0</p>
+            <p class="text-xs text-slate-500 max-w-[200px]">Berkas jawaban tugas yang telah diselesaikan.</p>
+          </div>
+          <button onclick="switchTab('materi')" class="w-9 h-9 rounded-full bg-amber-50 text-amber-600 hover:bg-amber-100 flex items-center justify-center transition border border-amber-200">
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </button>
+        </div>
+
+        <!-- Card 3: Belum Dikerjakan -->
+        <div class="bg-white p-8 rounded-[32px] border border-slate-900/10 shadow-sm hover:shadow-md transition-all text-center flex flex-col items-center justify-between space-y-4">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl border border-emerald-100">
+            <i class="fa-regular fa-clock"></i>
+          </div>
+          <div class="space-y-1">
+            <h3 class="text-lg font-bold text-slate-900">Belum Dikerjakan</h3>
+            <p id="statPendingTugas" class="text-3xl font-black text-emerald-600">0</p>
+            <p class="text-xs text-slate-500 max-w-[200px]">Modul materi yang masih memerlukan tugas.</p>
+          </div>
+          <button onclick="switchTab('materi')" class="w-9 h-9 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 flex items-center justify-center transition border border-emerald-200">
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </button>
+        </div>
+
       </div>
 
-      <!-- INFORMASI AKADEMIK (GLASS CARDS) -->
-      <div class="space-y-4">
-        <h3 class="text-xs font-bold uppercase text-slate-300 tracking-wider text-center drop-shadow">Identitas Akademik</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="bg-white/20 backdrop-blur-xl p-5 rounded-3xl border border-white/30 shadow-xl flex items-center space-x-4">
-            <div class="w-10 h-10 rounded-2xl bg-indigo-500/30 border border-indigo-400/40 text-indigo-200 flex items-center justify-center text-lg shrink-0">
-              <i class="fa-solid fa-address-card"></i>
-            </div>
-            <div>
-              <p class="text-xs text-slate-300 font-medium">NIM Mahasiswa</p>
-              <p class="text-base font-bold text-white">240511103</p>
-            </div>
+      <!-- ACADEMIC IDENTITY CARD -->
+      <div class="bg-white p-8 rounded-[32px] border border-slate-900/10 shadow-sm space-y-4">
+        <h3 class="text-xs font-extrabold uppercase text-slate-400 tracking-wider">Identitas Akademik</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-medium">
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+            <p class="text-slate-400">Nomor Induk Mahasiswa</p>
+            <p class="text-sm font-bold text-slate-800">240511103</p>
           </div>
-
-          <div class="bg-white/20 backdrop-blur-xl p-5 rounded-3xl border border-white/30 shadow-xl flex items-center space-x-4">
-            <div class="w-10 h-10 rounded-2xl bg-amber-500/30 border border-amber-400/40 text-amber-200 flex items-center justify-center text-lg shrink-0">
-              <i class="fa-solid fa-book-bookmark"></i>
-            </div>
-            <div>
-              <p class="text-xs text-slate-300 font-medium">Program Studi</p>
-              <p class="text-base font-bold text-white">Teknik Informatika (TI24B)</p>
-            </div>
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+            <p class="text-slate-400">Program Studi</p>
+            <p class="text-sm font-bold text-slate-800">Teknik Informatika (TI24B)</p>
           </div>
-
-          <div class="bg-white/20 backdrop-blur-xl p-5 rounded-3xl border border-white/30 shadow-xl flex items-center space-x-4">
-            <div class="w-10 h-10 rounded-2xl bg-emerald-500/30 border border-emerald-400/40 text-emerald-200 flex items-center justify-center text-lg shrink-0">
-              <i class="fa-solid fa-building-columns"></i>
-            </div>
-            <div>
-              <p class="text-xs text-slate-300 font-medium">Perguruan Tinggi</p>
-              <p class="text-base font-bold text-white">Univ. Muhammadiyah Cirebon</p>
-            </div>
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+            <p class="text-slate-400">Perguruan Tinggi</p>
+            <p class="text-sm font-bold text-slate-800">Universitas Muhammadiyah Cirebon</p>
           </div>
         </div>
       </div>
@@ -182,34 +175,34 @@
     </section>
 
     <!-- TAB: PROFIL SAYA -->
-    <section id="tab-profil" class="space-y-6 max-w-3xl mx-auto hidden">
-      <div class="bg-white/20 backdrop-blur-xl p-8 rounded-3xl border border-white/30 shadow-2xl space-y-6">
-        <div class="flex items-center space-x-4 border-b border-white/20 pb-6">
-          <div class="w-16 h-16 rounded-2xl bg-blue-600 text-white flex items-center justify-center font-black text-2xl shadow-lg shadow-blue-500/30 border border-blue-400/30">
+    <section id="tab-profil" class="space-y-6 max-w-2xl mx-auto hidden">
+      <div class="bg-white p-8 rounded-[32px] border border-slate-900/10 shadow-sm space-y-6">
+        <div class="flex items-center space-x-4 border-b border-slate-100 pb-6">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-600 text-white flex items-center justify-center font-black text-2xl shadow-md border-2 border-white">
             DP
           </div>
           <div>
-            <h3 class="text-xl font-bold text-white">Dimas Pandu Wibowo</h3>
-            <p class="text-xs text-slate-300 font-medium">Mahasiswa S1 Teknik Informatika</p>
+            <h3 class="text-xl font-bold text-slate-900">Dimas Pandu Wibowo</h3>
+            <p class="text-xs text-slate-500 font-medium">Mahasiswa S1 Teknik Informatika</p>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-          <div class="p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
-            <p class="text-xs text-slate-300 font-medium">Nama Lengkap</p>
-            <p class="font-bold text-white">Dimas Pandu Wibowo</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-medium">
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+            <p class="text-slate-400">Nama Lengkap</p>
+            <p class="text-sm font-bold text-slate-800">Dimas Pandu Wibowo</p>
           </div>
-          <div class="p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
-            <p class="text-xs text-slate-300 font-medium">NIM</p>
-            <p class="font-bold text-white">240511103</p>
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+            <p class="text-slate-400">NIM</p>
+            <p class="text-sm font-bold text-slate-800">240511103</p>
           </div>
-          <div class="p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
-            <p class="text-xs text-slate-300 font-medium">Kelas / Rombel</p>
-            <p class="font-bold text-white">TI24B</p>
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+            <p class="text-slate-400">Kelas / Rombel</p>
+            <p class="text-sm font-bold text-slate-800">TI24B</p>
           </div>
-          <div class="p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
-            <p class="text-xs text-slate-300 font-medium">Fakultas</p>
-            <p class="font-bold text-white">Fakultas Teknik</p>
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+            <p class="text-slate-400">Fakultas</p>
+            <p class="text-sm font-bold text-slate-800">Fakultas Teknik</p>
           </div>
         </div>
       </div>
@@ -219,18 +212,18 @@
     <section id="tab-materi" class="space-y-6 hidden">
       
       <!-- FORM UPLOAD (KHUSUS ADMIN) -->
-      <div id="formUploadAdmin" class="bg-white/20 backdrop-blur-xl p-6 rounded-3xl border border-white/30 shadow-2xl space-y-4 hidden">
-        <h3 class="text-base font-bold text-white flex items-center gap-2">
-          <i class="fa-solid fa-cloud-arrow-up text-blue-300"></i> Tambah Data Cloud Database
+      <div id="formUploadAdmin" class="bg-white p-6 rounded-[32px] border border-slate-900/10 shadow-sm space-y-4 hidden">
+        <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-cloud-arrow-up text-indigo-600"></i> Tambah Data Cloud Database
         </h3>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <select id="itemCategory" class="w-full px-4 py-2.5 rounded-2xl border border-white/30 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 bg-slate-900/80 text-white">
+          <select id="itemCategory" class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-indigo-50/50 text-indigo-700">
             <option value="Materi">📁 Materi Kuliah</option>
             <option value="Tugas">📝 Tugas Kuliah (Jawaban)</option>
           </select>
 
-          <select id="itemPertemuan" class="w-full px-4 py-2.5 rounded-2xl border border-white/30 text-xs focus:outline-none focus:ring-2 focus:ring-blue-400 bg-slate-900/80 text-white">
+          <select id="itemPertemuan" class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
             <option value="Pertemuan 1">Pertemuan 1</option>
             <option value="Pertemuan 2">Pertemuan 2</option>
             <option value="Pertemuan 3">Pertemuan 3</option>
@@ -254,46 +247,46 @@
             <option value="Proyek Akhir">Proyek / Proposal Akhir</option>
           </select>
 
-          <input type="text" id="itemTitle" placeholder="Judul Materi / Tugas" class="w-full px-4 py-2.5 rounded-2xl border border-white/30 text-xs focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white/10 text-white placeholder-slate-300">
+          <input type="text" id="itemTitle" placeholder="Judul Materi / Tugas" class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label class="block text-[11px] text-slate-200 mb-1 font-medium">Unggah File (PDF, Docx, Gambar, Zip - Maks 10MB)</label>
-            <input type="file" id="itemFile" class="w-full text-xs text-slate-200 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-white/20 file:text-white hover:file:bg-white/30">
+            <label class="block text-[11px] text-slate-500 mb-1 font-medium">Unggah File (PDF, Docx, Gambar, Zip - Maks 10MB)</label>
+            <input type="file" id="itemFile" class="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-600 hover:file:bg-indigo-100">
           </div>
 
           <div>
-            <label class="block text-[11px] text-slate-200 mb-1 font-medium">Atau Link Google Drive / GitHub (Opsional)</label>
-            <input type="url" id="itemLink" placeholder="https://drive.google.com/..." class="w-full px-4 py-2 rounded-2xl border border-white/30 text-xs focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white/10 text-white placeholder-slate-300">
+            <label class="block text-[11px] text-slate-500 mb-1 font-medium">Atau Link Google Drive / GitHub (Opsional)</label>
+            <input type="url" id="itemLink" placeholder="https://drive.google.com/..." class="w-full px-4 py-2 rounded-2xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
           </div>
         </div>
 
-        <textarea id="itemDesc" rows="2" placeholder="Catatan / Deskripsi singkat (opsional)" class="w-full px-4 py-2.5 rounded-2xl border border-white/30 text-xs focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white/10 text-white placeholder-slate-300"></textarea>
+        <textarea id="itemDesc" rows="2" placeholder="Catatan / Deskripsi singkat (opsional)" class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white"></textarea>
 
-        <button onclick="addItemToDatabase()" id="btnSave" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-xs font-semibold transition flex items-center gap-2 shadow-lg border border-blue-400/30">
+        <button onclick="addItemToDatabase()" id="btnSave" class="px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-full text-xs font-bold transition flex items-center gap-2 shadow-sm">
           <i class="fa-solid fa-cloud-arrow-up"></i> Simpan ke Cloud Database
         </button>
       </div>
 
-      <!-- WADAH MATERI (TRANSPARAN BLUR) -->
-      <div class="bg-white/20 backdrop-blur-xl p-6 rounded-3xl border border-white/30 shadow-2xl space-y-4">
-        <div class="flex items-center justify-between border-b border-white/20 pb-3">
-          <h3 class="text-sm font-bold text-white flex items-center gap-2">
-            <i class="fa-solid fa-book-open text-blue-300"></i> Wadah Materi Perkuliahan
+      <!-- WADAH MATERI -->
+      <div class="bg-white p-6 sm:p-8 rounded-[32px] border border-slate-900/10 shadow-sm space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-book-open text-blue-600"></i> Wadah Materi Perkuliahan
           </h3>
-          <span class="text-xs px-3 py-1 bg-blue-500/30 text-blue-200 font-semibold rounded-full border border-blue-400/30" id="materiCount">0 Materi</span>
+          <span class="text-xs px-3 py-1 bg-blue-50 text-blue-600 font-bold rounded-full border border-blue-100" id="materiCount">0 Materi</span>
         </div>
         <div id="materiList" class="space-y-3"></div>
       </div>
 
-      <!-- WADAH TUGAS (TRANSPARAN BLUR) -->
-      <div class="bg-white/20 backdrop-blur-xl p-6 rounded-3xl border border-white/30 shadow-2xl space-y-4">
-        <div class="flex items-center justify-between border-b border-white/20 pb-3">
-          <h3 class="text-sm font-bold text-white flex items-center gap-2">
-            <i class="fa-solid fa-list-check text-emerald-300"></i> Wadah Tugas Perkuliahan
+      <!-- WADAH TUGAS -->
+      <div class="bg-white p-6 sm:p-8 rounded-[32px] border border-slate-900/10 shadow-sm space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-list-check text-amber-600"></i> Wadah Tugas Perkuliahan
           </h3>
-          <span class="text-xs px-3 py-1 bg-emerald-500/30 text-emerald-200 font-semibold rounded-full border border-emerald-400/30" id="tugasCount">0 Tugas</span>
+          <span class="text-xs px-3 py-1 bg-amber-50 text-amber-600 font-bold rounded-full border border-amber-100" id="tugasCount">0 Tugas</span>
         </div>
         <div id="tugasList" class="space-y-3"></div>
       </div>
@@ -301,10 +294,10 @@
     </section>
 
     <!-- TAB: INFORMASI -->
-    <section id="tab-informasi" class="space-y-6 max-w-3xl mx-auto hidden">
-      <div class="bg-white/20 backdrop-blur-xl p-8 rounded-3xl border border-white/30 shadow-2xl space-y-3">
-        <h3 class="text-lg font-bold text-white">Informasi Portal</h3>
-        <p class="text-sm text-slate-200 leading-relaxed">
+    <section id="tab-informasi" class="space-y-6 max-w-2xl mx-auto hidden">
+      <div class="bg-white p-8 rounded-[32px] border border-slate-900/10 shadow-sm space-y-3">
+        <h3 class="text-lg font-bold text-slate-900">Informasi Portal</h3>
+        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
           Portal web ini dibuat sebagai wadah portofolio akademik untuk menampung seluruh materi dan tugas mata kuliah Analisis & Desain Perangkat Lunak, S1 Teknik Informatika, Universitas Muhammadiyah Cirebon.
         </p>
       </div>
@@ -313,29 +306,29 @@
   </main>
 
   <!-- MODAL POPUP EDIT ITEM -->
-  <div id="editModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-900/90 border border-white/20 rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-4 text-white">
-      <div class="flex items-center justify-between border-b border-white/20 pb-3">
-        <h3 class="font-bold text-white text-sm flex items-center gap-2">
-          <i class="fa-solid fa-pen-to-square text-amber-400"></i> Edit Data File
+  <div id="editModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white border border-slate-200 rounded-[32px] max-w-lg w-full p-6 shadow-2xl space-y-4 text-slate-800">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+          <i class="fa-solid fa-pen-to-square text-amber-500"></i> Edit Data File
         </h3>
-        <button onclick="closeEditModal()" class="text-slate-400 hover:text-white font-bold">✕</button>
+        <button onclick="closeEditModal()" class="text-slate-400 hover:text-slate-600 font-bold text-sm">✕</button>
       </div>
 
       <input type="hidden" id="editId">
 
       <div class="space-y-3">
         <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Kategori</label>
-          <select id="editCategory" class="w-full px-3 py-2 rounded-xl border border-white/20 text-xs bg-slate-800 text-white">
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Kategori</label>
+          <select id="editCategory" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50">
             <option value="Materi">📁 Materi Kuliah</option>
             <option value="Tugas">📝 Tugas Kuliah (Jawaban)</option>
           </select>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Pertemuan</label>
-          <select id="editPertemuan" class="w-full px-3 py-2 rounded-xl border border-white/20 text-xs bg-slate-800 text-white">
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Pertemuan</label>
+          <select id="editPertemuan" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50">
             <option value="Pertemuan 1">Pertemuan 1</option>
             <option value="Pertemuan 2">Pertemuan 2</option>
             <option value="Pertemuan 3">Pertemuan 3</option>
@@ -361,29 +354,29 @@
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Judul</label>
-          <input type="text" id="editTitle" class="w-full px-3 py-2 rounded-xl border border-white/20 text-xs bg-slate-800 text-white">
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Judul</label>
+          <input type="text" id="editTitle" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50">
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Link External (Opsional)</label>
-          <input type="url" id="editLink" class="w-full px-3 py-2 rounded-xl border border-white/20 text-xs bg-slate-800 text-white">
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Link External (Opsional)</label>
+          <input type="url" id="editLink" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50">
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Ganti File Baru (Kosongkan jika tidak mengganti)</label>
-          <input type="file" id="editFile" class="w-full text-xs text-slate-300 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:bg-white/20 file:text-white">
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Ganti File Baru (Kosongkan jika tidak mengganti)</label>
+          <input type="file" id="editFile" class="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:bg-indigo-50 file:text-indigo-600">
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">Deskripsi Singkat</label>
-          <textarea id="editDesc" rows="2" class="w-full px-3 py-2 rounded-xl border border-white/20 text-xs bg-slate-800 text-white"></textarea>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Deskripsi Singkat</label>
+          <textarea id="editDesc" rows="2" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50"></textarea>
         </div>
       </div>
 
-      <div class="flex justify-end gap-2 pt-2 border-t border-white/10">
-        <button onclick="closeEditModal()" class="px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold rounded-full transition">Batal</button>
-        <button onclick="updateItemInDatabase()" id="btnUpdate" class="px-5 py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold rounded-full transition flex items-center gap-1.5">
+      <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
+        <button onclick="closeEditModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-full transition">Batal</button>
+        <button onclick="updateItemInDatabase()" id="btnUpdate" class="px-5 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-full transition flex items-center gap-1.5 shadow-sm">
           <i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan
         </button>
       </div>
@@ -391,17 +384,17 @@
   </div>
 
   <!-- MODAL POPUP PREVIEW -->
-  <div id="previewModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-900 border border-white/20 rounded-3xl max-w-4xl w-full h-[85vh] flex flex-col shadow-2xl overflow-hidden">
-      <div class="p-4 bg-slate-800 border-b border-white/10 flex items-center justify-between text-white">
+  <div id="previewModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-[32px] max-w-4xl w-full h-[85vh] flex flex-col shadow-2xl overflow-hidden border border-slate-200">
+      <div class="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between text-slate-800">
         <h3 id="modalTitle" class="font-bold text-xs truncate">Preview File</h3>
-        <button onclick="closePreview()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center font-bold text-xs">✕</button>
+        <button onclick="closePreview()" class="w-8 h-8 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-600 flex items-center justify-center font-bold text-xs">✕</button>
       </div>
-      <div class="flex-1 p-2 bg-slate-950 overflow-hidden flex items-center justify-center" id="modalContainer"></div>
+      <div class="flex-1 p-2 bg-slate-100 overflow-hidden flex items-center justify-center" id="modalContainer"></div>
     </div>
   </div>
 
-  <!-- SCRIPT LOGIC -->
+  <!-- SCRIPT LOGIC SUPABASE -->
   <script>
     const ADMIN_PIN = "240511103";
     let isAdmin = false;
@@ -470,13 +463,13 @@
       const formUpload = document.getElementById('formUploadAdmin');
 
       if (isAdmin) {
-        adminBtn.className = "px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-lg shadow-amber-500/30 border border-amber-300/40";
-        adminIcon.className = "fa-solid fa-lock-open text-white text-xs";
+        adminBtn.className = "px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-sm";
+        adminIcon.className = "fa-solid fa-lock-open text-white text-[10px]";
         adminText.innerText = "Admin (Aktif)";
         formUpload.classList.remove('hidden');
       } else {
-        adminBtn.className = "px-4 py-2 bg-slate-900/80 hover:bg-slate-900 text-white text-xs font-semibold rounded-full flex items-center gap-2 border border-white/20 transition shadow-lg";
-        adminIcon.className = "fa-solid fa-lock text-slate-400 text-xs";
+        adminBtn.className = "px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-sm";
+        adminIcon.className = "fa-solid fa-lock text-slate-400 text-[10px]";
         adminText.innerText = "Mode Admin";
         formUpload.classList.add('hidden');
       }
@@ -493,14 +486,14 @@
         document.getElementById(`tab-${t}`).classList.add('hidden');
         const navBtn = document.getElementById(`nav-${t}`);
         if (navBtn) {
-          navBtn.className = "px-5 py-2 text-xs font-semibold rounded-full text-slate-200 hover:text-white hover:bg-white/10 transition-all duration-200";
+          navBtn.className = "hover:text-slate-900 transition";
         }
       });
 
       document.getElementById(`tab-${tabName}`).classList.remove('hidden');
       const activeBtn = document.getElementById(`nav-${tabName}`);
       if (activeBtn) {
-        activeBtn.className = "px-5 py-2 text-xs font-semibold rounded-full bg-white text-blue-600 shadow-md transition-all duration-200";
+        activeBtn.className = "text-slate-900 font-bold transition";
       }
 
       document.getElementById('mobileMenu').classList.add('hidden');
@@ -522,62 +515,62 @@
       }
 
       document.getElementById('materiCount').innerText = `${materis.length} Materi`;
-      document.getElementById('tugasCount').innerText = `${tugass.length} Tugas Terkumpul`;
+      document.getElementById('tugasCount').innerText = `${tugass.length} Tugas`;
 
       materiList.innerHTML = materis.length === 0 
-        ? '<p class="text-slate-300 italic text-xs">Belum ada materi diunggah.</p>' 
+        ? '<p class="text-slate-400 italic text-xs">Belum ada materi diunggah.</p>' 
         : materis.map(item => renderCard(item)).join('');
 
       tugasList.innerHTML = tugass.length === 0 
-        ? '<p class="text-slate-300 italic text-xs">Belum ada tugas diunggah.</p>' 
+        ? '<p class="text-slate-400 italic text-xs">Belum ada tugas diunggah.</p>' 
         : tugass.map(item => renderCard(item)).join('');
     }
 
     function renderCard(item) {
       const isMateri = item.category === 'Materi';
       const badgeClass = isMateri 
-        ? 'bg-blue-500/30 text-blue-200 border border-blue-400/40' 
-        : 'bg-emerald-500/30 text-emerald-200 border border-emerald-400/40';
+        ? 'bg-blue-50 text-blue-700 border border-blue-200' 
+        : 'bg-amber-50 text-amber-700 border border-amber-200';
 
       return `
-        <div class="p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 space-y-2 hover:bg-white/20 transition text-white">
+        <div class="p-4 bg-slate-50/70 rounded-2xl border border-slate-200/80 space-y-2 hover:bg-slate-50 transition text-slate-800">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-bold px-2.5 py-0.5 ${badgeClass} rounded-full">${item.pertemuan}</span>
-            <span class="text-[11px] text-slate-300">${item.date}</span>
+            <span class="text-[11px] text-slate-400">${item.date}</span>
           </div>
-          <h4 class="font-bold text-white text-sm">${item.title}</h4>
-          ${item.desc ? `<p class="text-xs text-slate-200 leading-relaxed">${item.desc}</p>` : ''}
+          <h4 class="font-bold text-slate-900 text-sm">${item.title}</h4>
+          ${item.desc ? `<p class="text-xs text-slate-600 leading-relaxed">${item.desc}</p>` : ''}
           
-          <div class="pt-2 flex flex-wrap items-center justify-between gap-2 text-xs border-t border-white/10 mt-2">
+          <div class="pt-2 flex flex-wrap items-center justify-between gap-2 text-xs border-t border-slate-200/60 mt-2">
             <div class="flex flex-wrap items-center gap-2">
               
               ${item.fileData || item.linkUrl ? `
-                <button onclick="previewItem(${item.id})" class="text-white hover:bg-white/30 font-semibold flex items-center gap-1.5 bg-white/20 px-3 py-1 rounded-full border border-white/30 transition text-xs shadow-sm">
-                  <i class="fa-solid fa-eye text-blue-300"></i> Preview
+                <button onclick="previewItem(${item.id})" class="text-slate-700 hover:text-blue-600 font-semibold flex items-center gap-1.5 bg-white px-3 py-1 rounded-full border border-slate-200 shadow-sm text-xs">
+                  <i class="fa-solid fa-eye text-blue-500"></i> Preview
                 </button>
               ` : ''}
 
               ${item.fileData ? `
-                <a href="${item.fileData}" target="_blank" download="${item.fileName || 'file'}" class="text-white hover:bg-white/30 font-semibold flex items-center gap-1.5 bg-white/20 px-3 py-1 rounded-full border border-white/30 transition text-xs shadow-sm">
-                  <i class="fa-solid fa-download text-indigo-300"></i> Unduh (${item.fileName || 'File'})
+                <a href="${item.fileData}" target="_blank" download="${item.fileName || 'file'}" class="text-slate-700 hover:text-indigo-600 font-semibold flex items-center gap-1.5 bg-white px-3 py-1 rounded-full border border-slate-200 shadow-sm text-xs">
+                  <i class="fa-solid fa-download text-indigo-500"></i> Unduh (${item.fileName || 'File'})
                 </a>
               ` : ''}
 
               ${item.linkUrl ? `
-                <a href="${item.linkUrl}" target="_blank" class="text-white hover:bg-white/30 font-semibold flex items-center gap-1.5 bg-white/20 px-3 py-1 rounded-full border border-white/30 transition text-xs shadow-sm">
-                  <i class="fa-solid fa-arrow-up-right-from-square text-emerald-300"></i> Link External
+                <a href="${item.linkUrl}" target="_blank" class="text-slate-700 hover:text-emerald-600 font-semibold flex items-center gap-1.5 bg-white px-3 py-1 rounded-full border border-slate-200 shadow-sm text-xs">
+                  <i class="fa-solid fa-arrow-up-right-from-square text-emerald-500"></i> Link External
                 </a>
               ` : ''}
 
-              ${!item.fileData && !item.linkUrl ? '<span class="text-slate-300 italic text-[11px]">Tanpa file terlampir</span>' : ''}
+              ${!item.fileData && !item.linkUrl ? '<span class="text-slate-400 italic text-[11px]">Tanpa file terlampir</span>' : ''}
             </div>
 
             ${isAdmin ? `
               <div class="flex items-center gap-3">
-                <button onclick="openEditModal(${item.id})" class="text-amber-300 hover:text-amber-200 font-semibold text-xs">
+                <button onclick="openEditModal(${item.id})" class="text-amber-600 hover:text-amber-800 font-semibold text-xs">
                   <i class="fa-solid fa-pen-to-square mr-1"></i> Edit
                 </button>
-                <button onclick="removeItemFromDatabase(${item.id})" class="text-red-300 hover:text-red-200 font-semibold text-xs">
+                <button onclick="removeItemFromDatabase(${item.id})" class="text-red-500 hover:text-red-700 font-semibold text-xs">
                   <i class="fa-solid fa-trash-can mr-1"></i> Hapus
                 </button>
               </div>
