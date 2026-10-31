@@ -35,12 +35,11 @@
         <button onclick="switchTab('informasi')" id="nav-informasi" class="hover:text-slate-900 transition">Informasi</button>
       </nav>
 
-      <!-- Right Pill Action & Mobile Menu Button -->
+      <!-- Right Action Button: Login / Logout Admin -->
       <div class="flex items-center space-x-2">
-        <button onclick="openRoleModal()" id="roleBtn" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-sm">
-          <i class="fa-solid fa-user-graduate text-slate-300 text-xs" id="roleIcon"></i>
-          <span id="roleText">Peran: Mahasiswa</span>
-          <i class="fa-solid fa-chevron-down text-[10px] text-slate-300 ml-1"></i>
+        <button onclick="handleAuth()" id="authBtn" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-sm">
+          <i class="fa-solid fa-right-to-bracket text-slate-300 text-xs" id="authIcon"></i>
+          <span id="authText">Login Admin</span>
         </button>
 
         <button onclick="toggleMobileMenu()" class="md:hidden text-slate-700 p-2 rounded-full hover:bg-slate-100">
@@ -76,7 +75,7 @@
           <i class="fa-solid fa-laptop-code text-pink-500"></i> ADPL Course
         </div>
 
-        <!-- Headline Bersih (Tanpa Logo DP) -->
+        <!-- Headline -->
         <h2 class="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight leading-tight">
           Selamat Datang!<br>
           Portal Akademik & Tugas.
@@ -300,64 +299,6 @@
 
   </main>
 
-  <!-- MODAL POPUP PILIH PERAN (ROLE SWITCHER) -->
-  <div id="roleModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white border border-slate-200 rounded-[32px] max-w-sm w-full p-6 shadow-2xl space-y-4 text-slate-800">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
-          <i class="fa-solid fa-user-gear text-indigo-600"></i> Pilih Peran Akses
-        </h3>
-        <button onclick="closeRoleModal()" class="text-slate-400 hover:text-slate-600 font-bold text-sm">✕</button>
-      </div>
-      
-      <p class="text-xs text-slate-500">Pilih mode tampilan sesuai identitas Anda:</p>
-      
-      <div class="space-y-2.5">
-        <!-- Opsi Mahasiswa -->
-        <button onclick="selectRole('mahasiswa')" class="w-full p-3.5 rounded-2xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 text-left flex items-center justify-between transition group">
-          <div class="flex items-center space-x-3">
-            <div class="w-9 h-9 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-bold">
-              <i class="fa-solid fa-user-graduate"></i>
-            </div>
-            <div>
-              <p class="text-xs font-bold text-slate-900">Mahasiswa</p>
-              <p class="text-[11px] text-slate-500">Akses lihat & unduh berkas</p>
-            </div>
-          </div>
-          <i class="fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-indigo-600"></i>
-        </button>
-
-        <!-- Opsi Dosen / Asdos -->
-        <button onclick="selectRole('dosen')" class="w-full p-3.5 rounded-2xl border border-slate-200 hover:border-purple-500 hover:bg-purple-50/50 text-left flex items-center justify-between transition group">
-          <div class="flex items-center space-x-3">
-            <div class="w-9 h-9 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-sm font-bold">
-              <i class="fa-solid fa-chalkboard-user"></i>
-            </div>
-            <div>
-              <p class="text-xs font-bold text-slate-900">Dosen / Asdos</p>
-              <p class="text-[11px] text-slate-500">Akses peninjauan akademik</p>
-            </div>
-          </div>
-          <i class="fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-purple-600"></i>
-        </button>
-
-        <!-- Opsi Admin -->
-        <button onclick="selectRole('admin')" class="w-full p-3.5 rounded-2xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 text-left flex items-center justify-between transition group">
-          <div class="flex items-center space-x-3">
-            <div class="w-9 h-9 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-sm font-bold">
-              <i class="fa-solid fa-user-shield"></i>
-            </div>
-            <div>
-              <p class="text-xs font-bold text-slate-900">Admin (Dimas)</p>
-              <p class="text-[11px] text-slate-500">Akses upload & kelola data (PIN)</p>
-            </div>
-          </div>
-          <i class="fa-solid fa-key text-xs text-slate-300 group-hover:text-amber-600"></i>
-        </button>
-      </div>
-    </div>
-  </div>
-
   <!-- MODAL POPUP EDIT ITEM -->
   <div id="editModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white border border-slate-200 rounded-[32px] max-w-lg w-full p-6 shadow-2xl space-y-4 text-slate-800">
@@ -402,7 +343,6 @@
           </select>
         </div>
 
-        <!-- Edit Option Has Task -->
         <div id="editHasTaskOption" class="flex items-center gap-2 bg-slate-50 p-3 rounded-2xl border border-slate-100">
           <input type="checkbox" id="editHasTask" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 cursor-pointer">
           <label for="editHasTask" class="text-xs font-semibold text-slate-700 cursor-pointer">
@@ -451,11 +391,10 @@
     </div>
   </div>
 
-  <!-- SCRIPT LOGIC SUPABASE & PERAN -->
+  <!-- SCRIPT LOGIC SUPABASE & AUTH -->
   <script>
     const ADMIN_PIN = "240511103";
     let isAdmin = false;
-    let currentRole = 'mahasiswa'; // pilihan default: 'mahasiswa', 'dosen', 'admin'
 
     const SUPABASE_URL = 'https://koylnvxwfbfvewuuzvoj.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_ZXFFN5tZ9mabhSIy8Wq5AQ_w6Otz3UB';
@@ -463,61 +402,41 @@
 
     let globalItems = [];
 
-    // MODAL PEMILIH PERAN (ROLE SWITCHER) LOGIC
-    function openRoleModal() {
-      document.getElementById('roleModal').classList.remove('hidden');
-    }
-
-    function closeRoleModal() {
-      document.getElementById('roleModal').classList.add('hidden');
-    }
-
-    function selectRole(role) {
-      if (role === 'admin') {
-        if (!isAdmin) {
-          const inputPin = prompt("Masukkan PIN Admin:");
-          if (inputPin === ADMIN_PIN) {
-            isAdmin = true;
-            currentRole = 'admin';
-            alert("Mode Admin Aktif!");
-          } else if (inputPin !== null) {
-            alert("PIN Salah!");
-            return;
-          } else {
-            return;
-          }
-        } else {
-          currentRole = 'admin';
+    // FUNGSI AUTHENTICATION (LOGIN / LOGOUT)
+    function handleAuth() {
+      if (isAdmin) {
+        if (confirm("Yakin ingin logout dari Mode Admin?")) {
+          isAdmin = false;
+          alert("Berhasil Logout.");
+          updateAuthUI();
         }
       } else {
-        isAdmin = false;
-        currentRole = role;
+        const inputPin = prompt("Masukkan PIN Admin:");
+        if (inputPin === ADMIN_PIN) {
+          isAdmin = true;
+          alert("Login Berhasil! Mode Admin Aktif.");
+          updateAuthUI();
+        } else if (inputPin !== null) {
+          alert("PIN Salah!");
+        }
       }
-
-      closeRoleModal();
-      updateRoleUI();
     }
 
-    function updateRoleUI() {
-      const roleBtn = document.getElementById('roleBtn');
-      const roleIcon = document.getElementById('roleIcon');
-      const roleText = document.getElementById('roleText');
+    function updateAuthUI() {
+      const authBtn = document.getElementById('authBtn');
+      const authIcon = document.getElementById('authIcon');
+      const authText = document.getElementById('authText');
       const formUpload = document.getElementById('formUploadAdmin');
 
-      if (currentRole === 'admin' && isAdmin) {
-        roleBtn.className = "px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-sm";
-        roleIcon.className = "fa-solid fa-user-shield text-white text-xs";
-        roleText.innerText = "Peran: Admin (Aktif)";
+      if (isAdmin) {
+        authBtn.className = "px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-sm";
+        authIcon.className = "fa-solid fa-right-from-bracket text-white text-xs";
+        authText.innerText = "Logout (Admin)";
         formUpload.classList.remove('hidden');
-      } else if (currentRole === 'dosen') {
-        roleBtn.className = "px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-sm";
-        roleIcon.className = "fa-solid fa-chalkboard-user text-white text-xs";
-        roleText.innerText = "Peran: Dosen / Asdos";
-        formUpload.classList.add('hidden');
       } else {
-        roleBtn.className = "px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-sm";
-        roleIcon.className = "fa-solid fa-user-graduate text-slate-300 text-xs";
-        roleText.innerText = "Peran: Mahasiswa";
+        authBtn.className = "px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-sm";
+        authIcon.className = "fa-solid fa-right-to-bracket text-slate-300 text-xs";
+        authText.innerText = "Login Admin";
         formUpload.classList.add('hidden');
       }
 
