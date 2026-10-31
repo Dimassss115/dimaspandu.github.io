@@ -67,17 +67,14 @@
       <!-- HERO SECTION -->
       <div class="relative text-center max-w-3xl mx-auto pt-6 space-y-6">
         
-        <!-- Floating Badge Left -->
         <div class="hidden sm:inline-flex absolute -top-2 left-0 -rotate-6 px-3.5 py-1.5 bg-blue-100 border border-blue-300 text-blue-800 rounded-full text-xs font-semibold shadow-sm items-center gap-1.5">
           <i class="fa-solid fa-graduation-cap text-blue-500"></i> Teknik Informatika UMC
         </div>
 
-        <!-- Floating Badge Right -->
         <div class="hidden sm:inline-flex absolute bottom-10 right-0 rotate-6 px-3.5 py-1.5 bg-pink-100 border border-pink-300 text-pink-800 rounded-full text-xs font-semibold shadow-sm items-center gap-1.5">
           <i class="fa-solid fa-laptop-code text-pink-500"></i> ADPL Course
         </div>
 
-        <!-- Headline Selamat Datang -->
         <h2 class="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight leading-tight">
           Selamat Datang! 
           <span class="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-600 text-white font-extrabold text-xl sm:text-2xl align-middle mx-1 shadow-md border-2 border-white">
@@ -86,12 +83,10 @@
           <br>Portal Akademik & Tugas.
         </h2>
         
-        <!-- Subtitle Warm Greeting -->
         <p class="text-slate-600 text-sm sm:text-base max-w-xl mx-auto leading-relaxed font-normal">
           Selamat datang di ruang portofolio perkuliahan <span class="font-bold text-slate-800">Dimas Pandu Wibowo</span>. Wadah terpadu penampung modul pembelajaran, tugas harian, dan dokumentasi mata kuliah <span class="font-bold text-slate-800">Analisis & Desain Perangkat Lunak</span>.
         </p>
 
-        <!-- CTA Buttons -->
         <div class="pt-2 flex flex-wrap justify-center gap-3">
           <button onclick="switchTab('materi')" class="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-full shadow-sm transition flex items-center gap-2">
             Lihat Materi & Tugas <i class="fa-solid fa-arrow-right text-[10px]"></i>
@@ -206,34 +201,40 @@
         </h3>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <select id="itemCategory" onchange="toggleHasTaskCheckbox()" class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-indigo-50/50 text-indigo-700">
+          <select id="itemCategory" onchange="toggleCategoryForm()" class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-indigo-50/50 text-indigo-700">
             <option value="Materi">📁 Materi Kuliah</option>
             <option value="Tugas">📝 Tugas Kuliah (Jawaban)</option>
           </select>
 
-          <select id="itemPertemuan" class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
-            <option value="Pertemuan 1">Pertemuan 1</option>
-            <option value="Pertemuan 2">Pertemuan 2</option>
-            <option value="Pertemuan 3">Pertemuan 3</option>
-            <option value="Pertemuan 4">Pertemuan 4</option>
-            <option value="Pertemuan 5">Pertemuan 5</option>
-            <option value="Pertemuan 6">Pertemuan 6</option>
-            <option value="Pertemuan 7">Pertemuan 7</option>
-            <option value="Pertemuan 8">Pertemuan 8</option>
-            <option value="Pertemuan 9">Pertemuan 9</option>
-            <option value="Pertemuan 10">Pertemuan 10</option>
-            <option value="Pertemuan 11">Pertemuan 11</option>
-            <option value="Pertemuan 12">Pertemuan 12</option>
-            <option value="Pertemuan 13">Pertemuan 13</option>
-            <option value="Pertemuan 14">Pertemuan 14</option>
-            <option value="Pertemuan 15">Pertemuan 15</option>
-            <option value="Pertemuan 16">Pertemuan 16</option>
-            <option value="Pertemuan 17">Pertemuan 17</option>
-            <option value="Pertemuan 18">Pertemuan 18</option>
-            <option value="Pertemuan 19">Pertemuan 19</option>
-            <option value="Pertemuan 20">Pertemuan 20</option>
-            <option value="Proyek Akhir">Proyek / Proposal Akhir</option>
-          </select>
+          <!-- Dropdown Pertemuan (Bagi Materi) -->
+          <div id="pertemuanWrapper" class="w-full">
+            <select id="itemPertemuan" class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+              <option value="Pertemuan 1">Pertemuan 1</option>
+              <option value="Pertemuan 2">Pertemuan 2</option>
+              <option value="Pertemuan 3">Pertemuan 3</option>
+              <option value="Pertemuan 4">Pertemuan 4</option>
+              <option value="Pertemuan 5">Pertemuan 5</option>
+              <option value="Pertemuan 6">Pertemuan 6</option>
+              <option value="Pertemuan 7">Pertemuan 7</option>
+              <option value="Pertemuan 8">Pertemuan 8</option>
+              <option value="Pertemuan 9">Pertemuan 9</option>
+              <option value="Pertemuan 10">Pertemuan 10</option>
+              <option value="Pertemuan 11">Pertemuan 11</option>
+              <option value="Pertemuan 12">Pertemuan 12</option>
+              <option value="Pertemuan 13">Pertemuan 13</option>
+              <option value="Pertemuan 14">Pertemuan 14</option>
+              <option value="Pertemuan 15">Pertemuan 15</option>
+              <option value="Pertemuan 16">Pertemuan 16</option>
+              <option value="Proyek Akhir">Proyek / Proposal Akhir</option>
+            </select>
+          </div>
+
+          <!-- Dropdown Terintegrasi Pilihan Materi (Bagi Tugas) -->
+          <div id="targetMateriWrapper" class="w-full hidden">
+            <select id="itemTargetMateri" class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white font-medium">
+              <!-- Terisi otomatis oleh JS -->
+            </select>
+          </div>
 
           <input type="text" id="itemTitle" placeholder="Judul Materi / Tugas" class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
         </div>
@@ -316,7 +317,7 @@
       <div class="space-y-3">
         <div>
           <label class="block text-xs font-semibold text-slate-600 mb-1">Kategori</label>
-          <select id="editCategory" onchange="toggleEditHasTaskCheckbox()" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50">
+          <select id="editCategory" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50">
             <option value="Materi">📁 Materi Kuliah</option>
             <option value="Tugas">📝 Tugas Kuliah (Jawaban)</option>
           </select>
@@ -341,10 +342,6 @@
             <option value="Pertemuan 14">Pertemuan 14</option>
             <option value="Pertemuan 15">Pertemuan 15</option>
             <option value="Pertemuan 16">Pertemuan 16</option>
-            <option value="Pertemuan 17">Pertemuan 17</option>
-            <option value="Pertemuan 18">Pertemuan 18</option>
-            <option value="Pertemuan 19">Pertemuan 19</option>
-            <option value="Pertemuan 20">Pertemuan 20</option>
             <option value="Proyek Akhir">Proyek / Proposal Akhir</option>
           </select>
         </div>
@@ -409,24 +406,38 @@
 
     let globalItems = [];
 
-    function toggleHasTaskCheckbox() {
+    function toggleCategoryForm() {
       const cat = document.getElementById('itemCategory').value;
-      const optionDiv = document.getElementById('hasTaskOption');
+      const hasTaskOption = document.getElementById('hasTaskOption');
+      const targetMateriWrapper = document.getElementById('targetMateriWrapper');
+      const pertemuanWrapper = document.getElementById('pertemuanWrapper');
+
       if (cat === 'Materi') {
-        optionDiv.classList.remove('hidden');
+        hasTaskOption.classList.remove('hidden');
+        targetMateriWrapper.classList.add('hidden');
+        pertemuanWrapper.classList.remove('hidden');
       } else {
-        optionDiv.classList.add('hidden');
+        hasTaskOption.classList.add('hidden');
+        targetMateriWrapper.classList.remove('hidden');
+        pertemuanWrapper.classList.add('hidden');
+        populateTargetMateriDropdown();
       }
     }
 
-    function toggleEditHasTaskCheckbox() {
-      const cat = document.getElementById('editCategory').value;
-      const optionDiv = document.getElementById('editHasTaskOption');
-      if (cat === 'Materi') {
-        optionDiv.classList.remove('hidden');
-      } else {
-        optionDiv.classList.add('hidden');
+    function populateTargetMateriDropdown() {
+      const select = document.getElementById('itemTargetMateri');
+      const materis = globalItems.filter(i => i.category === 'Materi');
+
+      if (materis.length === 0) {
+        select.innerHTML = '<option value="Pertemuan 1">Pertemuan 1 (Belum ada materi)</option>';
+        return;
       }
+
+      select.innerHTML = materis.map(m => `
+        <option value="${m.pertemuan}">
+          ${m.pertemuan}: ${m.title} ${m.hasTask ? '(Ada Tugas)' : ''}
+        </option>
+      `).join('');
     }
 
     async function fetchAndRender() {
@@ -454,6 +465,7 @@
       }));
 
       renderContainer(globalItems);
+      populateTargetMateriDropdown();
     }
 
     supabaseClient
@@ -531,9 +543,15 @@
       const materis = currentItems.filter(i => i.category === 'Materi');
       const tugass = currentItems.filter(i => i.category === 'Tugas');
 
-      // Logika Presisi: Hitung hanya Materi yang DICENTANG [Ada Tugas] dikurangi Total Tugas yang sudah terkumpul
-      const materisWajibTugas = materis.filter(m => m.hasTask === true);
-      const pendingCount = Math.max(0, materisWajibTugas.length - tugass.length);
+      // Ambil daftar pertemuan yang tugasnya sudah diunggah
+      const pertemuanTugasSelesai = tugass.map(t => t.pertemuan);
+
+      // Cari Materi yang [Ada Tugas] TAPI belum diunggah tugasnya
+      const materisBelumDikerjakan = materis.filter(m => 
+        m.hasTask === true && !pertemuanTugasSelesai.includes(m.pertemuan)
+      );
+
+      const pendingCount = materisBelumDikerjakan.length;
 
       if (document.getElementById('statTotalMateri')) {
         document.getElementById('statTotalMateri').innerText = materis.length;
@@ -546,25 +564,36 @@
 
       materiList.innerHTML = materis.length === 0 
         ? '<p class="text-slate-400 italic text-xs">Belum ada materi diunggah.</p>' 
-        : materis.map(item => renderCard(item)).join('');
+        : materis.map(item => renderCard(item, pertemuanTugasSelesai)).join('');
 
       tugasList.innerHTML = tugass.length === 0 
         ? '<p class="text-slate-400 italic text-xs">Belum ada tugas diunggah.</p>' 
-        : tugass.map(item => renderCard(item)).join('');
+        : tugass.map(item => renderCard(item, pertemuanTugasSelesai)).join('');
     }
 
-    function renderCard(item) {
+    function renderCard(item, pertemuanTugasSelesai = []) {
       const isMateri = item.category === 'Materi';
       const badgeClass = isMateri 
         ? 'bg-blue-50 text-blue-700 border border-blue-200' 
         : 'bg-amber-50 text-amber-700 border border-amber-200';
+
+      // Logika Badge Status Terintegrasi Dinamis
+      let statusTaskBadge = '';
+      if (isMateri && item.hasTask) {
+        const isSelesai = pertemuanTugasSelesai.includes(item.pertemuan);
+        if (isSelesai) {
+          statusTaskBadge = `<span class="text-[10px] font-bold px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-full border border-emerald-200 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i>Tugas Selesai</span>`;
+        } else {
+          statusTaskBadge = `<span class="text-[10px] font-bold px-2 py-0.5 bg-rose-50 text-rose-600 rounded-full border border-rose-200 flex items-center gap-1"><i class="fa-solid fa-circle-exclamation"></i>Belum Dikerjakan</span>`;
+        }
+      }
 
       return `
         <div class="p-4 bg-slate-50/70 rounded-2xl border border-slate-200/80 space-y-2 hover:bg-slate-50 transition text-slate-800">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
               <span class="text-[11px] font-bold px-2.5 py-0.5 ${badgeClass} rounded-full">${item.pertemuan}</span>
-              ${item.hasTask ? '<span class="text-[10px] font-bold px-2 py-0.5 bg-rose-50 text-rose-600 rounded-full border border-rose-200"><i class="fa-solid fa-circle-exclamation mr-1"></i>Ada Tugas</span>' : ''}
+              ${statusTaskBadge}
             </div>
             <span class="text-[11px] text-slate-400">${item.date}</span>
           </div>
@@ -614,11 +643,20 @@
       if (!isAdmin) return alert('Aktifkan Mode Admin terlebih dahulu!');
 
       const category = document.getElementById('itemCategory').value;
-      const pertemuan = document.getElementById('itemPertemuan').value;
       const title = document.getElementById('itemTitle').value;
       const desc = document.getElementById('itemDesc').value;
       const linkUrl = document.getElementById('itemLink').value;
-      const hasTask = category === 'Materi' ? document.getElementById('itemHasTask').checked : false;
+      
+      let pertemuan = document.getElementById('itemPertemuan').value;
+      let hasTask = false;
+
+      if (category === 'Materi') {
+        hasTask = document.getElementById('itemHasTask').checked;
+      } else {
+        // Jika Tugas, ambil pertemuan dari Materi yang dipilih
+        pertemuan = document.getElementById('itemTargetMateri').value;
+      }
+
       const fileInput = document.getElementById('itemFile');
       const file = fileInput.files[0];
 
@@ -709,7 +747,6 @@
       document.getElementById('editHasTask').checked = item.hasTask || false;
       document.getElementById('editFile').value = '';
 
-      toggleEditHasTaskCheckbox();
       document.getElementById('editModal').classList.remove('hidden');
     }
 
