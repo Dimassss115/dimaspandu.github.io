@@ -106,9 +106,9 @@
           </div>
         </div>
 
-        <!-- STATISTIK & STATUS TUGAS -->
+        <!-- STATISTIK & STATUS TUGAS BERBASIS PERTEMUAN -->
         <div>
-          <h3 class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-4">Ringkasan Akademik & Tugas</h3>
+          <h3 class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-4">Ringkasan Akademik & Status Tugas</h3>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             
             <!-- Card Total Materi -->
@@ -119,19 +119,19 @@
               <div>
                 <p class="text-xs text-slate-400 font-medium">Total Materi</p>
                 <p id="statTotalMateri" class="text-xl font-extrabold text-slate-800">0</p>
-                <p class="text-[11px] text-slate-400">Modul Perkuliahan</p>
+                <p class="text-[11px] text-slate-400">Modul Diunggah</p>
               </div>
             </div>
 
-            <!-- Card Total Tugas -->
+            <!-- Card Total Tugas Selesai -->
             <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center space-x-4">
-              <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shrink-0">
-                <i class="fa-solid fa-list-check"></i>
+              <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shrink-0">
+                <i class="fa-solid fa-circle-check"></i>
               </div>
               <div>
-                <p class="text-xs text-slate-400 font-medium">Total Tugas</p>
-                <p id="statTotalTugas" class="text-xl font-extrabold text-slate-800">0</p>
-                <p class="text-[11px] text-slate-400">Tugas Terdata</p>
+                <p class="text-xs text-slate-400 font-medium">Tugas Terkumpul</p>
+                <p id="statTotalTugas" class="text-xl font-extrabold text-emerald-600">0</p>
+                <p class="text-[11px] text-slate-400">Jawaban Tugas</p>
               </div>
             </div>
 
@@ -143,7 +143,7 @@
               <div>
                 <p class="text-xs text-slate-400 font-medium">Belum Dikerjakan</p>
                 <p id="statPendingTugas" class="text-xl font-extrabold text-amber-600">0</p>
-                <p class="text-[11px] text-amber-500 font-medium">Perlu Diselesaikan</p>
+                <p class="text-[11px] text-amber-500 font-medium" id="statPendingDesc">Pertemuan Perlu Tugas</p>
               </div>
             </div>
 
@@ -224,7 +224,7 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <select id="itemCategory" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 bg-blue-50/50 text-blue-700">
               <option value="Materi">📁 Materi Kuliah</option>
-              <option value="Tugas">📝 Tugas Kuliah</option>
+              <option value="Tugas">📝 Tugas Kuliah (Jawaban)</option>
             </select>
 
             <select id="itemPertemuan" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -307,6 +307,84 @@
     </div>
   </main>
 
+  <!-- MODAL POPUP EDIT ITEM (MODE ADMIN) -->
+  <div id="editModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
+          <i class="fa-solid fa-pen-to-square text-amber-500"></i> Edit Data File
+        </h3>
+        <button onclick="closeEditModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg">✕</button>
+      </div>
+
+      <input type="hidden" id="editId">
+
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Kategori</label>
+          <select id="editCategory" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500">
+            <option value="Materi">📁 Materi Kuliah</option>
+            <option value="Tugas">📝 Tugas Kuliah (Jawaban)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Pertemuan</label>
+          <select id="editPertemuan" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500">
+            <option value="Pertemuan 1">Pertemuan 1</option>
+            <option value="Pertemuan 2">Pertemuan 2</option>
+            <option value="Pertemuan 3">Pertemuan 3</option>
+            <option value="Pertemuan 4">Pertemuan 4</option>
+            <option value="Pertemuan 5">Pertemuan 5</option>
+            <option value="Pertemuan 6">Pertemuan 6</option>
+            <option value="Pertemuan 7">Pertemuan 7</option>
+            <option value="Pertemuan 8">Pertemuan 8</option>
+            <option value="Pertemuan 9">Pertemuan 9</option>
+            <option value="Pertemuan 10">Pertemuan 10</option>
+            <option value="Pertemuan 11">Pertemuan 11</option>
+            <option value="Pertemuan 12">Pertemuan 12</option>
+            <option value="Pertemuan 13">Pertemuan 13</option>
+            <option value="Pertemuan 14">Pertemuan 14</option>
+            <option value="Pertemuan 15">Pertemuan 15</option>
+            <option value="Pertemuan 16">Pertemuan 16</option>
+            <option value="Pertemuan 17">Pertemuan 17</option>
+            <option value="Pertemuan 18">Pertemuan 18</option>
+            <option value="Pertemuan 19">Pertemuan 19</option>
+            <option value="Pertemuan 20">Pertemuan 20</option>
+            <option value="Proyek Akhir">Proyek / Proposal Akhir</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Judul</label>
+          <input type="text" id="editTitle" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Link External (Opsional)</label>
+          <input type="url" id="editLink" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Ganti File Baru (Kosongkan jika tidak ingin mengganti)</label>
+          <input type="file" id="editFile" class="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:bg-blue-50 file:text-blue-600">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Deskripsi / Catatan Singkat</label>
+          <textarea id="editDesc" rows="2" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
+        <button onclick="closeEditModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition">Batal</button>
+        <button onclick="updateItemInDatabase()" id="btnUpdate" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold rounded-xl transition flex items-center gap-1.5">
+          <i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- MODAL POPUP PREVIEW -->
   <div id="previewModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-2xl max-w-4xl w-full h-[85vh] flex flex-col shadow-2xl overflow-hidden">
@@ -351,7 +429,6 @@
         linkUrl: item.link_url,
         fileName: item.file_name,
         fileData: item.file_url,
-        status: item.status || 'Belum Selesai',
         date: item.date
       }));
 
@@ -374,7 +451,7 @@
         const inputPin = prompt("Masukkan PIN Admin untuk mengedit/menghapus file:");
         if (inputPin === ADMIN_PIN) {
           isAdmin = true;
-          alert("Mode Admin Aktif! Kamu sekarang dapat mengunggah dan menghapus file.");
+          alert("Mode Admin Aktif! Kamu sekarang dapat mengunggah, mengedit, dan menghapus file.");
         } else if (inputPin !== null) {
           alert("PIN Salah!");
         }
@@ -442,40 +519,43 @@
 
       const materis = currentItems.filter(i => i.category === 'Materi');
       const tugass = currentItems.filter(i => i.category === 'Tugas');
-      const pendingTugass = tugass.filter(i => i.status === 'Belum Selesai');
 
-      // Update Statistik di Beranda / Dashboard
+      // Logika Pertemuan: Cari Pertemuan yang ada Materinya tapi belum ada Tugasnya
+      const materiPertemuans = [...new Set(materis.map(m => m.pertemuan))];
+      const tugasPertemuans = [...new Set(tugass.map(t => t.pertemuan))];
+      
+      const pendingPertemuans = materiPertemuans.filter(p => !tugasPertemuans.includes(p));
+
+      // Update Statistik di Beranda
       if (document.getElementById('statTotalMateri')) {
         document.getElementById('statTotalMateri').innerText = materis.length;
         document.getElementById('statTotalTugas').innerText = tugass.length;
-        document.getElementById('statPendingTugas').innerText = pendingTugass.length;
+        document.getElementById('statPendingTugas').innerText = pendingPertemuans.length;
       }
 
-      // Update Count di Tab Materi & Tugas
+      // Update Count di Header Wadah
       document.getElementById('materiCount').innerText = `${materis.length} Materi`;
-      document.getElementById('tugasCount').innerText = `${tugass.length} Tugas (${pendingTugass.length} Belum Selesai)`;
+      document.getElementById('tugasCount').innerText = `${tugass.length} Tugas Terkumpul`;
 
       materiList.innerHTML = materis.length === 0 
         ? '<p class="text-slate-400 italic text-xs">Belum ada materi diunggah.</p>' 
-        : materis.map(item => renderCard(item)).join('');
+        : materis.map(item => renderCard(item, pendingPertemuans.includes(item.pertemuan))).join('');
 
       tugasList.innerHTML = tugass.length === 0 
         ? '<p class="text-slate-400 italic text-xs">Belum ada tugas diunggah.</p>' 
-        : tugass.map(item => renderCard(item)).join('');
+        : tugass.map(item => renderCard(item, false)).join('');
     }
 
-    function renderCard(item) {
+    function renderCard(item, isPendingTask) {
       const isMateri = item.category === 'Materi';
-      const badgeClass = isMateri ? 'bg-blue-100 text-blue-700' : 'bg-indigo-100 text-indigo-700';
+      const badgeClass = isMateri ? 'bg-blue-100 text-blue-700' : 'bg-emerald-100 text-emerald-700';
 
-      // Badge Status untuk Tugas
-      let statusBadge = '';
-      if (!isMateri) {
-        if (item.status === 'Selesai') {
-          statusBadge = `<span class="text-[10px] font-bold px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-md"><i class="fa-solid fa-check mr-1"></i>Selesai</span>`;
-        } else {
-          statusBadge = `<span class="text-[10px] font-bold px-2 py-0.5 bg-amber-100 text-amber-700 rounded-md"><i class="fa-solid fa-clock mr-1"></i>Belum Selesai</span>`;
-        }
+      // Badge indikator pada materi jika pertemuan tersebut belum ada tugasnya
+      let pendingBadge = '';
+      if (isMateri && isPendingTask) {
+        pendingBadge = `<span class="text-[10px] font-bold px-2 py-0.5 bg-amber-100 text-amber-700 rounded-md"><i class="fa-solid fa-clock mr-1"></i>Belum Ada Tugas</span>`;
+      } else if (isMateri) {
+        pendingBadge = `<span class="text-[10px] font-bold px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-md"><i class="fa-solid fa-check mr-1"></i>Tugas Selesai</span>`;
       }
 
       return `
@@ -483,7 +563,7 @@
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
               <span class="text-xs font-bold px-2.5 py-0.5 ${badgeClass} rounded-md">${item.pertemuan}</span>
-              ${statusBadge}
+              ${pendingBadge}
             </div>
             <span class="text-[11px] text-slate-400">${item.date}</span>
           </div>
@@ -515,12 +595,10 @@
             </div>
 
             ${isAdmin ? `
-              <div class="flex items-center gap-2">
-                ${!isMateri ? `
-                  <button onclick="toggleTaskStatus(${item.id}, '${item.status}')" class="text-xs px-2.5 py-1 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 font-medium text-slate-700 transition">
-                    Ubah Status (${item.status === 'Selesai' ? 'Kembalikan Belum' : 'Tandai Selesai'})
-                  </button>
-                ` : ''}
+              <div class="flex items-center gap-3">
+                <button onclick="openEditModal(${item.id})" class="text-amber-600 hover:text-amber-800 font-medium text-[11px]">
+                  <i class="fa-solid fa-pen-to-square mr-1"></i> Edit
+                </button>
                 <button onclick="removeItemFromDatabase(${item.id})" class="text-red-500 hover:text-red-700 font-medium text-[11px]">
                   <i class="fa-solid fa-trash-can mr-1"></i> Hapus
                 </button>
@@ -529,20 +607,6 @@
           </div>
         </div>
       `;
-    }
-
-    async function toggleTaskStatus(id, currentStatus) {
-      if (!isAdmin) return alert('Aktifkan Mode Admin terlebih dahulu!');
-      const newStatus = currentStatus === 'Selesai' ? 'Belum Selesai' : 'Selesai';
-
-      const { error } = await supabaseClient
-        .from('adpl_items')
-        .update({ status: newStatus })
-        .eq('id', id);
-
-      if (error) {
-        alert('Gagal memperbarui status: ' + error.message);
-      }
     }
 
     async function addItemToDatabase() {
@@ -606,11 +670,13 @@
             link_url: linkUrl,
             file_name: fileName,
             file_url: fileUrl,
-            status: category === 'Tugas' ? 'Belum Selesai' : 'Selesai',
             date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
           }]);
 
         if (insertError) throw insertError;
+
+        // Panggilan langsung agar UI diperbarui tanpa harus manual refresh
+        await fetchAndRender();
 
         document.getElementById('itemTitle').value = '';
         document.getElementById('itemDesc').value = '';
@@ -627,6 +693,106 @@
       }
     }
 
+    // FUNGSI EDIT ITEM (MODE ADMIN)
+    function openEditModal(id) {
+      const item = globalItems.find(i => i.id == id);
+      if (!item) return;
+
+      document.getElementById('editId').value = item.id;
+      document.getElementById('editCategory').value = item.category;
+      document.getElementById('editPertemuan').value = item.pertemuan;
+      document.getElementById('editTitle').value = item.title;
+      document.getElementById('editLink').value = item.linkUrl || '';
+      document.getElementById('editDesc').value = item.desc || '';
+      document.getElementById('editFile').value = '';
+
+      document.getElementById('editModal').classList.remove('hidden');
+    }
+
+    function closeEditModal() {
+      document.getElementById('editModal').classList.add('hidden');
+    }
+
+    async function updateItemInDatabase() {
+      if (!isAdmin) return alert('Aktifkan Mode Admin terlebih dahulu!');
+
+      const id = document.getElementById('editId').value;
+      const category = document.getElementById('editCategory').value;
+      const pertemuan = document.getElementById('editPertemuan').value;
+      const title = document.getElementById('editTitle').value;
+      const desc = document.getElementById('editDesc').value;
+      const linkUrl = document.getElementById('editLink').value;
+      const fileInput = document.getElementById('editFile');
+      const newFile = fileInput.files[0];
+
+      if (!title) return alert('Judul tidak boleh kosong!');
+
+      const btnUpdate = document.getElementById('btnUpdate');
+      btnUpdate.disabled = true;
+      btnUpdate.innerText = 'Menyimpan...';
+
+      try {
+        const itemLama = globalItems.find(i => i.id == id);
+        let fileUrl = itemLama.fileData;
+        let fileName = itemLama.fileName;
+
+        if (newFile) {
+          const MAX_SIZE_BYTES = 10 * 1024 * 1024;
+          if (newFile.size > MAX_SIZE_BYTES) {
+            alert('Ukuran file terlalu besar! Maksimal 10 MB.');
+            btnUpdate.disabled = false;
+            btnUpdate.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan';
+            return;
+          }
+
+          fileName = newFile.name;
+          btnUpdate.innerText = 'Mengunggah file baru...';
+
+          const filePath = `uploads/${Date.now()}_${newFile.name}`;
+          
+          const { error: uploadError } = await supabaseClient
+            .storage
+            .from('task-files')
+            .upload(filePath, newFile);
+
+          if (uploadError) throw uploadError;
+
+          const { data: urlData } = supabaseClient
+            .storage
+            .from('task-files')
+            .getPublicUrl(filePath);
+
+          fileUrl = urlData.publicUrl;
+        }
+
+        const { error: updateError } = await supabaseClient
+          .from('adpl_items')
+          .update({
+            category: category,
+            pertemuan: pertemuan,
+            title: title,
+            desc: desc,
+            link_url: linkUrl,
+            file_name: fileName,
+            file_url: fileUrl
+          })
+          .eq('id', id);
+
+        if (updateError) throw updateError;
+
+        await fetchAndRender();
+        closeEditModal();
+        alert('Data berhasil diperbarui!');
+
+      } catch (error) {
+        console.error("Gagal mengedit:", error);
+        alert('Gagal mengedit data: ' + error.message);
+      } finally {
+        btnUpdate.disabled = false;
+        btnUpdate.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan';
+      }
+    }
+
     async function removeItemFromDatabase(id) {
       if (!isAdmin) return alert('Aktifkan Mode Admin terlebih dahulu!');
       if (confirm('Yakin ingin menghapus item ini dari database?')) {
@@ -637,6 +803,8 @@
 
         if (error) {
           alert('Gagal menghapus data: ' + error.message);
+        } else {
+          await fetchAndRender();
         }
       }
     }
