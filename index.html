@@ -43,7 +43,7 @@
       <!-- OPSI PERAN -->
       <div class="space-y-3">
         <!-- Mahasiswa -->
-        <button onclick="loginAs('mahasiswa')" class="w-full p-4 rounded-2xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 text-left flex items-center justify-between transition group shadow-sm">
+        <button onclick="loginAsMahasiswa()" class="w-full p-4 rounded-2xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 text-left flex items-center justify-between transition group shadow-sm">
           <div class="flex items-center space-x-3.5">
             <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-base font-bold">
               <i class="fa-solid fa-user-graduate"></i>
@@ -57,7 +57,7 @@
         </button>
 
         <!-- Dosen / Asdos -->
-        <button onclick="loginAs('dosen')" class="w-full p-4 rounded-2xl border border-slate-200 hover:border-purple-500 hover:bg-purple-50/50 text-left flex items-center justify-between transition group shadow-sm">
+        <button onclick="openDosenPinModal()" class="w-full p-4 rounded-2xl border border-slate-200 hover:border-purple-500 hover:bg-purple-50/50 text-left flex items-center justify-between transition group shadow-sm">
           <div class="flex items-center space-x-3.5">
             <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-base font-bold">
               <i class="fa-solid fa-chalkboard-user"></i>
@@ -67,11 +67,11 @@
               <p class="text-[11px] text-slate-500">Akses beri catatan & feedback</p>
             </div>
           </div>
-          <i class="fa-solid fa-arrow-right text-xs text-slate-300 group-hover:text-purple-600"></i>
+          <i class="fa-solid fa-key text-xs text-slate-300 group-hover:text-purple-600"></i>
         </button>
 
         <!-- Admin -->
-        <button onclick="openPinModal()" class="w-full p-4 rounded-2xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 text-left flex items-center justify-between transition group shadow-sm">
+        <button onclick="openAdminPinModal()" class="w-full p-4 rounded-2xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 text-left flex items-center justify-between transition group shadow-sm">
           <div class="flex items-center space-x-3.5">
             <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-base font-bold">
               <i class="fa-solid fa-user-shield"></i>
@@ -372,12 +372,12 @@
 
   </main>
 
-  <!-- ================= MODAL 1: PIN ADMIN CUSTOM (OTP DIGIT + ANIMASI SHAKE) ================= -->
-  <div id="pinModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div id="pinModalBox" class="bg-white border border-slate-200 rounded-[32px] max-w-md w-full p-6 sm:p-8 shadow-2xl space-y-6 text-center transition-all">
+  <!-- ================= MODAL 1: PIN ADMIN CUSTOM (9-DIGIT OTP) ================= -->
+  <div id="pinAdminModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div id="pinAdminModalBox" class="bg-white border border-slate-200 rounded-[32px] max-w-md w-full p-6 sm:p-8 shadow-2xl space-y-6 text-center transition-all">
       
       <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl mx-auto font-bold border border-amber-200 shadow-sm">
-        <i class="fa-solid fa-lock"></i>
+        <i class="fa-solid fa-user-shield"></i>
       </div>
 
       <div>
@@ -386,30 +386,70 @@
       </div>
 
       <div class="space-y-3">
-        <!-- 9 KOTAK DIGIT TERPISAH -->
-        <div class="flex justify-center gap-1.5 sm:gap-2" id="otpContainer">
-          <input type="password" maxlength="1" class="otp-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
-          <input type="password" maxlength="1" class="otp-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
-          <input type="password" maxlength="1" class="otp-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
-          <input type="password" maxlength="1" class="otp-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
-          <input type="password" maxlength="1" class="otp-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
-          <input type="password" maxlength="1" class="otp-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
-          <input type="password" maxlength="1" class="otp-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
-          <input type="password" maxlength="1" class="otp-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
-          <input type="password" maxlength="1" class="otp-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
+        <div class="flex justify-center gap-1.5 sm:gap-2">
+          <input type="password" maxlength="1" class="otp-admin-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
+          <input type="password" maxlength="1" class="otp-admin-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
+          <input type="password" maxlength="1" class="otp-admin-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
+          <input type="password" maxlength="1" class="otp-admin-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
+          <input type="password" maxlength="1" class="otp-admin-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
+          <input type="password" maxlength="1" class="otp-admin-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
+          <input type="password" maxlength="1" class="otp-admin-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
+          <input type="password" maxlength="1" class="otp-admin-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
+          <input type="password" maxlength="1" class="otp-admin-digit w-8 h-11 sm:w-9 sm:h-12 text-center text-base sm:text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50 text-slate-900 shadow-sm transition">
         </div>
-        <p id="pinErrorMsg" class="text-xs text-rose-500 font-semibold hidden">PIN yang Anda masukkan salah!</p>
+        <p id="adminPinErrorMsg" class="text-xs text-rose-500 font-semibold hidden">PIN Admin yang Anda masukkan salah!</p>
       </div>
 
       <div class="flex gap-2.5 pt-2">
-        <button onclick="closePinModal()" class="w-1/2 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-full transition">Batal</button>
+        <button onclick="closeAdminPinModal()" class="w-1/2 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-full transition">Batal</button>
         <button onclick="verifyAdminPin()" class="w-1/2 py-3 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-full transition shadow-sm">Verifikasi PIN</button>
       </div>
 
     </div>
   </div>
 
-  <!-- ================= MODAL 2: EDIT / FEEDBACK CATATAN DOSEN ================= -->
+  <!-- ================= MODAL 2: PIN DOSEN CUSTOM (INPUT NAMA + 6-DIGIT OTP) ================= -->
+  <div id="pinDosenModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div id="pinDosenModalBox" class="bg-white border border-slate-200 rounded-[32px] max-w-sm w-full p-6 sm:p-8 shadow-2xl space-y-5 text-center transition-all">
+      
+      <div class="w-14 h-14 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-2xl mx-auto font-bold border border-purple-200 shadow-sm">
+        <i class="fa-solid fa-chalkboard-user"></i>
+      </div>
+
+      <div>
+        <h3 class="font-black text-slate-900 text-lg tracking-tight">Autentikasi Dosen / Asdos</h3>
+        <p class="text-xs text-slate-500 mt-1">Masukkan nama & 6 digit PIN Dosen (Default: 123456)</p>
+      </div>
+
+      <div class="space-y-4 text-left">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Nama Pengajar / Asdos</label>
+          <input type="text" id="inputDosenName" placeholder="Contoh: Pak Dosen ADPL" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-purple-500 bg-slate-50">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1.5 text-center">Masukkan 6 Digit PIN Dosen</label>
+          <div class="flex justify-center gap-2">
+            <input type="password" maxlength="1" class="otp-dosen-digit w-9 h-11 text-center text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-slate-50 text-slate-900 shadow-sm transition">
+            <input type="password" maxlength="1" class="otp-dosen-digit w-9 h-11 text-center text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-slate-50 text-slate-900 shadow-sm transition">
+            <input type="password" maxlength="1" class="otp-dosen-digit w-9 h-11 text-center text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-slate-50 text-slate-900 shadow-sm transition">
+            <input type="password" maxlength="1" class="otp-dosen-digit w-9 h-11 text-center text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-slate-50 text-slate-900 shadow-sm transition">
+            <input type="password" maxlength="1" class="otp-dosen-digit w-9 h-11 text-center text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-slate-50 text-slate-900 shadow-sm transition">
+            <input type="password" maxlength="1" class="otp-dosen-digit w-9 h-11 text-center text-lg font-extrabold rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-slate-50 text-slate-900 shadow-sm transition">
+          </div>
+          <p id="dosenPinErrorMsg" class="text-xs text-rose-500 font-semibold text-center mt-2 hidden">PIN Dosen salah!</p>
+        </div>
+      </div>
+
+      <div class="flex gap-2.5 pt-2">
+        <button onclick="closeDosenPinModal()" class="w-1/2 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-full transition">Batal</button>
+        <button onclick="verifyDosenPin()" class="w-1/2 py-3 bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold rounded-full transition shadow-sm">Masuk Dosen</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= MODAL 3: EDIT / FEEDBACK CATATAN DOSEN ================= -->
   <div id="dosenNoteModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-[32px] max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
       <div class="flex items-center justify-between border-b border-slate-100 pb-3">
@@ -534,9 +574,11 @@
     </div>
   </div>
 
-  <!-- SCRIPT LOGIC SUPABASE & MANAGEMENT ROLE & OTP SHAKE -->
+  <!-- SCRIPT LOGIC SUPABASE & LOCALSTORAGE PERSISTENCE & MODALS -->
   <script>
     const ADMIN_PIN = "240511103";
+    const DOSEN_PIN = "123456";
+
     let isAdmin = false;
     let currentRole = null;
     let dosenName = '';
@@ -547,24 +589,39 @@
 
     let globalItems = [];
 
-    // FUNGSI INISIALISASI INPUT OTP DIGIT
-    function initOtpInputs() {
-      const inputs = document.querySelectorAll('.otp-digit');
-      
+    // CEK SESI PERSISTENCE DI LOCALSTORAGE SAAT HALAMAN DIBUKA / DI-REFRESH
+    function checkSavedSession() {
+      const savedRole = localStorage.getItem('adpl_role');
+      const savedIsAdmin = localStorage.getItem('adpl_is_admin') === 'true';
+      const savedDosenName = localStorage.getItem('adpl_dosen_name') || '';
+
+      if (savedRole) {
+        currentRole = savedRole;
+        isAdmin = savedIsAdmin;
+        dosenName = savedDosenName;
+
+        document.getElementById('loginScreen').classList.add('hidden');
+        document.getElementById('mainHeader').classList.remove('hidden');
+        document.getElementById('mainApp').classList.remove('hidden');
+
+        updateRoleUI();
+      }
+    }
+
+    // FUNGSI INIT OTP INPUTS (GENERIC FOR ADMIN & DOSEN)
+    function setupOtpInputs(className, verifyFn) {
+      const inputs = document.querySelectorAll(className);
       inputs.forEach((input, index) => {
-        // Otomatis pindah fokus saat diisi
         input.addEventListener('input', (e) => {
-          const val = e.target.value;
-          if (val.length > 0) {
+          if (e.target.value.length > 0) {
             if (index < inputs.length - 1) {
               inputs[index + 1].focus();
             } else {
-              verifyAdminPin();
+              verifyFn();
             }
           }
         });
 
-        // Pindah fokus saat menekan Backspace
         input.addEventListener('keydown', (e) => {
           if (e.key === 'Backspace') {
             if (!input.value && index > 0) {
@@ -576,7 +633,6 @@
           }
         });
 
-        // Menangani Paste (Tempel PIN sekaligus)
         input.addEventListener('paste', (e) => {
           e.preventDefault();
           const pastedData = (e.clipboardData || window.clipboardData).getData('text').trim();
@@ -588,16 +644,17 @@
             const nextIdx = Math.min(digits.length, inputs.length - 1);
             inputs[nextIdx].focus();
             if (digits.length >= inputs.length) {
-              verifyAdminPin();
+              verifyFn();
             }
           }
         });
       });
     }
 
-    function openPinModal() {
-      const inputs = document.querySelectorAll('.otp-digit');
-      const modalBox = document.getElementById('pinModalBox');
+    // MODAL ADMIN PIN
+    function openAdminPinModal() {
+      const inputs = document.querySelectorAll('.otp-admin-digit');
+      const modalBox = document.getElementById('pinAdminModalBox');
       
       modalBox.classList.remove('border-rose-500');
       inputs.forEach(inp => {
@@ -605,61 +662,110 @@
         inp.classList.remove('border-rose-400');
       });
 
-      document.getElementById('pinErrorMsg').classList.add('hidden');
-      document.getElementById('pinModal').classList.remove('hidden');
+      document.getElementById('adminPinErrorMsg').classList.add('hidden');
+      document.getElementById('pinAdminModal').classList.remove('hidden');
       
-      setTimeout(() => {
-        if (inputs[0]) inputs[0].focus();
-      }, 100);
+      setTimeout(() => { if (inputs[0]) inputs[0].focus(); }, 100);
     }
 
-    function closePinModal() {
-      document.getElementById('pinModal').classList.add('hidden');
+    function closeAdminPinModal() {
+      document.getElementById('pinAdminModal').classList.add('hidden');
     }
 
     function verifyAdminPin() {
-      const inputs = document.querySelectorAll('.otp-digit');
-      const modalBox = document.getElementById('pinModalBox');
+      const inputs = document.querySelectorAll('.otp-admin-digit');
+      const modalBox = document.getElementById('pinAdminModalBox');
       const enteredPin = Array.from(inputs).map(inp => inp.value).join('');
 
       if (enteredPin === ADMIN_PIN) {
         isAdmin = true;
         currentRole = 'admin';
-        closePinModal();
 
+        localStorage.setItem('adpl_role', 'admin');
+        localStorage.setItem('adpl_is_admin', 'true');
+        localStorage.removeItem('adpl_dosen_name');
+
+        closeAdminPinModal();
         document.getElementById('loginScreen').classList.add('hidden');
         document.getElementById('mainHeader').classList.remove('hidden');
         document.getElementById('mainApp').classList.remove('hidden');
 
         updateRoleUI();
       } else {
-        // TAMPILKAN EFEK SHAKE & WARNA MERAH JIKA PIN SALAH
-        document.getElementById('pinErrorMsg').classList.remove('hidden');
+        document.getElementById('adminPinErrorMsg').classList.remove('hidden');
         modalBox.classList.add('animate-shake', 'border-rose-500');
-
         inputs.forEach(inp => {
           inp.value = '';
           inp.classList.add('border-rose-400');
         });
-
-        setTimeout(() => {
-          modalBox.classList.remove('animate-shake');
-        }, 400);
-
+        setTimeout(() => modalBox.classList.remove('animate-shake'), 400);
         if (inputs[0]) inputs[0].focus();
       }
     }
 
-    function loginAs(role) {
-      if (role === 'dosen') {
+    // MODAL DOSEN PIN
+    function openDosenPinModal() {
+      const inputs = document.querySelectorAll('.otp-dosen-digit');
+      const modalBox = document.getElementById('pinDosenModalBox');
+      
+      modalBox.classList.remove('border-rose-500');
+      inputs.forEach(inp => {
+        inp.value = '';
+        inp.classList.remove('border-rose-400');
+      });
+
+      document.getElementById('inputDosenName').value = dosenName || 'Dosen ADPL';
+      document.getElementById('dosenPinErrorMsg').classList.add('hidden');
+      document.getElementById('pinDosenModal').classList.remove('hidden');
+
+      setTimeout(() => { if (inputs[0]) inputs[0].focus(); }, 100);
+    }
+
+    function closeDosenPinModal() {
+      document.getElementById('pinDosenModal').classList.add('hidden');
+    }
+
+    function verifyDosenPin() {
+      const inputs = document.querySelectorAll('.otp-dosen-digit');
+      const modalBox = document.getElementById('pinDosenModalBox');
+      const enteredPin = Array.from(inputs).map(inp => inp.value).join('');
+      const nameInput = document.getElementById('inputDosenName').value.trim();
+
+      if (enteredPin === DOSEN_PIN) {
         isAdmin = false;
         currentRole = 'dosen';
-        const inputName = prompt("Masukkan Nama Dosen / Asdos (Opsional):", "Dosen ADPL");
-        dosenName = inputName ? inputName.trim() : "Dosen/Asdos";
+        dosenName = nameInput || 'Dosen ADPL';
+
+        localStorage.setItem('adpl_role', 'dosen');
+        localStorage.setItem('adpl_is_admin', 'false');
+        localStorage.setItem('adpl_dosen_name', dosenName);
+
+        closeDosenPinModal();
+        document.getElementById('loginScreen').classList.add('hidden');
+        document.getElementById('mainHeader').classList.remove('hidden');
+        document.getElementById('mainApp').classList.remove('hidden');
+
+        updateRoleUI();
       } else {
-        isAdmin = false;
-        currentRole = 'mahasiswa';
+        document.getElementById('dosenPinErrorMsg').classList.remove('hidden');
+        modalBox.classList.add('animate-shake', 'border-rose-500');
+        inputs.forEach(inp => {
+          inp.value = '';
+          inp.classList.add('border-rose-400');
+        });
+        setTimeout(() => modalBox.classList.remove('animate-shake'), 400);
+        if (inputs[0]) inputs[0].focus();
       }
+    }
+
+    function loginAsMahasiswa() {
+      isAdmin = false;
+      currentRole = 'mahasiswa';
+      dosenName = '';
+
+      localStorage.setItem('adpl_role', 'mahasiswa');
+      localStorage.setItem('adpl_is_admin', 'false');
+      localStorage.removeItem('adpl_dosen_name');
 
       document.getElementById('loginScreen').classList.add('hidden');
       document.getElementById('mainHeader').classList.remove('hidden');
@@ -673,6 +779,10 @@
         isAdmin = false;
         currentRole = null;
         dosenName = '';
+
+        localStorage.removeItem('adpl_role');
+        localStorage.removeItem('adpl_is_admin');
+        localStorage.removeItem('adpl_dosen_name');
 
         document.getElementById('loginScreen').classList.remove('hidden');
         document.getElementById('mainHeader').classList.add('hidden');
@@ -701,7 +811,6 @@
       renderContainer(globalItems);
     }
 
-    // FUNGSI CUSTOM DOSEN NOTE MODAL
     function openDosenNoteModal(id) {
       if (currentRole !== 'dosen' && currentRole !== 'admin') {
         return alert("Fitur ini khusus untuk Dosen/Asdos!");
@@ -827,7 +936,12 @@
       .subscribe();
 
     fetchAndRender();
-    document.addEventListener('DOMContentLoaded', initOtpInputs);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setupOtpInputs('.otp-admin-digit', verifyAdminPin);
+      setupOtpInputs('.otp-dosen-digit', verifyDosenPin);
+      checkSavedSession();
+    });
 
     function toggleMobileMenu() {
       document.getElementById('mobileMenu').classList.toggle('hidden');
