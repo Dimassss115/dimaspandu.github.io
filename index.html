@@ -12,8 +12,75 @@
 </head>
 <body class="bg-[#EEECFE] text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-purple-500 selection:text-white">
 
-  <!-- TOP FLOATING PILL NAVBAR -->
-  <header class="sticky top-4 z-40 px-4">
+  <!-- ================= LAYAR ENTRANCE / LOGIN ROLE (TAMPIL AWAL) ================= -->
+  <div id="loginScreen" class="fixed inset-0 bg-[#EEECFE] z-50 flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-900/10 rounded-[36px] max-w-md w-full p-8 shadow-xl text-center space-y-6">
+      
+      <div class="space-y-2">
+        <div class="w-14 h-14 rounded-full bg-slate-900 text-white flex items-center justify-center font-black text-xl mx-auto shadow-md">
+          DP
+        </div>
+        <h2 class="text-2xl font-black text-slate-900 tracking-tight">Portal Akademik ADPL</h2>
+        <p class="text-xs text-slate-500 font-medium">Portofolio & Pembelajaran · Dimas Pandu Wibowo</p>
+      </div>
+
+      <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-xs text-slate-600">
+        Silakan pilih identitas Anda untuk masuk ke sistem:
+      </div>
+
+      <!-- OPSI PERAN -->
+      <div class="space-y-3">
+        
+        <!-- Opsi Mahasiswa -->
+        <button onclick="loginAs('mahasiswa')" class="w-full p-4 rounded-2xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 text-left flex items-center justify-between transition group shadow-sm">
+          <div class="flex items-center space-x-3.5">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-base font-bold">
+              <i class="fa-solid fa-user-graduate"></i>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-slate-900">Mahasiswa / Umum</p>
+              <p class="text-[11px] text-slate-500">Akses lihat & unduh berkas</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-xs text-slate-300 group-hover:text-indigo-600"></i>
+        </button>
+
+        <!-- Opsi Dosen / Asdos -->
+        <button onclick="loginAs('dosen')" class="w-full p-4 rounded-2xl border border-slate-200 hover:border-purple-500 hover:bg-purple-50/50 text-left flex items-center justify-between transition group shadow-sm">
+          <div class="flex items-center space-x-3.5">
+            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-base font-bold">
+              <i class="fa-solid fa-chalkboard-user"></i>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-slate-900">Dosen / Asdos</p>
+              <p class="text-[11px] text-slate-500">Akses beri catatan & feedback</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-xs text-slate-300 group-hover:text-purple-600"></i>
+        </button>
+
+        <!-- Opsi Admin -->
+        <button onclick="loginAs('admin')" class="w-full p-4 rounded-2xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 text-left flex items-center justify-between transition group shadow-sm">
+          <div class="flex items-center space-x-3.5">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-base font-bold">
+              <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-slate-900">Admin (Dimas)</p>
+              <p class="text-[11px] text-slate-500">Kelola & upload berkas database</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-key text-xs text-slate-300 group-hover:text-amber-600"></i>
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ================= MAIN APP HEADER ================= -->
+  <header id="mainHeader" class="sticky top-4 z-40 px-4 hidden">
     <div class="max-w-5xl mx-auto bg-white/90 backdrop-blur-md rounded-full border border-slate-900/10 px-6 py-3 flex items-center justify-between shadow-sm">
       
       <!-- Brand Logo -->
@@ -35,11 +102,15 @@
         <button onclick="switchTab('informasi')" id="nav-informasi" class="hover:text-slate-900 transition">Informasi</button>
       </nav>
 
-      <!-- Right Action Button: Login / Logout Admin -->
-      <div class="flex items-center space-x-2">
-        <button onclick="handleAuth()" id="authBtn" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-sm">
-          <i class="fa-solid fa-right-to-bracket text-slate-300 text-xs" id="authIcon"></i>
-          <span id="authText">Login Admin</span>
+      <!-- Right Action: Role Badge & Tombol Logout -->
+      <div class="flex items-center space-x-3">
+        <span id="roleBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 hidden sm:inline-block">
+          Mahasiswa
+        </span>
+
+        <button onclick="logout()" class="px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white text-xs font-semibold rounded-full flex items-center gap-1.5 transition shadow-sm">
+          <i class="fa-solid fa-right-from-bracket text-xs"></i>
+          <span>Keluar / Ganti Peran</span>
         </button>
 
         <button onclick="toggleMobileMenu()" class="md:hidden text-slate-700 p-2 rounded-full hover:bg-slate-100">
@@ -58,8 +129,9 @@
     </div>
   </header>
 
-  <!-- MAIN CONTAINER -->
-  <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-8 space-y-12">
+
+  <!-- ================= MAIN CONTENT CONTAINER ================= -->
+  <main id="mainApp" class="flex-1 max-w-5xl w-full mx-auto px-4 py-8 space-y-12 hidden">
 
     <!-- TAB: BERANDA -->
     <section id="tab-beranda" class="space-y-12">
@@ -391,10 +463,12 @@
     </div>
   </div>
 
-  <!-- SCRIPT LOGIC SUPABASE & AUTH -->
+  <!-- SCRIPT LOGIC SUPABASE & MANAGEMENT ROLE -->
   <script>
     const ADMIN_PIN = "240511103";
     let isAdmin = false;
+    let currentRole = null; // 'mahasiswa', 'dosen', 'admin'
+    let dosenName = '';
 
     const SUPABASE_URL = 'https://koylnvxwfbfvewuuzvoj.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_ZXFFN5tZ9mabhSIy8Wq5AQ_w6Otz3UB';
@@ -402,41 +476,67 @@
 
     let globalItems = [];
 
-    // FUNGSI AUTHENTICATION (LOGIN / LOGOUT)
-    function handleAuth() {
-      if (isAdmin) {
-        if (confirm("Yakin ingin logout dari Mode Admin?")) {
-          isAdmin = false;
-          alert("Berhasil Logout.");
-          updateAuthUI();
-        }
-      } else {
+    // FUNGSI ENTRANCE LOGIN ROLE
+    function loginAs(role) {
+      if (role === 'admin') {
         const inputPin = prompt("Masukkan PIN Admin:");
         if (inputPin === ADMIN_PIN) {
           isAdmin = true;
-          alert("Login Berhasil! Mode Admin Aktif.");
-          updateAuthUI();
+          currentRole = 'admin';
+          alert("Login Berhasil sebagai Admin!");
         } else if (inputPin !== null) {
           alert("PIN Salah!");
+          return;
+        } else {
+          return;
         }
+      } else if (role === 'dosen') {
+        isAdmin = false;
+        currentRole = 'dosen';
+        const inputName = prompt("Masukkan Nama Dosen / Asdos (Opsional):", "Dosen ADPL");
+        dosenName = inputName ? inputName.trim() : "Dosen/Asdos";
+      } else {
+        isAdmin = false;
+        currentRole = 'mahasiswa';
+      }
+
+      // Sembunyikan layar login entrance, tampilkan aplikasi utama
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('mainHeader').classList.remove('hidden');
+      document.getElementById('mainApp').classList.remove('hidden');
+
+      updateRoleUI();
+    }
+
+    // FUNGSI LOGOUT (KEMBALI KE LAYAR PILIHAN PERAN)
+    function logout() {
+      if (confirm("Keluar dan ganti peran akses?")) {
+        isAdmin = false;
+        currentRole = null;
+        dosenName = '';
+
+        // Tampilkan kembali layar entrance
+        document.getElementById('loginScreen').classList.remove('hidden');
+        document.getElementById('mainHeader').classList.add('hidden');
+        document.getElementById('mainApp').classList.add('hidden');
       }
     }
 
-    function updateAuthUI() {
-      const authBtn = document.getElementById('authBtn');
-      const authIcon = document.getElementById('authIcon');
-      const authText = document.getElementById('authText');
+    function updateRoleUI() {
+      const roleBadge = document.getElementById('roleBadge');
       const formUpload = document.getElementById('formUploadAdmin');
 
-      if (isAdmin) {
-        authBtn.className = "px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-sm";
-        authIcon.className = "fa-solid fa-right-from-bracket text-white text-xs";
-        authText.innerText = "Logout (Admin)";
+      if (currentRole === 'admin') {
+        roleBadge.innerText = "Peran: Admin (Dimas)";
+        roleBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-200 hidden sm:inline-block";
         formUpload.classList.remove('hidden');
+      } else if (currentRole === 'dosen') {
+        roleBadge.innerText = `Peran: ${dosenName}`;
+        roleBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-purple-100 text-purple-800 border border-purple-200 hidden sm:inline-block";
+        formUpload.classList.add('hidden');
       } else {
-        authBtn.className = "px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-sm";
-        authIcon.className = "fa-solid fa-right-to-bracket text-slate-300 text-xs";
-        authText.innerText = "Login Admin";
+        roleBadge.innerText = "Peran: Mahasiswa";
+        roleBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-blue-100 text-blue-800 border border-blue-200 hidden sm:inline-block";
         formUpload.classList.add('hidden');
       }
 
@@ -498,7 +598,8 @@
         fileName: item.file_name,
         fileData: item.file_url,
         date: item.date,
-        hasTask: item.has_task ?? false
+        hasTask: item.has_task ?? false,
+        dosenNotes: item.dosen_notes || null
       }));
 
       renderContainer(globalItems);
@@ -586,6 +687,19 @@
         }
       }
 
+      // Tampilan Kotak Catatan Dosen
+      const dosenNotesHtml = item.dosenNotes ? `
+        <div class="mt-3 p-3 bg-purple-50 rounded-xl border border-purple-200 text-xs text-purple-900 space-y-1">
+          <div class="flex items-center justify-between font-bold text-[11px] text-purple-700">
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-comment-dots"></i> Catatan & Feedback Dosen:</span>
+            ${(currentRole === 'dosen' || currentRole === 'admin') ? `
+              <button onclick="addDosenNote(${item.id})" class="text-[10px] text-purple-600 underline hover:text-purple-800">Edit</button>
+            ` : ''}
+          </div>
+          <p class="text-slate-700 leading-relaxed">${item.dosenNotes}</p>
+        </div>
+      ` : '';
+
       return `
         <div class="p-4 bg-slate-50/70 rounded-2xl border border-slate-200/80 space-y-2 hover:bg-slate-50 transition text-slate-800">
           <div class="flex items-center justify-between">
@@ -598,6 +712,8 @@
           <h4 class="font-bold text-slate-900 text-sm">${item.title}</h4>
           ${item.desc ? `<p class="text-xs text-slate-600 leading-relaxed">${item.desc}</p>` : ''}
           
+          ${dosenNotesHtml}
+
           <div class="pt-2 flex flex-wrap items-center justify-between gap-2 text-xs border-t border-slate-200/60 mt-2">
             <div class="flex flex-wrap items-center gap-2">
               
@@ -619,7 +735,13 @@
                 </a>
               ` : ''}
 
-              ${!item.fileData && !item.linkUrl ? '<span class="text-slate-400 italic text-[11px]">Tanpa file terlampir</span>' : ''}
+              <!-- TOMBOL UNTUK DOSEN / ADMIN ADD FEEDBACK -->
+              ${(currentRole === 'dosen' || currentRole === 'admin') && !item.dosenNotes ? `
+                <button onclick="addDosenNote(${item.id})" class="text-purple-700 hover:bg-purple-100 font-semibold flex items-center gap-1 bg-purple-50 px-3 py-1 rounded-full border border-purple-200 transition text-xs shadow-sm">
+                  <i class="fa-solid fa-comment-medical text-purple-600"></i> + Catatan Dosen
+                </button>
+              ` : ''}
+
             </div>
 
             ${isAdmin ? `
@@ -635,6 +757,36 @@
           </div>
         </div>
       `;
+    }
+
+    // FUNGSI BERI CATATAN DOSEN
+    async function addDosenNote(id) {
+      if (currentRole !== 'dosen' && currentRole !== 'admin') {
+        return alert("Fitur ini khusus untuk Dosen/Asdos!");
+      }
+
+      const item = globalItems.find(i => i.id == id);
+      const noteExisting = item ? (item.dosenNotes || '') : '';
+      const newNote = prompt("Tulis catatan / feedback evaluasi untuk berkas ini:", noteExisting);
+
+      if (newNote !== null) {
+        try {
+          const authorHeader = dosenName ? `[${dosenName}]: ` : '';
+          const finalNoteText = newNote.trim() ? `${authorHeader}${newNote.trim()}` : null;
+
+          const { error } = await supabaseClient
+            .from('adpl_items')
+            .update({ dosen_notes: finalNoteText })
+            .eq('id', id);
+
+          if (error) throw error;
+
+          await fetchAndRender();
+          alert("Catatan berhasil disimpan!");
+        } catch (err) {
+          alert("Gagal menyimpan catatan: " + err.message + "\n\n(Pastikan kolom 'dosen_notes' sudah ada di Supabase).");
+        }
+      }
     }
 
     async function addItemToDatabase() {
