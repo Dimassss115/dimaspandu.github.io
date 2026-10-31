@@ -12,7 +12,7 @@
 </head>
 <body class="bg-[#EEECFE] text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-purple-500 selection:text-white">
 
-  <!-- ================= LAYAR ENTRANCE / LOGIN ROLE (TAMPIL AWAL) ================= -->
+  <!-- ================= LAYAR ENTRANCE / LOGIN ROLE ================= -->
   <div id="loginScreen" class="fixed inset-0 bg-[#EEECFE] z-50 flex items-center justify-center p-4">
     <div class="bg-white border border-slate-900/10 rounded-[36px] max-w-md w-full p-8 shadow-xl text-center space-y-6">
       
@@ -30,8 +30,7 @@
 
       <!-- OPSI PERAN -->
       <div class="space-y-3">
-        
-        <!-- Opsi Mahasiswa -->
+        <!-- Mahasiswa -->
         <button onclick="loginAs('mahasiswa')" class="w-full p-4 rounded-2xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 text-left flex items-center justify-between transition group shadow-sm">
           <div class="flex items-center space-x-3.5">
             <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-base font-bold">
@@ -45,7 +44,7 @@
           <i class="fa-solid fa-arrow-right text-xs text-slate-300 group-hover:text-indigo-600"></i>
         </button>
 
-        <!-- Opsi Dosen / Asdos -->
+        <!-- Dosen / Asdos -->
         <button onclick="loginAs('dosen')" class="w-full p-4 rounded-2xl border border-slate-200 hover:border-purple-500 hover:bg-purple-50/50 text-left flex items-center justify-between transition group shadow-sm">
           <div class="flex items-center space-x-3.5">
             <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-base font-bold">
@@ -59,8 +58,8 @@
           <i class="fa-solid fa-arrow-right text-xs text-slate-300 group-hover:text-purple-600"></i>
         </button>
 
-        <!-- Opsi Admin -->
-        <button onclick="loginAs('admin')" class="w-full p-4 rounded-2xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 text-left flex items-center justify-between transition group shadow-sm">
+        <!-- Admin -->
+        <button onclick="openPinModal()" class="w-full p-4 rounded-2xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 text-left flex items-center justify-between transition group shadow-sm">
           <div class="flex items-center space-x-3.5">
             <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-base font-bold">
               <i class="fa-solid fa-user-shield"></i>
@@ -72,12 +71,10 @@
           </div>
           <i class="fa-solid fa-key text-xs text-slate-300 group-hover:text-amber-600"></i>
         </button>
-
       </div>
 
     </div>
   </div>
-
 
   <!-- ================= MAIN APP HEADER ================= -->
   <header id="mainHeader" class="sticky top-4 z-40 px-4 hidden">
@@ -91,7 +88,7 @@
         <span class="font-extrabold text-slate-900 text-sm tracking-tight">Dimas.</span>
       </div>
 
-      <!-- Navigation Links (Desktop) -->
+      <!-- Navigation Links -->
       <nav class="hidden md:flex items-center space-x-6 text-xs font-semibold text-slate-600">
         <button onclick="switchTab('beranda')" id="nav-beranda" class="text-slate-900 font-bold transition">Beranda</button>
         <span class="text-slate-300">•</span>
@@ -129,16 +126,12 @@
     </div>
   </header>
 
-
   <!-- ================= MAIN CONTENT CONTAINER ================= -->
   <main id="mainApp" class="flex-1 max-w-5xl w-full mx-auto px-4 py-8 space-y-12 hidden">
 
     <!-- TAB: BERANDA -->
     <section id="tab-beranda" class="space-y-12">
-      
-      <!-- HERO SECTION -->
       <div class="relative text-center max-w-3xl mx-auto pt-6 space-y-6">
-        
         <div class="hidden sm:inline-flex absolute -top-2 left-0 -rotate-6 px-3.5 py-1.5 bg-blue-100 border border-blue-300 text-blue-800 rounded-full text-xs font-semibold shadow-sm items-center gap-1.5">
           <i class="fa-solid fa-graduation-cap text-blue-500"></i> Teknik Informatika UMC
         </div>
@@ -147,7 +140,6 @@
           <i class="fa-solid fa-laptop-code text-pink-500"></i> ADPL Course
         </div>
 
-        <!-- Headline -->
         <h2 class="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight leading-tight">
           Selamat Datang!<br>
           Portal Akademik & Tugas.
@@ -276,7 +268,6 @@
             <option value="Tugas">📝 Tugas Kuliah (Jawaban)</option>
           </select>
 
-          <!-- Dropdown Pertemuan (Bagi Materi) -->
           <div id="pertemuanWrapper" class="w-full">
             <select id="itemPertemuan" class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
               <option value="Pertemuan 1">Pertemuan 1</option>
@@ -299,7 +290,6 @@
             </select>
           </div>
 
-          <!-- Dropdown Terintegrasi Pilihan Materi (Bagi Tugas) -->
           <div id="targetMateriWrapper" class="w-full hidden">
             <select id="itemTargetMateri" class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white font-medium">
             </select>
@@ -308,7 +298,6 @@
           <input type="text" id="itemTitle" placeholder="Judul Materi / Tugas" class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
         </div>
 
-        <!-- Checkbox opsi tugas untuk Materi -->
         <div id="hasTaskOption" class="flex items-center gap-2 bg-slate-50 p-3 rounded-2xl border border-slate-100">
           <input type="checkbox" id="itemHasTask" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 cursor-pointer">
           <label for="itemHasTask" class="text-xs font-semibold text-slate-700 cursor-pointer">
@@ -370,6 +359,62 @@
     </section>
 
   </main>
+
+  <!-- ================= MODAL 1: PIN ADMIN CUSTOM ================= -->
+  <div id="pinModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white border border-slate-200 rounded-[32px] max-w-sm w-full p-6 shadow-2xl space-y-4 text-center">
+      <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mx-auto font-bold border border-amber-200">
+        <i class="fa-solid fa-lock"></i>
+      </div>
+      <div>
+        <h3 class="font-black text-slate-900 text-base">Autentikasi Admin</h3>
+        <p class="text-xs text-slate-500 mt-0.5">Masukkan PIN rahasia untuk mengaktifkan akses Admin</p>
+      </div>
+
+      <div class="space-y-2">
+        <input type="password" id="inputPinAdmin" placeholder="• • • • • •" class="w-full text-center px-4 py-3 rounded-2xl border border-slate-200 font-bold text-lg tracking-widest focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50" onkeyup="if(event.key==='Enter') verifyAdminPin()">
+        <p id="pinErrorMsg" class="text-xs text-rose-500 font-semibold hidden">PIN yang Anda masukkan salah!</p>
+      </div>
+
+      <div class="flex gap-2 pt-2">
+        <button onclick="closePinModal()" class="w-1/2 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-full transition">Batal</button>
+        <button onclick="verifyAdminPin()" class="w-1/2 py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-full transition shadow-sm">Verifikasi PIN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 2: EDIT / FEEDBACK CATATAN DOSEN ================= -->
+  <div id="dosenNoteModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-[32px] max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+          <i class="fa-solid fa-comment-dots text-purple-600"></i> Catatan & Feedback Dosen
+        </h3>
+        <button onclick="closeDosenNoteModal()" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-xs">✕</button>
+      </div>
+
+      <input type="hidden" id="noteItemId">
+
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Nama Dosen / Penilai (Opsional)</label>
+          <input type="text" id="noteAuthorName" placeholder="Contoh: Pak Dosen / Asdos ADPL" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Catatan Evaluasi & Umpan Balik</label>
+          <textarea id="noteContent" rows="4" placeholder="Tuliskan saran, nilai, atau masukan untuk tugas/materi ini..." class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-xs bg-slate-50 focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
+        <button onclick="closeDosenNoteModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-full transition">Batal</button>
+        <button onclick="saveDosenNoteToDb()" id="btnSaveNote" class="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold rounded-full transition flex items-center gap-1.5 shadow-sm">
+          <i class="fa-solid fa-paper-plane"></i> Simpan Catatan
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- MODAL POPUP EDIT ITEM -->
   <div id="editModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
@@ -452,7 +497,7 @@
     </div>
   </div>
 
-  <!-- MODAL POPUP PREVIEW -->
+  <!-- MODAL POPUP PREVIEW PDF/GAMBAR -->
   <div id="previewModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-[32px] max-w-4xl w-full h-[85vh] flex flex-col shadow-2xl overflow-hidden border border-slate-200">
       <div class="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between text-slate-800">
@@ -463,11 +508,11 @@
     </div>
   </div>
 
-  <!-- SCRIPT LOGIC SUPABASE & MANAGEMENT ROLE -->
+  <!-- SCRIPT LOGIC SUPABASE & CUSTOM MODALS -->
   <script>
     const ADMIN_PIN = "240511103";
     let isAdmin = false;
-    let currentRole = null; // 'mahasiswa', 'dosen', 'admin'
+    let currentRole = null;
     let dosenName = '';
 
     const SUPABASE_URL = 'https://koylnvxwfbfvewuuzvoj.supabase.co';
@@ -476,21 +521,38 @@
 
     let globalItems = [];
 
-    // FUNGSI ENTRANCE LOGIN ROLE
+    // FUNGSI CUSTOM PIN MODAL
+    function openPinModal() {
+      document.getElementById('inputPinAdmin').value = '';
+      document.getElementById('pinErrorMsg').classList.add('hidden');
+      document.getElementById('pinModal').classList.remove('hidden');
+      setTimeout(() => document.getElementById('inputPinAdmin').focus(), 100);
+    }
+
+    function closePinModal() {
+      document.getElementById('pinModal').classList.add('hidden');
+    }
+
+    function verifyAdminPin() {
+      const pin = document.getElementById('inputPinAdmin').value;
+      if (pin === ADMIN_PIN) {
+        isAdmin = true;
+        currentRole = 'admin';
+        closePinModal();
+
+        // Tampilkan main app
+        document.getElementById('loginScreen').classList.add('hidden');
+        document.getElementById('mainHeader').classList.remove('hidden');
+        document.getElementById('mainApp').classList.remove('hidden');
+
+        updateRoleUI();
+      } else {
+        document.getElementById('pinErrorMsg').classList.remove('hidden');
+      }
+    }
+
     function loginAs(role) {
-      if (role === 'admin') {
-        const inputPin = prompt("Masukkan PIN Admin:");
-        if (inputPin === ADMIN_PIN) {
-          isAdmin = true;
-          currentRole = 'admin';
-          alert("Login Berhasil sebagai Admin!");
-        } else if (inputPin !== null) {
-          alert("PIN Salah!");
-          return;
-        } else {
-          return;
-        }
-      } else if (role === 'dosen') {
+      if (role === 'dosen') {
         isAdmin = false;
         currentRole = 'dosen';
         const inputName = prompt("Masukkan Nama Dosen / Asdos (Opsional):", "Dosen ADPL");
@@ -500,7 +562,6 @@
         currentRole = 'mahasiswa';
       }
 
-      // Sembunyikan layar login entrance, tampilkan aplikasi utama
       document.getElementById('loginScreen').classList.add('hidden');
       document.getElementById('mainHeader').classList.remove('hidden');
       document.getElementById('mainApp').classList.remove('hidden');
@@ -508,14 +569,12 @@
       updateRoleUI();
     }
 
-    // FUNGSI LOGOUT (KEMBALI KE LAYAR PILIHAN PERAN)
     function logout() {
       if (confirm("Keluar dan ganti peran akses?")) {
         isAdmin = false;
         currentRole = null;
         dosenName = '';
 
-        // Tampilkan kembali layar entrance
         document.getElementById('loginScreen').classList.remove('hidden');
         document.getElementById('mainHeader').classList.add('hidden');
         document.getElementById('mainApp').classList.add('hidden');
@@ -541,6 +600,52 @@
       }
 
       renderContainer(globalItems);
+    }
+
+    // FUNGSI CUSTOM DOSEN NOTE MODAL
+    function openDosenNoteModal(id) {
+      if (currentRole !== 'dosen' && currentRole !== 'admin') {
+        return alert("Fitur ini khusus untuk Dosen/Asdos!");
+      }
+
+      const item = globalItems.find(i => i.id == id);
+      document.getElementById('noteItemId').value = id;
+      document.getElementById('noteAuthorName').value = dosenName || 'Dosen ADPL';
+      document.getElementById('noteContent').value = item ? (item.dosenNotesRaw || '') : '';
+
+      document.getElementById('dosenNoteModal').classList.remove('hidden');
+    }
+
+    function closeDosenNoteModal() {
+      document.getElementById('dosenNoteModal').classList.add('hidden');
+    }
+
+    async function saveDosenNoteToDb() {
+      const id = document.getElementById('noteItemId').value;
+      const author = document.getElementById('noteAuthorName').value.trim() || 'Dosen ADPL';
+      const rawText = document.getElementById('noteContent').value.trim();
+
+      const btnSave = document.getElementById('btnSaveNote');
+      btnSave.disabled = true;
+
+      try {
+        const finalNoteText = rawText ? `[${author}]: ${rawText}` : null;
+
+        const { error } = await supabaseClient
+          .from('adpl_items')
+          .update({ dosen_notes: finalNoteText })
+          .eq('id', id);
+
+        if (error) throw error;
+
+        await fetchAndRender();
+        closeDosenNoteModal();
+        alert("Catatan berhasil disimpan!");
+      } catch (err) {
+        alert("Gagal menyimpan catatan: " + err.message);
+      } finally {
+        btnSave.disabled = false;
+      }
     }
 
     function toggleCategoryForm() {
@@ -588,19 +693,28 @@
         return;
       }
 
-      globalItems = data.map(item => ({
-        id: item.id,
-        category: item.category,
-        pertemuan: item.pertemuan,
-        title: item.title,
-        desc: item.desc,
-        linkUrl: item.link_url,
-        fileName: item.file_name,
-        fileData: item.file_url,
-        date: item.date,
-        hasTask: item.has_task ?? false,
-        dosenNotes: item.dosen_notes || null
-      }));
+      globalItems = data.map(item => {
+        let rawNote = item.dosen_notes || '';
+        let cleanNote = rawNote;
+        if (rawNote.startsWith('[')) {
+          cleanNote = rawNote.substring(rawNote.indexOf(']: ') + 3);
+        }
+
+        return {
+          id: item.id,
+          category: item.category,
+          pertemuan: item.pertemuan,
+          title: item.title,
+          desc: item.desc,
+          linkUrl: item.link_url,
+          fileName: item.file_name,
+          fileData: item.file_url,
+          date: item.date,
+          hasTask: item.has_task ?? false,
+          dosenNotes: item.dosen_notes || null,
+          dosenNotesRaw: cleanNote
+        };
+      });
 
       renderContainer(globalItems);
       populateTargetMateriDropdown();
@@ -687,16 +801,16 @@
         }
       }
 
-      // Tampilan Kotak Catatan Dosen
+      <!-- TAMPILKAN CATATAN DOSEN LANGSUNG PADA WEB -->
       const dosenNotesHtml = item.dosenNotes ? `
-        <div class="mt-3 p-3 bg-purple-50 rounded-xl border border-purple-200 text-xs text-purple-900 space-y-1">
-          <div class="flex items-center justify-between font-bold text-[11px] text-purple-700">
-            <span class="flex items-center gap-1.5"><i class="fa-solid fa-comment-dots"></i> Catatan & Feedback Dosen:</span>
+        <div class="mt-3 p-3.5 bg-purple-50 rounded-2xl border border-purple-200/80 text-xs text-purple-950 space-y-1">
+          <div class="flex items-center justify-between font-bold text-[11px] text-purple-700 border-b border-purple-100 pb-1">
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-comment-dots text-purple-600"></i> Catatan & Feedback Dosen</span>
             ${(currentRole === 'dosen' || currentRole === 'admin') ? `
-              <button onclick="addDosenNote(${item.id})" class="text-[10px] text-purple-600 underline hover:text-purple-800">Edit</button>
+              <button onclick="openDosenNoteModal(${item.id})" class="text-[10px] text-purple-600 hover:text-purple-800 font-bold underline">Edit Catatan</button>
             ` : ''}
           </div>
-          <p class="text-slate-700 leading-relaxed">${item.dosenNotes}</p>
+          <p class="text-slate-700 leading-relaxed pt-1 font-medium">${item.dosenNotes}</p>
         </div>
       ` : '';
 
@@ -735,9 +849,8 @@
                 </a>
               ` : ''}
 
-              <!-- TOMBOL UNTUK DOSEN / ADMIN ADD FEEDBACK -->
               ${(currentRole === 'dosen' || currentRole === 'admin') && !item.dosenNotes ? `
-                <button onclick="addDosenNote(${item.id})" class="text-purple-700 hover:bg-purple-100 font-semibold flex items-center gap-1 bg-purple-50 px-3 py-1 rounded-full border border-purple-200 transition text-xs shadow-sm">
+                <button onclick="openDosenNoteModal(${item.id})" class="text-purple-700 hover:bg-purple-100 font-semibold flex items-center gap-1 bg-purple-50 px-3 py-1 rounded-full border border-purple-200 transition text-xs shadow-sm">
                   <i class="fa-solid fa-comment-medical text-purple-600"></i> + Catatan Dosen
                 </button>
               ` : ''}
@@ -757,36 +870,6 @@
           </div>
         </div>
       `;
-    }
-
-    // FUNGSI BERI CATATAN DOSEN
-    async function addDosenNote(id) {
-      if (currentRole !== 'dosen' && currentRole !== 'admin') {
-        return alert("Fitur ini khusus untuk Dosen/Asdos!");
-      }
-
-      const item = globalItems.find(i => i.id == id);
-      const noteExisting = item ? (item.dosenNotes || '') : '';
-      const newNote = prompt("Tulis catatan / feedback evaluasi untuk berkas ini:", noteExisting);
-
-      if (newNote !== null) {
-        try {
-          const authorHeader = dosenName ? `[${dosenName}]: ` : '';
-          const finalNoteText = newNote.trim() ? `${authorHeader}${newNote.trim()}` : null;
-
-          const { error } = await supabaseClient
-            .from('adpl_items')
-            .update({ dosen_notes: finalNoteText })
-            .eq('id', id);
-
-          if (error) throw error;
-
-          await fetchAndRender();
-          alert("Catatan berhasil disimpan!");
-        } catch (err) {
-          alert("Gagal menyimpan catatan: " + err.message + "\n\n(Pastikan kolom 'dosen_notes' sudah ada di Supabase).");
-        }
-      }
     }
 
     async function addItemToDatabase() {
