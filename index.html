@@ -106,6 +106,50 @@
           </div>
         </div>
 
+        <!-- STATISTIK & STATUS TUGAS -->
+        <div>
+          <h3 class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-4">Ringkasan Akademik & Tugas</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            
+            <!-- Card Total Materi -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center space-x-4">
+              <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shrink-0">
+                <i class="fa-solid fa-folder-open"></i>
+              </div>
+              <div>
+                <p class="text-xs text-slate-400 font-medium">Total Materi</p>
+                <p id="statTotalMateri" class="text-xl font-extrabold text-slate-800">0</p>
+                <p class="text-[11px] text-slate-400">Modul Perkuliahan</p>
+              </div>
+            </div>
+
+            <!-- Card Total Tugas -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center space-x-4">
+              <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shrink-0">
+                <i class="fa-solid fa-list-check"></i>
+              </div>
+              <div>
+                <p class="text-xs text-slate-400 font-medium">Total Tugas</p>
+                <p id="statTotalTugas" class="text-xl font-extrabold text-slate-800">0</p>
+                <p class="text-[11px] text-slate-400">Tugas Terdata</p>
+              </div>
+            </div>
+
+            <!-- Card Tugas Belum Dikerjakan -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center space-x-4">
+              <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl shrink-0">
+                <i class="fa-solid fa-clock font-bold"></i>
+              </div>
+              <div>
+                <p class="text-xs text-slate-400 font-medium">Belum Dikerjakan</p>
+                <p id="statPendingTugas" class="text-xl font-extrabold text-amber-600">0</p>
+                <p class="text-[11px] text-amber-500 font-medium">Perlu Diselesaikan</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
         <div>
           <h3 class="text-xs font-bold uppercase text-slate-400 tracking-wider mb-4">Informasi Akademik</h3>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -307,6 +351,7 @@
         linkUrl: item.link_url,
         fileName: item.file_name,
         fileData: item.file_url,
+        status: item.status || 'Belum Selesai',
         date: item.date
       }));
 
@@ -397,9 +442,18 @@
 
       const materis = currentItems.filter(i => i.category === 'Materi');
       const tugass = currentItems.filter(i => i.category === 'Tugas');
+      const pendingTugass = tugass.filter(i => i.status === 'Belum Selesai');
 
+      // Update Statistik di Beranda / Dashboard
+      if (document.getElementById('statTotalMateri')) {
+        document.getElementById('statTotalMateri').innerText = materis.length;
+        document.getElementById('statTotalTugas').innerText = tugass.length;
+        document.getElementById('statPendingTugas').innerText = pendingTugass.length;
+      }
+
+      // Update Count di Tab Materi & Tugas
       document.getElementById('materiCount').innerText = `${materis.length} Materi`;
-      document.getElementById('tugasCount').innerText = `${tugass.length} Tugas`;
+      document.getElementById('tugasCount').innerText = `${tugass.length} Tugas (${pendingTugass.length} Belum Selesai)`;
 
       materiList.innerHTML = materis.length === 0 
         ? '<p class="text-slate-400 italic text-xs">Belum ada materi diunggah.</p>' 
@@ -414,10 +468,23 @@
       const isMateri = item.category === 'Materi';
       const badgeClass = isMateri ? 'bg-blue-100 text-blue-700' : 'bg-indigo-100 text-indigo-700';
 
+      // Badge Status untuk Tugas
+      let statusBadge = '';
+      if (!isMateri) {
+        if (item.status === 'Selesai') {
+          statusBadge = `<span class="text-[10px] font-bold px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-md"><i class="fa-solid fa-check mr-1"></i>Selesai</span>`;
+        } else {
+          statusBadge = `<span class="text-[10px] font-bold px-2 py-0.5 bg-amber-100 text-amber-700 rounded-md"><i class="fa-solid fa-clock mr-1"></i>Belum Selesai</span>`;
+        }
+      }
+
       return `
         <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/70 space-y-2 hover:border-slate-300 transition">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold px-2.5 py-0.5 ${badgeClass} rounded-md">${item.pertemuan}</span>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold px-2.5 py-0.5 ${badgeClass} rounded-md">${item.pertemuan}</span>
+              ${statusBadge}
+            </div>
             <span class="text-[11px] text-slate-400">${item.date}</span>
           </div>
           <h4 class="font-bold text-slate-800 text-sm">${item.title}</h4>
@@ -448,13 +515,34 @@
             </div>
 
             ${isAdmin ? `
-              <button onclick="removeItemFromDatabase(${item.id})" class="text-red-500 hover:text-red-700 font-medium text-[11px]">
-                <i class="fa-solid fa-trash-can mr-1"></i> Hapus
-              </button>
+              <div class="flex items-center gap-2">
+                ${!isMateri ? `
+                  <button onclick="toggleTaskStatus(${item.id}, '${item.status}')" class="text-xs px-2.5 py-1 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 font-medium text-slate-700 transition">
+                    Ubah Status (${item.status === 'Selesai' ? 'Kembalikan Belum' : 'Tandai Selesai'})
+                  </button>
+                ` : ''}
+                <button onclick="removeItemFromDatabase(${item.id})" class="text-red-500 hover:text-red-700 font-medium text-[11px]">
+                  <i class="fa-solid fa-trash-can mr-1"></i> Hapus
+                </button>
+              </div>
             ` : ''}
           </div>
         </div>
       `;
+    }
+
+    async function toggleTaskStatus(id, currentStatus) {
+      if (!isAdmin) return alert('Aktifkan Mode Admin terlebih dahulu!');
+      const newStatus = currentStatus === 'Selesai' ? 'Belum Selesai' : 'Selesai';
+
+      const { error } = await supabaseClient
+        .from('adpl_items')
+        .update({ status: newStatus })
+        .eq('id', id);
+
+      if (error) {
+        alert('Gagal memperbarui status: ' + error.message);
+      }
     }
 
     async function addItemToDatabase() {
@@ -478,7 +566,6 @@
         let fileName = null;
 
         if (file) {
-          // Validasi Ukuran Maksimal File (10 MB)
           const MAX_SIZE_BYTES = 10 * 1024 * 1024;
           if (file.size > MAX_SIZE_BYTES) {
             alert('Ukuran file terlalu besar! Maksimal 10 MB.');
@@ -519,6 +606,7 @@
             link_url: linkUrl,
             file_name: fileName,
             file_url: fileUrl,
+            status: category === 'Tugas' ? 'Belum Selesai' : 'Selesai',
             date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
           }]);
 
