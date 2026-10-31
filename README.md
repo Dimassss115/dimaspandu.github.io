@@ -8,3 +8,4 @@
 
 
 pin = NIM
+pin dosen = 123456
