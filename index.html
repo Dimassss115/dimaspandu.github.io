@@ -37,9 +37,10 @@
 
       <!-- Right Pill Action & Mobile Menu Button -->
       <div class="flex items-center space-x-2">
-        <button onclick="toggleAdminMode()" id="adminBtn" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-sm">
-          <i class="fa-solid fa-lock text-slate-400 text-[10px]" id="adminIcon"></i>
-          <span id="adminText">Mode Admin</span>
+        <button onclick="openRoleModal()" id="roleBtn" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-sm">
+          <i class="fa-solid fa-user-graduate text-slate-300 text-xs" id="roleIcon"></i>
+          <span id="roleText">Peran: Mahasiswa</span>
+          <i class="fa-solid fa-chevron-down text-[10px] text-slate-300 ml-1"></i>
         </button>
 
         <button onclick="toggleMobileMenu()" class="md:hidden text-slate-700 p-2 rounded-full hover:bg-slate-100">
@@ -75,12 +76,10 @@
           <i class="fa-solid fa-laptop-code text-pink-500"></i> ADPL Course
         </div>
 
+        <!-- Headline Bersih (Tanpa Logo DP) -->
         <h2 class="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight leading-tight">
-          Selamat Datang! 
-          <span class="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-600 text-white font-extrabold text-xl sm:text-2xl align-middle mx-1 shadow-md border-2 border-white">
-            DP
-          </span>
-          <br>Portal Akademik & Tugas.
+          Selamat Datang!<br>
+          Portal Akademik & Tugas.
         </h2>
         
         <p class="text-slate-600 text-sm sm:text-base max-w-xl mx-auto leading-relaxed font-normal">
@@ -232,7 +231,6 @@
           <!-- Dropdown Terintegrasi Pilihan Materi (Bagi Tugas) -->
           <div id="targetMateriWrapper" class="w-full hidden">
             <select id="itemTargetMateri" class="w-full px-4 py-2.5 rounded-2xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white font-medium">
-              <!-- Terisi otomatis oleh JS -->
             </select>
           </div>
 
@@ -301,6 +299,64 @@
     </section>
 
   </main>
+
+  <!-- MODAL POPUP PILIH PERAN (ROLE SWITCHER) -->
+  <div id="roleModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white border border-slate-200 rounded-[32px] max-w-sm w-full p-6 shadow-2xl space-y-4 text-slate-800">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+          <i class="fa-solid fa-user-gear text-indigo-600"></i> Pilih Peran Akses
+        </h3>
+        <button onclick="closeRoleModal()" class="text-slate-400 hover:text-slate-600 font-bold text-sm">✕</button>
+      </div>
+      
+      <p class="text-xs text-slate-500">Pilih mode tampilan sesuai identitas Anda:</p>
+      
+      <div class="space-y-2.5">
+        <!-- Opsi Mahasiswa -->
+        <button onclick="selectRole('mahasiswa')" class="w-full p-3.5 rounded-2xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 text-left flex items-center justify-between transition group">
+          <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-bold">
+              <i class="fa-solid fa-user-graduate"></i>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-slate-900">Mahasiswa</p>
+              <p class="text-[11px] text-slate-500">Akses lihat & unduh berkas</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-indigo-600"></i>
+        </button>
+
+        <!-- Opsi Dosen / Asdos -->
+        <button onclick="selectRole('dosen')" class="w-full p-3.5 rounded-2xl border border-slate-200 hover:border-purple-500 hover:bg-purple-50/50 text-left flex items-center justify-between transition group">
+          <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-sm font-bold">
+              <i class="fa-solid fa-chalkboard-user"></i>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-slate-900">Dosen / Asdos</p>
+              <p class="text-[11px] text-slate-500">Akses peninjauan akademik</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-purple-600"></i>
+        </button>
+
+        <!-- Opsi Admin -->
+        <button onclick="selectRole('admin')" class="w-full p-3.5 rounded-2xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 text-left flex items-center justify-between transition group">
+          <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-sm font-bold">
+              <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-slate-900">Admin (Dimas)</p>
+              <p class="text-[11px] text-slate-500">Akses upload & kelola data (PIN)</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-key text-xs text-slate-300 group-hover:text-amber-600"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- MODAL POPUP EDIT ITEM -->
   <div id="editModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
@@ -395,16 +451,78 @@
     </div>
   </div>
 
-  <!-- SCRIPT LOGIC SUPABASE -->
+  <!-- SCRIPT LOGIC SUPABASE & PERAN -->
   <script>
     const ADMIN_PIN = "240511103";
     let isAdmin = false;
+    let currentRole = 'mahasiswa'; // pilihan default: 'mahasiswa', 'dosen', 'admin'
 
     const SUPABASE_URL = 'https://koylnvxwfbfvewuuzvoj.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_ZXFFN5tZ9mabhSIy8Wq5AQ_w6Otz3UB';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     let globalItems = [];
+
+    // MODAL PEMILIH PERAN (ROLE SWITCHER) LOGIC
+    function openRoleModal() {
+      document.getElementById('roleModal').classList.remove('hidden');
+    }
+
+    function closeRoleModal() {
+      document.getElementById('roleModal').classList.add('hidden');
+    }
+
+    function selectRole(role) {
+      if (role === 'admin') {
+        if (!isAdmin) {
+          const inputPin = prompt("Masukkan PIN Admin:");
+          if (inputPin === ADMIN_PIN) {
+            isAdmin = true;
+            currentRole = 'admin';
+            alert("Mode Admin Aktif!");
+          } else if (inputPin !== null) {
+            alert("PIN Salah!");
+            return;
+          } else {
+            return;
+          }
+        } else {
+          currentRole = 'admin';
+        }
+      } else {
+        isAdmin = false;
+        currentRole = role;
+      }
+
+      closeRoleModal();
+      updateRoleUI();
+    }
+
+    function updateRoleUI() {
+      const roleBtn = document.getElementById('roleBtn');
+      const roleIcon = document.getElementById('roleIcon');
+      const roleText = document.getElementById('roleText');
+      const formUpload = document.getElementById('formUploadAdmin');
+
+      if (currentRole === 'admin' && isAdmin) {
+        roleBtn.className = "px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-sm";
+        roleIcon.className = "fa-solid fa-user-shield text-white text-xs";
+        roleText.innerText = "Peran: Admin (Aktif)";
+        formUpload.classList.remove('hidden');
+      } else if (currentRole === 'dosen') {
+        roleBtn.className = "px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-sm";
+        roleIcon.className = "fa-solid fa-chalkboard-user text-white text-xs";
+        roleText.innerText = "Peran: Dosen / Asdos";
+        formUpload.classList.add('hidden');
+      } else {
+        roleBtn.className = "px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-sm";
+        roleIcon.className = "fa-solid fa-user-graduate text-slate-300 text-xs";
+        roleText.innerText = "Peran: Mahasiswa";
+        formUpload.classList.add('hidden');
+      }
+
+      renderContainer(globalItems);
+    }
 
     function toggleCategoryForm() {
       const cat = document.getElementById('itemCategory').value;
@@ -477,42 +595,6 @@
 
     fetchAndRender();
 
-    function toggleAdminMode() {
-      if (!isAdmin) {
-        const inputPin = prompt("Masukkan PIN Admin:");
-        if (inputPin === ADMIN_PIN) {
-          isAdmin = true;
-          alert("Mode Admin Aktif!");
-        } else if (inputPin !== null) {
-          alert("PIN Salah!");
-        }
-      } else {
-        isAdmin = false;
-        alert("Keluar dari Mode Admin.");
-      }
-      updateAdminUI();
-    }
-
-    function updateAdminUI() {
-      const adminBtn = document.getElementById('adminBtn');
-      const adminIcon = document.getElementById('adminIcon');
-      const adminText = document.getElementById('adminText');
-      const formUpload = document.getElementById('formUploadAdmin');
-
-      if (isAdmin) {
-        adminBtn.className = "px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-sm";
-        adminIcon.className = "fa-solid fa-lock-open text-white text-[10px]";
-        adminText.innerText = "Admin (Aktif)";
-        formUpload.classList.remove('hidden');
-      } else {
-        adminBtn.className = "px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-full flex items-center gap-2 transition shadow-sm";
-        adminIcon.className = "fa-solid fa-lock text-slate-400 text-[10px]";
-        adminText.innerText = "Mode Admin";
-        formUpload.classList.add('hidden');
-      }
-      renderContainer(globalItems);
-    }
-
     function toggleMobileMenu() {
       document.getElementById('mobileMenu').classList.toggle('hidden');
     }
@@ -543,10 +625,8 @@
       const materis = currentItems.filter(i => i.category === 'Materi');
       const tugass = currentItems.filter(i => i.category === 'Tugas');
 
-      // Ambil daftar pertemuan yang tugasnya sudah diunggah
       const pertemuanTugasSelesai = tugass.map(t => t.pertemuan);
 
-      // Cari Materi yang [Ada Tugas] TAPI belum diunggah tugasnya
       const materisBelumDikerjakan = materis.filter(m => 
         m.hasTask === true && !pertemuanTugasSelesai.includes(m.pertemuan)
       );
@@ -577,7 +657,6 @@
         ? 'bg-blue-50 text-blue-700 border border-blue-200' 
         : 'bg-amber-50 text-amber-700 border border-amber-200';
 
-      // Logika Badge Status Terintegrasi Dinamis
       let statusTaskBadge = '';
       if (isMateri && item.hasTask) {
         const isSelesai = pertemuanTugasSelesai.includes(item.pertemuan);
@@ -653,7 +732,6 @@
       if (category === 'Materi') {
         hasTask = document.getElementById('itemHasTask').checked;
       } else {
-        // Jika Tugas, ambil pertemuan dari Materi yang dipilih
         pertemuan = document.getElementById('itemTargetMateri').value;
       }
 
