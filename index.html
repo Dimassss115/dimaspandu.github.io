@@ -111,9 +111,14 @@
         <button onclick="switchTab('informasi')" id="nav-informasi" class="hover:text-slate-900 transition">Informasi</button>
       </nav>
 
-      <!-- Right Action: Role Badge & Tombol Logout -->
-      <div class="flex items-center space-x-3">
-        <span id="roleBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 hidden sm:inline-block">
+      <!-- Right Action: Copy Link Dosen, Role Badge & Tombol Logout -->
+      <div class="flex items-center space-x-2 sm:space-x-3">
+        <button onclick="copyRoleLink('dosen')" title="Salin Link Akses Langsung untuk Dosen" class="px-3 py-1.5 bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 text-xs font-bold rounded-full flex items-center gap-1.5 transition">
+          <i class="fa-solid fa-link text-[11px]"></i>
+          <span class="hidden sm:inline">Link Dosen</span>
+        </button>
+
+        <span id="roleBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 hidden md:inline-block">
           Mahasiswa
         </span>
 
@@ -419,8 +424,7 @@
       <div class="space-y-2">
         <h3 class="font-black text-slate-900 text-lg tracking-tight">Autentikasi Dosen / Asdos</h3>
         <p class="text-xs text-slate-500">Masukkan nama & 6 digit PIN untuk mengakses fitur feedback</p>
-        <!-- INFO PIN DOSEN DI ATAS INPUT -->
-        <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 text-xs font-bold shadow-xs">
+        <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 text-xs font-bold">
           <i class="fa-solid fa-key text-[10px]"></i>
           <span>PIN Akses Dosen: <span class="tracking-widest font-black underline">123456</span></span>
         </div>
@@ -593,6 +597,62 @@
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     let globalItems = [];
+
+    // FUNGSI SALIN LINK PERAN SPESIFIK
+    function copyRoleLink(role) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('role', role);
+      navigator.clipboard.writeText(url.toString()).then(() => {
+        alert(`Link khusus ${role.toUpperCase()} berhasil disalin:\n${url.toString()}`);
+      }).catch(() => {
+        prompt("Salin link berikut secara manual:", url.toString());
+      });
+    }
+
+    // CEK PARAMETER ?role=... DI URL SAAT HALAMAN DIBUKA
+    function handleUrlRoleParam() {
+      const params = new URLSearchParams(window.location.search);
+      const roleParam = params.get('role');
+
+      if (!roleParam) return false;
+
+      const targetRole = roleParam.toLowerCase();
+
+      // Hapus query ?role=... dari URL setelah terbaca
+      const cleanUrl = window.location.pathname + window.location.hash;
+      window.history.replaceState({}, document.title, cleanUrl);
+
+      if (targetRole === 'dosen') {
+        if (localStorage.getItem('adpl_role') === 'dosen') return false;
+
+        localStorage.removeItem('adpl_role');
+        localStorage.removeItem('adpl_is_admin');
+        document.getElementById('loginScreen').classList.remove('hidden');
+        document.getElementById('mainHeader').classList.add('hidden');
+        document.getElementById('mainApp').classList.add('hidden');
+        openDosenPinModal();
+        return true;
+      }
+
+      if (targetRole === 'admin') {
+        if (localStorage.getItem('adpl_role') === 'admin') return false;
+
+        localStorage.removeItem('adpl_role');
+        localStorage.removeItem('adpl_is_admin');
+        document.getElementById('loginScreen').classList.remove('hidden');
+        document.getElementById('mainHeader').classList.add('hidden');
+        document.getElementById('mainApp').classList.add('hidden');
+        openAdminPinModal();
+        return true;
+      }
+
+      if (targetRole === 'mahasiswa') {
+        loginAsMahasiswa();
+        return true;
+      }
+
+      return false;
+    }
 
     // CEK SESI PERSISTENCE DI LOCALSTORAGE SAAT HALAMAN DIBUKA / DI-REFRESH
     function checkSavedSession() {
@@ -801,22 +861,21 @@
 
       if (currentRole === 'admin') {
         roleBadge.innerText = "Peran: Admin (Dimas)";
-        roleBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-200 hidden sm:inline-block";
+        roleBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-200 hidden md:inline-block";
         formUpload.classList.remove('hidden');
       } else if (currentRole === 'dosen') {
         roleBadge.innerText = `Peran: ${dosenName}`;
-        roleBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-purple-100 text-purple-800 border border-purple-200 hidden sm:inline-block";
+        roleBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-purple-100 text-purple-800 border border-purple-200 hidden md:inline-block";
         formUpload.classList.add('hidden');
       } else {
         roleBadge.innerText = "Peran: Mahasiswa";
-        roleBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-blue-100 text-blue-800 border border-blue-200 hidden sm:inline-block";
+        roleBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-blue-100 text-blue-800 border border-blue-200 hidden md:inline-block";
         formUpload.classList.add('hidden');
       }
 
       renderContainer(globalItems);
     }
 
-    // KHUSUS DOSEN SAJA (ADMIN TIDAK BISA AKSES)
     function openDosenNoteModal(id) {
       if (currentRole !== 'dosen') {
         return alert("Fitur ini khusus untuk Dosen/Asdos!");
@@ -950,7 +1009,11 @@
     document.addEventListener('DOMContentLoaded', () => {
       setupOtpInputs('.otp-admin-digit', verifyAdminPin);
       setupOtpInputs('.otp-dosen-digit', verifyDosenPin);
-      checkSavedSession();
+
+      const handledByUrl = handleUrlRoleParam();
+      if (!handledByUrl) {
+        checkSavedSession();
+      }
     });
 
     function toggleMobileMenu() {
@@ -1025,7 +1088,6 @@
         }
       }
 
-      // Tombol Edit Catatan hanya muncul jika currentRole === 'dosen'
       const dosenNotesHtml = item.dosenNotes ? `
         <div class="mt-3 p-3.5 bg-purple-50 rounded-2xl border border-purple-200/80 text-xs text-purple-950 space-y-1">
           <div class="flex items-center justify-between font-bold text-[11px] text-purple-700 border-b border-purple-100 pb-1">
@@ -1073,7 +1135,6 @@
                 </a>
               ` : ''}
 
-              <!-- Tombol + Catatan Dosen hanya untuk Dosen -->
               ${currentRole === 'dosen' && !item.dosenNotes ? `
                 <button onclick="openDosenNoteModal(${item.id})" class="text-purple-700 hover:bg-purple-100 font-semibold flex items-center gap-1 bg-purple-50 px-3 py-1 rounded-full border border-purple-200 transition text-xs shadow-sm">
                   <i class="fa-solid fa-comment-medical text-purple-600"></i> + Catatan Dosen
